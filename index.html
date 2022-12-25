@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta placeholder="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <div class="container">
+      <div class="head">
+        <h2>cruds</h2>
+        <p>product mangment system</p>
+      </div>
+      <input type="text" placeholder="product name" id="product">
+      <div class="prices">
+        <input type="number" placeholder="price" id="price">
+        <input type="number" placeholder="tax" id="tax">
+        <input type="number" placeholder="ads" id="ads">
+        <input type="number" placeholder="discount" id="discount">
+        <div class="ii">Total: <span  id="total"></span></div>    
+      </div>
+      <input type="number" placeholder="Count" id="count">
+      <input type="text" placeholder="catagery " id="catagery">
+      <div  id="btn"><button>create</button>
+      </div>
+      <div class="search">
+        <input type="text" onkeyup="searchfun(this.value)" placeholder="search" id="search">
+        <div class="search-btn">
+
+        <button onclick=" searchFunction(this.id) " id="tSearch">SEARCH BY TITLE</button>
+        <button onclick=" searchFunction(this.id)" id="cSearch">SEARCH BY catagery</button>
+        </div>
+      </div> 
+      <div id="delAll"></div>
+    <div class="tableContainer">
+      <table>
+        <tr>
+          <td>id</td>
+          <td>title</td>
+          <td>price</td>
+          <td>tax</td>
+          <td>ads</td>
+
+          <td>discount</td>
+          <td>total</td>
+          <td>catagery</td>
+          <td>count</td>
+          <td>update</td>
+          <td class="del">delete</td>
+        </tr>
+        <tbody id="tbody">
+          
+        </tbody>    
+
+      </table>
+    </div>
+  
+    </div>
+</body><script src="index.js"></script>
+</html>
