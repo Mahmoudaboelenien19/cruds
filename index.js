@@ -66,15 +66,9 @@ function addElementsTOArr(){
 
   }
   if(mode=='create'){
-    if(productData.count>1){
-    for(i=0;i< count.value;i++){
-      Arr.push(productData)
 
-    }
-
-    }else{
       Arr.push(productData)
-  }
+  
 }else{
   mode="update"
 
