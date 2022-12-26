@@ -63,6 +63,24 @@ border-radius: 5px;
 border-bottom:2px solid wheat ;
 }
 
+
+
+.btn{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+div#btn{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn{
+  display: flex;
+}
+
 button{
   width: 20%;
   margin: 10px auto;
@@ -82,23 +100,6 @@ button:hover{
   color:black;
   border:2px  black solid;
 }
-
-.btn{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-div#btn{
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.search-btn{
-  display: flex;
-}
-
 .search button{
   width:180px;
   text-transform: capitalize;

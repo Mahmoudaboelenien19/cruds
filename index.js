@@ -3,7 +3,7 @@
 product=document.getElementById("product")
 prices=document.querySelector(".prices")
 ii=document.querySelector(".ii")
-btn=document.getElementById("btn")
+btn=document.querySelector("#btn button")
 price=document.getElementById("price")
 tax=document.getElementById("tax")
 ads=document.getElementById("ads")
@@ -74,7 +74,6 @@ function addElementsTOArr(){
 
 Arr[m]=productData
 btn.innerHTML="create"
-count.style.cssText=`display:block;`
 mode='create'
 
 
@@ -163,11 +162,12 @@ mode="update"
 product.value=Arr[i].product
 price.value=Arr[i].price
 tax.value=Arr[i].tax
+count.value=Arr[i].count
 ads.value=Arr[i].ads
 discount.value=Arr[i].discount
 catagery.value=Arr[i].catagery
 
-count.style.cssText=`display:none;`
+
 btn.innerHTML="update"
 m=i
 getTotal()
