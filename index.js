@@ -43,7 +43,7 @@ const getTotal = prices.onkeyup = function () {
     total.innerHTML = result;
     ii.style.cssText = `background-color:green;`;
   } else {
-    ii.style.cssText = `background-color:red;`;
+    ii.style.cssText = `background-color:rgb(91, 23, 23);`;
     total.innerHTML = '';
 
   }
@@ -91,7 +91,7 @@ function emptyinputs () {
   ads.value = '';
   discount.value = '';
   total.innerHTML = '';
-  ii.style.cssText = `background-color:red;`;
+  ii.style.cssText = `background-color:rgb(91, 23, 23);`;
   catagery.value = '';
   count.value = '';
 
@@ -114,8 +114,8 @@ function ShowDataInPage ( Arr ) {
   <td>${ Arr[i].total }</td>   
   <td>${ Arr[i].catagery }</td>
   <td>${ Arr[i].count }</td>
-  <td><button onclick="updateData(${ i })">update</button></td>
-  <td><button onclick="deleteFromPage(${ i })">del</button></td>
+  <td id="update"><button onclick="updateData(${ i })">update</button></td>
+  <td id="del"><button onclick="deleteFromPage(${ i })">del</button></td>
 </tr>`;
 
     const delAll = document.getElementById( 'delAll' );

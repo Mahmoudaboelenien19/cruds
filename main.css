@@ -71,7 +71,8 @@ input:focus {
   min-height: 100%;
   width: 120px;
   margin-top: 5px;
-  background-color: red;
+  background-color: rgb(91, 23, 23);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,4 +157,24 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
   -webkit-appearance: none;
   margin: 0;
+}
+
+td#del button,
+#delAll button {
+  background: rgb(91, 23, 23);
+}
+
+td#update button {
+  background: rgb(7, 67, 7);
+}
+
+td#del button:hover,
+#delAll button:hover {
+  background: rgb(147, 40, 40);
+  color: white;
+}
+
+td#update button:hover {
+  background: rgb(27, 119, 27);
+  color: white;
 }
