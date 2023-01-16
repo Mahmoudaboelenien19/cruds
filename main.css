@@ -1,137 +1,140 @@
-*{
-  padding: 0;margin: 0;
-  box-sizing: border-box;   
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body{
-   width: 100%;
-   background-color:white;
-  color: #3B0404;
+body {
+  width: 100%;
+  background-color: white;
+  color: #3b0404;
 }
 
-.head{
+.head {
   text-align: center;
   text-transform: capitalize;
   margin: 20px 0;
 }
 
-.head h2{
+.head h2 {
   text-transform: uppercase;
 }
 
-.container{
-  width:80%;
+.container {
+  width: 80%;
   margin: auto;
 }
 
-input{width: 100%;
+input {
+  width: 100%;
   margin-top: 5px;
   height: 40px;
   outline: none;
   border-style: none none solid none;
-  border-bottom:2px solid wheat ;
+  border-bottom: 2px solid wheat;
   padding-left: 10px;
-  background-color:#353935 ;
-  color:white;
-  text-transform:lowercase;
+  background-color: #353935;
+  color: white;
+  text-transform: lowercase;
   border-radius: 5px;
 }
 
-input:focus{
-  background-color:#000 ;
+input:focus {
+  background-color: #000;
   transform: scale(1.04);
 }
 
-.prices{display: flex;
-gap:10px;
-height: 100%;
+.prices {
+  display: flex;
+  gap: 10px;
+  height: 100%;
 }
 
-.prices input{
+.prices input {
   width: 20%;
 }
 
-.prices div{
+.prices div {
   min-height: 100%;
   width: 120px;
   margin-top: 5px;
   background-color: red;
-display: flex;
-align-items: center;
-justify-content: center;
-border-radius: 5px;
-border-bottom:2px solid wheat ;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border-bottom: 2px solid wheat;
 }
 
-
-
-.btn{
+.btn {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-div#btn{
+div#btn {
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.search-btn{
+.search-btn {
   display: flex;
 }
 
-button{
+button {
   width: 20%;
   margin: 10px auto;
   height: 40px;
   background-color: #353935;
-  color:white;
+  color: white;
   text-transform: uppercase;
-  letter-spacing: .7px;
+  letter-spacing: 0.7px;
   transition: 1s;
   border-radius: 10px;
-  border:2px wheat solid;
+  border: 2px wheat solid;
 }
-button:hover{
+button:hover {
   letter-spacing: 1.5px;
   transform: scale(1.05);
   background-color: wheat;
-  color:black;
-  border:2px  black solid;
+  color: black;
+  border: 2px black solid;
 }
-.search button{
-  width:180px;
+.search button {
+  width: 180px;
   text-transform: capitalize;
 }
 
-table{
+table {
   width: 100%;
   text-align: center;
   margin-top: 20px;
   text-transform: capitalize;
-  background-color: rgba(0,0,0,.2);
+  background-color: rgba(0, 0, 0, 0.2);
   padding: 10px;
   border-radius: 5px;
 }
-.tableContainer{
+
+.tableContainer {
   max-height: 400px;
-  overflow:auto;
+  overflow: auto;
   margin-bottom: 20px;
 }
 
-td button{
+td button {
   width: 80px;
 }
-#delAll button{
+
+#delAll button {
   width: 100%;
   height: 40px;
 }
 
-tr{
-  background-color:rgba(255,255,255,.25);
+tr {
+  background-color: rgba(255, 255, 255, 0.25);
 }
 
-td{ 
-min-width: 20px;
+td {
+  min-width: 20px;
 }
