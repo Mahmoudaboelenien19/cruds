@@ -11,11 +11,24 @@ body {
 }
 
 .head {
+  font-size: 2rem;
   text-align: center;
   text-transform: capitalize;
   margin: 20px 0;
+  color: transparent;
+  background: url(/assets/wooden.jpg);
+  -webkit-background-clip: text;
+  animation: bg-animate 15s linear infinite;
 }
 
+@keyframes bg-animate {
+  0% {
+    background-position: 0 100%;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
 .head h2 {
   text-transform: uppercase;
 }
@@ -137,4 +150,10 @@ tr {
 
 td {
   min-width: 20px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
