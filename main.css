@@ -16,7 +16,7 @@ body {
   text-transform: capitalize;
   margin: 20px 0;
   color: transparent;
-  background: url(/assets/wooden.jpg);
+  background: url(assets/wooden.jpg);
   -webkit-background-clip: text;
   animation: bg-animate 15s linear infinite;
 }
