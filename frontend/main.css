@@ -18,7 +18,7 @@ body {
   color: transparent;
   background: url(assets/wooden.jpg);
   -webkit-background-clip: text;
-  animation: bg-animate 15s linear infinite;
+  animation: bg-animate 15s linear alternate infinite;
 }
 
 @keyframes bg-animate {
