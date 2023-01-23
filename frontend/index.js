@@ -22,7 +22,6 @@ let Arr = [];
 const fetchFn = async () => {
   const res = await fetch( "/products" );
   const data = await res.json();
-  console.log( data );
   Arr = data.products;
   ShowDataInPage( Arr );
 };
@@ -32,9 +31,8 @@ fetchFn();
 
 btn.onclick = function () {
   if ( catagery.value != '' && price.value != '' && product.value != '' ) {
-    addElementsTOArr( Arr );
-    ShowDataInPage( Arr );
-    emptyinputs();
+    addElementsToDatabase( Arr );
+
 
   }
 
@@ -51,23 +49,29 @@ const getTotal = prices.onkeyup = function () {
   }
 };
 
-function addElementsTOArr () {
+async function addElementsToDatabase () {
+
   productData = {
 
-    product: product.value,
+    product_name: product.value,
     price: price.value,
     tax: tax.value,
     ads: ads.value,
     discount: discount.value,
-    total: total.innerHTML,
     catagery: catagery.value,
     count: count.value,
 
   };
   if ( mode == 'create' ) {
 
-    Arr.push( productData );
+    fetch( "/product", {
+      method: "POST",
+      headers: { 'content-Type': 'application/json' },
+      body: JSON.stringify( productData )
+    } );
 
+    fetchFn();
+    emptyinputs();
   } else {
     mode = "update";
 
@@ -104,16 +108,16 @@ function ShowDataInPage ( Arr ) {
 <tr>
 
   <td>${ i + 1 }</td>
-  <td>${ Arr[i].product }</td>
+  <td>${ Arr[i].product_name }</td>
   <td>${ Arr[i].price }</td>
   <td>${ Arr[i].tax }</td>
   <td>${ Arr[i].ads }</td>
   <td>${ Arr[i].discount }</td>
-  <td>${ Arr[i].total }</td>   
+  <td>${ +Arr[i].tax + +Arr[i].price + +Arr[i].ads + - Arr[i].discount }</td>   
   <td>${ Arr[i].catagery }</td>
   <td>${ Arr[i].count }</td>
   <td id="update"><button onclick="updateData(${ i })">update</button></td>
-  <td id="del"><button onclick="deleteFromPage(${ i })">del</button></td>
+  <td id="del"><button onclick="deleteFromPage(${ Arr[i].id })">del</button></td>
 </tr>`;
 
     const delAll = document.getElementById( 'delAll' );
@@ -128,18 +132,33 @@ function ShowDataInPage ( Arr ) {
 }
 
 
-function deleteFromPage ( i ) {
+async function deleteFromPage ( i ) {
 
-  Arr.splice( i, 1 );
+  // Arr.splice( i, 1 );
 
-  updateUi();
+  // updateUi();
+  fetch( `/product/${ i }`, {
+    method: "DELETE",
+    headers: { 'content-Type': 'application/json' },
 
+
+  } );
+
+  await fetchFn();
 }
 
 
-function delAllData () {
-  Arr.splice( 0 );
-  updateUi();
+async function delAllData () {
+  // Arr.splice( 0 );
+  // updateUi();
+  fetch( `/products`, {
+    method: "DELETE",
+    headers: { 'content-Type': 'application/json' },
+
+
+  } );
+
+  await fetchFn();
   delAll.innerHTML = '';
 
 }
@@ -200,7 +219,7 @@ function searchfun ( value ) {
   let searchArr = [];
   if ( searchMode == 'title' ) {
     for ( i = 0; i < Arr.length; i++ ) {
-      if ( Arr[i].product.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
+      if ( Arr[i].product_name.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
         searchArr.push( Arr[i] );
 
       }

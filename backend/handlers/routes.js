@@ -54,10 +54,18 @@ const index = async ( req, res ) => {
     res.json( { products } );
 };
 
+const destroy = async ( req, res ) => {
+    const products = await store.delete( req.params.id );
+    res.json( { products } );
+};
 
+const clearAll = async ( req, res ) => {
+    const products = await store.clear();
+    res.json( { products } );
+};
 const routes = Router();
 routes.route( '/product' ).post( create );
-routes.route( '/products' ).get( index );
-routes.route( '/product/:id' ).patch( update );
+routes.route( '/products' ).get( index ).delete( clearAll );
+routes.route( '/product/:id' ).patch( update ).delete( destroy );
 
 module.exports = routes;

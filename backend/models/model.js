@@ -35,7 +35,7 @@ class Product {
     async delete ( id ) {
         try {
             const conn = await Client.connect();
-            const sql = "DELETE  FROM products WHERE id($1) RETURNING *;";
+            const sql = "DELETE  FROM products WHERE id=($1) RETURNING *;";
             const result = await conn.query( sql, [id] );
             conn.release();
             return result.rows[0];
@@ -45,10 +45,22 @@ class Product {
         }
     }
 
+    async clear ( id ) {
+        try {
+            const conn = await Client.connect();
+            const sql = "DELETE  FROM products";
+            const result = await conn.query( sql );
+            conn.release();
+            return result.rows;
+        }
+        catch ( err ) {
+            throw new Error( "this table can't be cleared" );
+        }
+    }
     async update ( product ) {
         try {
             const conn = await Client.connect();
-            const sql = `UPDATE  products  SET product_name=($1) , price=($2) ,tax=($3), ads=($4)  
+            const sql = `UPDATE  products  SET product_name=($1), price=($2) ,tax=($3), ads=($4)  
             ,discount=($5)  ,count=($6)  ,catagery=($7)   RETURNING * ;`;
             const result = await conn.query( sql, [
                 product.product_name,
@@ -70,7 +82,7 @@ class Product {
     async create ( product ) {
         try {
             const conn = await Client.connect();
-            const sql = "INSERT INTO products(product_name ,price,tax , ads ,discount ,count ,catagery) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING * ;";
+            const sql = "INSERT INTO products(product_name,price,tax , ads ,discount ,count ,catagery) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING * ;";
             const result = await conn.query( sql, [
                 product.product_name,
                 product.price,
