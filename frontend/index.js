@@ -11,6 +11,7 @@ const catagery = document.getElementById( "catagery" );
 const count = document.getElementById( "count" );
 const tbody = document.getElementById( "tbody" );
 const del = document.querySelector( ".del" );
+const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
 
 let updatedEle;
@@ -27,7 +28,7 @@ const fetchFn = async () => {
 };
 fetchFn();
 
-
+form.addEventListener( "submit", ( e ) => e.preventDefault() );
 
 btn.onclick = function () {
   if ( catagery.value != '' && price.value != '' && product.value != '' ) {
