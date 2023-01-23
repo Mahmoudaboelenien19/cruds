@@ -57,11 +57,11 @@ class Product {
             throw new Error( "this table can't be cleared" );
         }
     }
-    async update ( product ) {
+    async update ( id, product ) {
         try {
             const conn = await Client.connect();
             const sql = `UPDATE  products  SET product_name=($1), price=($2) ,tax=($3), ads=($4)  
-            ,discount=($5)  ,count=($6)  ,catagery=($7)   RETURNING * ;`;
+            ,discount=($5)  ,count=($6)  ,catagery=($7)  WHERE id=($8) RETURNING * ;`;
             const result = await conn.query( sql, [
                 product.product_name,
                 product.price,
@@ -69,7 +69,8 @@ class Product {
                 product.ads,
                 product.discount,
                 product.count,
-                product.catagery
+                product.catagery,
+                id
             ] );
             conn.release();
             return result.rows[0];

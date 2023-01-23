@@ -1,5 +1,4 @@
 const Router = require( "express" );
-const express = require( "express" );
 
 const Product = require( "../models/model" );
 const store = new Product();
@@ -37,9 +36,10 @@ const update = async ( req, res ) => {
             ads: req.body.ads,
             discount: req.body.discount,
             count: req.body.count,
-            catagery: req.body.catagery
+            catagery: req.body.catagery,
+
         };
-        const product = await store.update( updatedProduct );
+        const product = await store.update( req.params.id, updatedProduct );
         res.json( { message: 'product updated successfully', product } );
     }
 

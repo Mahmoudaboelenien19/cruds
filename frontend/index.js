@@ -73,11 +73,18 @@ async function addElementsToDatabase () {
     fetchFn();
     emptyinputs();
   } else {
-    mode = "update";
 
-    Arr[updatedEle] = productData;
+    fetch( `/product/${ Arr[updatedEle].id }`, {
+      method: "PATCH",
+      headers: { 'content-Type': 'application/json' },
+      body: JSON.stringify( productData )
+    } );
+    // Arr[updatedEle] = productData;
+    await fetchFn();
     btn.innerHTML = "create";
     mode = 'create';
+    emptyinputs();
+
   }
 }
 
@@ -134,9 +141,6 @@ function ShowDataInPage ( Arr ) {
 
 async function deleteFromPage ( i ) {
 
-  // Arr.splice( i, 1 );
-
-  // updateUi();
   fetch( `/product/${ i }`, {
     method: "DELETE",
     headers: { 'content-Type': 'application/json' },
@@ -149,8 +153,7 @@ async function deleteFromPage ( i ) {
 
 
 async function delAllData () {
-  // Arr.splice( 0 );
-  // updateUi();
+
   fetch( `/products`, {
     method: "DELETE",
     headers: { 'content-Type': 'application/json' },
@@ -163,13 +166,9 @@ async function delAllData () {
 
 }
 
-function updateUi () {
-  ShowDataInPage( Arr );
-}
-
 function updateData ( i ) {
   mode = "update";
-  product.value = Arr[i].product;
+  product.value = Arr[i].product_name;
   price.value = Arr[i].price;
   tax.value = Arr[i].tax;
   count.value = Arr[i].count;
@@ -179,6 +178,7 @@ function updateData ( i ) {
 
 
   btn.innerHTML = "update";
+
   updatedEle = i;
   getTotal();
   scroll( {
