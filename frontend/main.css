@@ -38,9 +38,13 @@ body {
   margin: auto;
 }
 
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
 input {
   width: 100%;
-  margin-top: 5px;
   height: 40px;
   outline: none;
   border-style: none none solid none;
@@ -52,25 +56,51 @@ input {
   border-radius: 5px;
 }
 
-input:focus {
+/* input:focus {
   background-color: #000;
   transform: scale(1.04);
-}
+} */
 
+.inp-parent {
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
 .prices {
+  width: 100%;
+  height: 40px;
   display: flex;
   gap: 10px;
-  height: 100%;
 }
-
-.prices input {
+.prices .inp-parent {
+  height: 100%;
   width: 20%;
 }
-
-.prices div {
+.inp-parent .placeholder {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: white;
+}
+.prices .inp-parent input {
+  width: 100%;
+  height: 100%;
+}
+input:focus ~ .placeholder,
+input:valid ~ .placeholder {
+  top: 0;
+  color: white;
+  background: darkgrey;
+  border-right: 2px solid wheat;
+  border-left: 2px solid wheat;
+  color: #000;
+  padding: 0 4px;
+}
+.prices #total-cont {
+  height: 40px;
   min-height: 100%;
   width: 120px;
-  margin-top: 5px;
   background-color: rgb(91, 23, 23);
   color: white;
   display: flex;

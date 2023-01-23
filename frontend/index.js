@@ -1,6 +1,6 @@
 const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
-const ii = document.querySelector( ".ii" );
+const totalCont = document.querySelector( "#total-cont" );
 const btn = document.querySelector( "#btn button" );
 const price = document.getElementById( "price" );
 const tax = document.getElementById( "tax" );
@@ -41,9 +41,9 @@ const getTotal = prices.onkeyup = function () {
   if ( price.value != "" ) {
     result = ( +price.value + +tax.value + +ads.value ) - +discount.value;
     total.innerHTML = result;
-    ii.style.cssText = `background-color:green;`;
+    totalCont.style.cssText = `background-color:green;`;
   } else {
-    ii.style.cssText = `background-color:rgb(91, 23, 23);`;
+    totalCont.style.cssText = `background-color:rgb(91, 23, 23);`;
     total.innerHTML = '';
 
   }
@@ -100,7 +100,7 @@ function emptyinputs () {
   ads.value = '';
   discount.value = '';
   total.innerHTML = '';
-  ii.style.cssText = `background-color:rgb(91, 23, 23);`;
+  totalCont.style.cssText = `background-color:rgb(91, 23, 23);`;
   catagery.value = '';
   count.value = '';
 
