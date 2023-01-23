@@ -1,5 +1,6 @@
-import dotenv from "dotenv";
-import { Pool } from "pg";
+const { Pool } = require( "pg" );
+const dotenv = require( "dotenv" );
+
 
 dotenv.config();
 const {
@@ -18,4 +19,4 @@ const Client = new Pool( {
     password: POSTGRES_PASSWORD
 } );
 
-export default Client;
+module.exports = Client;
