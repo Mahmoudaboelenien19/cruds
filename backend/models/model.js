@@ -1,12 +1,72 @@
 const Client = require( "../database" );
 
 // const bcrypt = require( "bcrypt" );
-// const dotenv = require( "dotenv" );
 
 
 
 
 class Product {
+    async index () {
+        try {
+            const conn = await Client.connect();
+            const sql = "SELECT * FROM products;";
+            const result = await conn.query( sql );
+            conn.release();
+            return result.rows;
+        }
+        catch ( err ) {
+            throw new Error( "unable to show data " );
+        }
+    }
+
+    async show ( id ) {
+        try {
+            const conn = await Client.connect();
+            const sql = "SELECT * FROM products WHERE id($1)  RETURNING *;";
+            const result = await conn.query( sql, [id] );
+            conn.release();
+            return result.rows[0];
+        }
+        catch ( err ) {
+            throw new Error( "this product can't be found" );
+        }
+    }
+
+    async delete ( id ) {
+        try {
+            const conn = await Client.connect();
+            const sql = "DELETE  FROM products WHERE id($1) RETURNING *;";
+            const result = await conn.query( sql, [id] );
+            conn.release();
+            return result.rows[0];
+        }
+        catch ( err ) {
+            throw new Error( "this product can't be deleted" );
+        }
+    }
+
+    async update ( product ) {
+        try {
+            const conn = await Client.connect();
+            const sql = `UPDATE  products  SET product_name=($1) , price=($2) ,tax=($3), ads=($4)  
+            ,discount=($5)  ,count=($6)  ,catagery=($7)   RETURNING * ;`;
+            const result = await conn.query( sql, [
+                product.product_name,
+                product.price,
+                product.tax,
+                product.ads,
+                product.discount,
+                product.count,
+                product.catagery
+            ] );
+            conn.release();
+            return result.rows[0];
+        }
+        catch ( err ) {
+            throw new Error( "this product can't be updateted" );
+        }
+    }
+
     async create ( product ) {
         try {
             const conn = await Client.connect();
@@ -29,6 +89,10 @@ class Product {
 
         }
     }
+
+
+
+
 }
 
 module.exports = Product;

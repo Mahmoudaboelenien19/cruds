@@ -19,18 +19,20 @@ mode = 'create';
 
 let Arr = [];
 
-if ( localStorage.product ) {
-  Arr = JSON.parse( localStorage.product );
+const fetchFn = async () => {
+  const res = await fetch( "/products" );
+  const data = await res.json();
+  console.log( data );
+  Arr = data.products;
   ShowDataInPage( Arr );
-}
-
+};
+fetchFn();
 
 
 
 btn.onclick = function () {
   if ( catagery.value != '' && price.value != '' && product.value != '' ) {
     addElementsTOArr( Arr );
-    addElementsToLocal( Arr );
     ShowDataInPage( Arr );
     emptyinputs();
 
@@ -75,13 +77,9 @@ function addElementsTOArr () {
   }
 }
 
-function addElementsToLocal () {
-  localStorage.setItem( 'product', JSON.stringify( Arr ) );
-}
 
-function getelemntsfromlocaltopage () {
-  Arr = JSON.parse( localStorage.product );
-}
+
+
 
 function emptyinputs () {
 
@@ -141,15 +139,12 @@ function deleteFromPage ( i ) {
 
 function delAllData () {
   Arr.splice( 0 );
-  localStorage.clear();
   updateUi();
   delAll.innerHTML = '';
 
 }
 
 function updateUi () {
-  addElementsToLocal();
-  getelemntsfromlocaltopage();
   ShowDataInPage( Arr );
 }
 
