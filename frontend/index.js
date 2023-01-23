@@ -25,8 +25,23 @@ const fetchFn = async () => {
   const data = await res.json();
   Arr = data.products;
   ShowDataInPage( Arr );
+  return data;
 };
 fetchFn();
+
+const popCont = document.querySelector( ".pop-cont" );
+
+const handlePop = ( content, type ) => {
+  const span = `<span class="${ type } pop">${ content }</span>`;
+  popCont.insertAdjacentHTML( "afterbegin", span );
+  document.querySelectorAll( ".pop-cont .pop" ).forEach( ( e, i ) => {
+
+    setTimeout( () => {
+      e.remove();
+    }, 4000 );
+
+  } );
+};
 
 form.addEventListener( "submit", ( e ) => e.preventDefault() );
 
@@ -34,7 +49,9 @@ btn.onclick = function () {
   if ( catagery.value != '' && price.value != '' && product.value != '' ) {
     addElementsToDatabase( Arr );
 
+  } else {
 
+    handlePop( "you must fill all inputs", "danger" );
   }
 
 };
@@ -65,14 +82,15 @@ async function addElementsToDatabase () {
   };
   if ( mode == 'create' ) {
 
-    fetch( "/product", {
+    let res = await fetch( "/product", {
       method: "POST",
       headers: { 'content-Type': 'application/json' },
       body: JSON.stringify( productData )
     } );
-
+    let data = await res.json();
     fetchFn();
     emptyinputs();
+    handlePop( data.message, "success" );
   } else {
 
     fetch( `/product/${ Arr[updatedEle].id }`, {
@@ -82,7 +100,7 @@ async function addElementsToDatabase () {
     } );
     // Arr[updatedEle] = productData;
     await fetchFn();
-    btn.innerHTML = "create";
+    btn.innerHTML = "Add Product";
     mode = 'create';
     emptyinputs();
 
@@ -178,7 +196,7 @@ function updateData ( i ) {
   catagery.value = Arr[i].catagery;
 
 
-  btn.innerHTML = "update";
+  btn.innerHTML = "update Product";
 
   updatedEle = i;
   getTotal();
@@ -196,20 +214,21 @@ const cSearch = document.getElementById( "cSearch" );
 function searchFunction ( id ) {
   search.value = '';
   ShowDataInPage( Arr );
+  const search_placeholder = document.querySelector( "#search-placeholder" );
   if ( id == "tSearch" ) {
     searchMode = 'title';
-    search.placeholder = 'Search by Title';
+    search_placeholder.innerHTML = 'Search by Title';
 
   } else {
     searchMode = 'categry';
-    search.placeholder = 'Search by categery';
+    search_placeholder.innerHTML = 'Search by categery';
 
   }
   search.focus();
 
 }
 search.onblur = function () {
-  search.placeholder = 'Search';
+  document.querySelector( "#search-placeholder" ).innerHTML = 'Search';
 
 };
 
@@ -237,3 +256,7 @@ function searchfun ( value ) {
 
   }
 }
+
+
+
+
