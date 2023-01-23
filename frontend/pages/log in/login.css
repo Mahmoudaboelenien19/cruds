@@ -12,15 +12,28 @@ form {
   align-items: center;
   padding: 10px;
   gap: 20px;
-  height: 250px;
+  height: 280px;
   width: 400px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
+.label {
+  font-size: 20px;
+  padding: 4px;
 
+  color: rgb(24, 5, 79);
+  border-bottom: 4px solid rgb(42, 122, 95);
+  border-radius: 4px;
+}
 .inp-parent {
   width: 70%;
 }
 button.submit {
   padding: 5px;
+}
+
+#log-link {
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(42, 122, 95);
 }
