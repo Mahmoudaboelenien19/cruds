@@ -1,22 +1,22 @@
 import fetchProduct from "./classes/fetchApi.js";
+import { ui } from "./classes/UI.js";
 
-const product = document.getElementById( "product" );
+export const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
-const totalCont = document.querySelector( "#total-cont" );
-const btn = document.querySelector( "#btn button" );
-const price = document.getElementById( "price" );
-const tax = document.getElementById( "tax" );
-const ads = document.getElementById( "ads" );
-const discount = document.getElementById( "discount" );
-const total = document.getElementById( "total" );
-const catagery = document.getElementById( "catagery" );
-const count = document.getElementById( "count" );
-const tbody = document.getElementById( "tbody" );
+export const totalCont = document.querySelector( "#total-cont" );
+export const btn = document.querySelector( "#btn button" );
+export const price = document.getElementById( "price" );
+export const tax = document.getElementById( "tax" );
+export const ads = document.getElementById( "ads" );
+export const discount = document.getElementById( "discount" );
+export const total = document.getElementById( "total" );
+export const catagery = document.getElementById( "catagery" );
+export const count = document.getElementById( "count" );
+export const tbody = document.getElementById( "tbody" );
 const del = document.querySelector( ".del" );
-const clear = document.getElementById( 'clear' );
+export const clear = document.getElementById( 'clear' );
 const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
-const popCont = document.querySelector( ".pop-cont" );
 
 let mode = 'create';
 let updatedEle;
@@ -27,37 +27,13 @@ let showDataInPage = async () => {
   let data = await fetchProduct.get();
 
   Arr = data.products;
-  buildUI( Arr );
-  handleClearAllBtn( Arr );
+  ui.buildUI( Arr );
+  ui.handleClearAllBtn( Arr );
 };
 
 showDataInPage();
 
-const handleClearAllBtn = ( Arr ) => {
-
-  if ( Arr.length > 1 ) {
-    clear.classList.remove( "hide" );
-    clear.innerHTML = `Clear (${ Arr.length })`;
-  } else {
-    clear.classList.add( "hide" );
-
-  }
-};
-
 form.addEventListener( "submit", ( e ) => e.preventDefault() );
-
-
-const handlePop = ( content, type ) => {
-  const span = `<span class="${ type } pop">${ content }</span>`;
-  popCont.insertAdjacentHTML( "afterbegin", span );
-  document.querySelectorAll( ".pop-cont .pop" ).forEach( e => {
-
-    setTimeout( () => {
-      e.remove();
-    }, 4000 );
-
-  } );
-};
 
 
 btn.onclick = function () {
@@ -66,22 +42,13 @@ btn.onclick = function () {
 
   } else {
 
-    handlePop( "you must fill all inputs", "danger" );
+    ui.handlePop( "you must fill all inputs", "danger" );
   }
 
 };
 
+prices.addEventListener( "keyup", ui.getTotal );
 
-const getTotal = prices.onkeyup = function () {
-  if ( price.value != "" ) {
-    let result = ( +price.value + +tax.value + +ads.value ) - +discount.value;
-    total.innerHTML = result;
-    totalCont.style.cssText = `background-color:green;`;
-  } else {
-    totalCont.style.cssText = `background-color:rgb(91, 23, 23);`;
-    total.innerHTML = '';
-  }
-};
 
 const addElementsToDatabase = async () => {
 
@@ -103,8 +70,8 @@ const addElementsToDatabase = async () => {
     console.log( data );
     showDataInPage();
 
-    emptyinputs();
-    handlePop( data.message, "success" );
+    ui.emptyinputs();
+    ui.handlePop( data.message, "success" );
 
   } else {
 
@@ -112,52 +79,12 @@ const addElementsToDatabase = async () => {
     showDataInPage();
     btn.innerHTML = "Add Product";
     mode = 'create';
-    emptyinputs();
+    ui.emptyinputs();
 
   }
 };
 
 
-
-
-
-function emptyinputs () {
-
-  product.value = '';
-  price.value = '';
-  tax.value = '';
-  ads.value = '';
-  discount.value = '';
-  total.innerHTML = '';
-  totalCont.style.cssText = `background-color:rgb(91, 23, 23);`;
-  catagery.value = '';
-  count.value = '';
-
-}
-
-function buildUI ( Arr ) {
-  tbody.innerHTML = '';
-
-  // table = '';
-  for ( let i = 0; i < Arr.length; i++ ) {
-    tbody.innerHTML += `
-<tr>
-
-  <td>${ i + 1 }</td>
-  <td>${ Arr[i].product_name }</td>
-  <td>${ Arr[i].price }</td>
-  <td>${ Arr[i].tax }</td>
-  <td>${ Arr[i].ads }</td>
-  <td>${ Arr[i].discount }</td>
-  <td>${ +Arr[i].tax + +Arr[i].price + +Arr[i].ads + - Arr[i].discount }</td>   
-  <td>${ Arr[i].catagery }</td>
-  <td>${ Arr[i].count }</td>
-  <td id="update"><button class ="update" data-id=${ Arr[i].id }>update</button></td>
-  <td id="del"><button class="del" data-id=${ Arr[i].id }>del</button></td>
-</tr>`;
-
-  }
-}
 
 const handeClearAll = async () => {
   fetchProduct.clear();
@@ -183,7 +110,7 @@ const handleUpdate = ( e ) => {
     btn.innerHTML = "update Product";
 
     updatedEle = i;
-    getTotal();
+    ui.getTotal();
     scroll( {
       top: 0,
       behavior: "smooth"
@@ -209,9 +136,6 @@ const handleActions = ( e ) => {
 };
 
 tbody.addEventListener( "click", handleActions );
-
-
-console.log( document.getElementById( "clear" ) );
 clear.addEventListener( "click", handeClearAll );
 
 
