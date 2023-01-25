@@ -13,7 +13,6 @@ export const total = document.getElementById( "total" );
 export const catagery = document.getElementById( "catagery" );
 export const count = document.getElementById( "count" );
 export const tbody = document.getElementById( "tbody" );
-const del = document.querySelector( ".del" );
 export const clear = document.getElementById( 'clear' );
 const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
@@ -71,13 +70,14 @@ const addElementsToDatabase = async () => {
     showDataInPage();
 
     ui.emptyinputs();
-    ui.handlePop( data.message, "success" );
+    ui.handlePop( data.message );
 
   } else {
 
-    fetchProduct.update( productData, Arr[updatedEle].id );
+    const data = await fetchProduct.update( productData, Arr[updatedEle].id );
     showDataInPage();
-    btn.innerHTML = "Add Product";
+
+    ui.handlePop( data.message );
     mode = 'create';
     ui.emptyinputs();
 
@@ -87,9 +87,10 @@ const addElementsToDatabase = async () => {
 
 
 const handeClearAll = async () => {
-  fetchProduct.clear();
+  const data = await fetchProduct.clear();
   showDataInPage();
   clear.innerHTML = '';
+  ui.handlePop( data.message );
 };
 
 
@@ -120,12 +121,13 @@ const handleUpdate = ( e ) => {
 };
 
 
-const handleDelete = ( e ) => {
+const handleDelete = async ( e ) => {
   if ( e.target.classList.contains( "del" ) ) {
     console.log( "del clicked" );
     let deletedElement = Arr.find( ele => ele.id == e.target.dataset.id );
-    fetchProduct.delete( deletedElement.id );
+    let data = await fetchProduct.delete( deletedElement.id );
     showDataInPage();
+    ui.handlePop( data.message );
   }
 
 };

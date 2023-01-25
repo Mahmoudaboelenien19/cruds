@@ -47,7 +47,7 @@ class Ui {
         }
     }
 
-    handlePop ( content, type ) {
+    handlePop ( content, type = "success" ) {
         const span = `<span class="${ type } pop">${ content }</span>`;
         popCont.insertAdjacentHTML( "afterbegin", span );
         document.querySelectorAll( ".pop-cont .pop" ).forEach( e => {

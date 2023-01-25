@@ -56,12 +56,12 @@ const index = async ( req, res ) => {
 
 const destroy = async ( req, res ) => {
     const products = await store.delete( req.params.id );
-    res.json( { products, message: "Product successfully deleted" } );
+    res.json( { message: "Product successfully deleted" } );
 };
 
 const clearAll = async ( req, res ) => {
     const products = await store.clear();
-    res.json( { products, message: "All Cleared" } );
+    res.json( { message: "All Cleared" } );
 };
 const routes = Router();
 routes.route( '/product' ).post( create );

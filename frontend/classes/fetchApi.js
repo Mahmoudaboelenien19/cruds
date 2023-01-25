@@ -27,25 +27,28 @@ class FetchClass {
     }
     async delete ( id ) {
 
-        fetch( `/product/${ id }`, {
+        const data = await fetch( `/product/${ id }`, {
             method: "DELETE",
         } );
+
+        return data.json();
     }
 
 
     async clear () {
-
-        fetch( `/products`, {
+        const data = await fetch( `/products`, {
             method: "DELETE"
         } );
+        return data.json();
     }
 
     async update ( product, id ) {
-        fetch( `/product/${ id }`, {
+        const data = await fetch( `/product/${ id }`, {
             method: "PATCH",
             headers: { 'content-Type': 'application/json' },
             body: JSON.stringify( product )
         } );
+        return await data.json();
     };
 
 }
