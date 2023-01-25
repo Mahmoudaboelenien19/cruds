@@ -30,11 +30,13 @@ form {
   width: 70%;
 }
 button.submit {
-  padding: 5px;
+  width: fit-content;
+  padding: 10px;
 }
 
 #log-link {
   text-decoration: none;
   font-weight: bold;
   color: rgb(42, 122, 95);
+  font-size: 20px;
 }

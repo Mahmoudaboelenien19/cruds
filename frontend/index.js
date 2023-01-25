@@ -1,3 +1,5 @@
+import fetchProduct from "./classes/fetchApi.js";
+
 const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
 const totalCont = document.querySelector( "#total-cont" );
@@ -14,21 +16,28 @@ const del = document.querySelector( ".del" );
 const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
 
-let updatedEle;
+let mode = 'create';
 
-mode = 'create';
+export let Arr = [];
 
-let Arr = [];
+// const fetchFn = async () => {
+//   const res = await fetch( "/products" );
+//   const data = await res.json();
+//   Arr = data.products;
+//   ShowDataInPage( Arr );
+//   return data;
+// };
+// fetchFn();
 
-const fetchFn = async () => {
-  const res = await fetch( "/products" );
-  const data = await res.json();
+
+
+let showDataInPage = async () => {
+  let data = await fetchProduct.get();
+
   Arr = data.products;
   ShowDataInPage( Arr );
-  return data;
 };
-fetchFn();
-
+showDataInPage();
 const popCont = document.querySelector( ".pop-cont" );
 
 const handlePop = ( content, type ) => {
@@ -57,7 +66,7 @@ btn.onclick = function () {
 };
 const getTotal = prices.onkeyup = function () {
   if ( price.value != "" ) {
-    result = ( +price.value + +tax.value + +ads.value ) - +discount.value;
+    let result = ( +price.value + +tax.value + +ads.value ) - +discount.value;
     total.innerHTML = result;
     totalCont.style.cssText = `background-color:green;`;
   } else {
@@ -69,7 +78,7 @@ const getTotal = prices.onkeyup = function () {
 
 async function addElementsToDatabase () {
 
-  productData = {
+  const productData = {
 
     product_name: product.value,
     price: price.value,
@@ -82,22 +91,26 @@ async function addElementsToDatabase () {
   };
   if ( mode == 'create' ) {
 
-    let res = await fetch( "/product", {
-      method: "POST",
-      headers: { 'content-Type': 'application/json' },
-      body: JSON.stringify( productData )
-    } );
-    let data = await res.json();
-    fetchFn();
+    // let res = await fetch( "/product", {
+    //   method: "POST",
+    //   headers: { 'content-Type': 'application/json' },
+    //   body: JSON.stringify( productData )
+    // } );
+    // let data = await res.json();
+    // fetchFn();
+    fetchProduct.create( productData );
+    let data = await fetchProduct.get();
+    console.log( data );
+    ShowDataInPage( data.products );
     emptyinputs();
     handlePop( data.message, "success" );
   } else {
 
-    fetch( `/product/${ Arr[updatedEle].id }`, {
-      method: "PATCH",
-      headers: { 'content-Type': 'application/json' },
-      body: JSON.stringify( productData )
-    } );
+    // fetch( `/product/${ Arr[updatedEle].id }`, {
+    //   method: "PATCH",
+    //   headers: { 'content-Type': 'application/json' },
+    //   body: JSON.stringify( productData )
+    // } );
     // Arr[updatedEle] = productData;
     await fetchFn();
     btn.innerHTML = "Add Product";
@@ -128,8 +141,8 @@ function emptyinputs () {
 function ShowDataInPage ( Arr ) {
   tbody.innerHTML = '';
 
-  table = '';
-  for ( i = 0; i < Arr.length; i++ ) {
+  // table = '';
+  for ( let i = 0; i < Arr.length; i++ ) {
     tbody.innerHTML += `
 <tr>
 
@@ -142,8 +155,8 @@ function ShowDataInPage ( Arr ) {
   <td>${ +Arr[i].tax + +Arr[i].price + +Arr[i].ads + - Arr[i].discount }</td>   
   <td>${ Arr[i].catagery }</td>
   <td>${ Arr[i].count }</td>
-  <td id="update"><button onclick="updateData(${ i })">update</button></td>
-  <td id="del"><button onclick="deleteFromPage(${ Arr[i].id })">del</button></td>
+  <td id="update"><button class ="update" data-id=${ Arr[i].id }>update</button></td>
+  <td id="del"><button class="del" data-id=${ Arr[i].id }>del</button></td>
 </tr>`;
 
     const delAll = document.getElementById( 'delAll' );
@@ -158,53 +171,69 @@ function ShowDataInPage ( Arr ) {
 }
 
 
-async function deleteFromPage ( i ) {
 
-  fetch( `/product/${ i }`, {
-    method: "DELETE",
-    headers: { 'content-Type': 'application/json' },
+// async function delAllData () {
 
-
-  } );
-
-  await fetchFn();
-}
+//   fetch( `/products`, {
+//     method: "DELETE"
 
 
-async function delAllData () {
 
-  fetch( `/products`, {
-    method: "DELETE",
-    headers: { 'content-Type': 'application/json' },
+//   } );
 
+//   await fetchFn();
+//   delAll.innerHTML = '';
 
-  } );
+// }
 
-  await fetchFn();
-  delAll.innerHTML = '';
+const handleUpdate = ( e ) => {
+  if ( e.target.classList.contains( "update" ) ) {
 
-}
-
-function updateData ( i ) {
-  mode = "update";
-  product.value = Arr[i].product_name;
-  price.value = Arr[i].price;
-  tax.value = Arr[i].tax;
-  count.value = Arr[i].count;
-  ads.value = Arr[i].ads;
-  discount.value = Arr[i].discount;
-  catagery.value = Arr[i].catagery;
+    mode = "update";
+    let i = Arr.findIndex( ele => ele.id == e.target.dataset.id );
+    product.value = Arr[i].product_name;
+    price.value = Arr[i].price;
+    tax.value = Arr[i].tax;
+    count.value = Arr[i].count;
+    ads.value = Arr[i].ads;
+    discount.value = Arr[i].discount;
+    catagery.value = Arr[i].catagery;
 
 
-  btn.innerHTML = "update Product";
+    btn.innerHTML = "update Product";
 
-  updatedEle = i;
-  getTotal();
-  scroll( {
-    top: 0,
-    behavior: "smooth"
-  } );
-}
+    updatedEle = i;
+    getTotal();
+    scroll( {
+      top: 0,
+      behavior: "smooth"
+    } );
+  };
+
+};
+
+
+const handleDelete = ( e ) => {
+  if ( e.target.classList.contains( "del" ) ) {
+    console.log( "del clicked" );
+    let deletedElement = Arr.find( ele => ele.id == e.target.dataset.id );
+
+    //     fetch( `/product/${ deletedElement.id }`, {
+    //       method: "DELETE",
+    //       headers: { 'content-Type': 'application/json' },
+    //     } );
+
+    fetchFn();
+  }
+
+};
+
+const handleActions = ( e ) => {
+  handleDelete( e );
+  handleUpdate( e );
+};
+
+tbody.addEventListener( "click", handleActions );
 
 let searchMode = 'title';
 
