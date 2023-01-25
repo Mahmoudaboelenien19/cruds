@@ -26,6 +26,7 @@ form {
   border-radius: 4px;
 }
 .inp-parent {
+  position: relative;
   width: 70%;
 }
 button.submit {
@@ -37,4 +38,18 @@ button.submit {
   font-weight: bold;
   color: rgb(42, 122, 95);
   font-size: 20px;
+}
+
+.inp-parent span.eye {
+  /* font-size: 20px; */
+  display: inline-block;
+  height: 20px;
+  width: 20px;
+  transform: translate(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  right: 10px;
+}
+.inp-parent span.eye .fa-eye {
+  color: white;
 }

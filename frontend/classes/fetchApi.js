@@ -19,12 +19,14 @@ class FetchClass {
 
         let res = await fetch( "/product", {
             method: "POST",
-            headers: { 'content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify( product )
         } );
         let data = await res.json();
         return data;
     }
+
+
     async delete ( id ) {
 
         const data = await fetch( `/product/${ id }`, {

@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="icon" href="../../assets/c.png" type="image/x-icon" />
+    <link rel="icon" href="../../assets/images/c.png" type="image/x-icon" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../main.css" />
     <link rel="stylesheet" href="./login.css" />
+    <link rel="stylesheet" href="../../fontawesome/all.css" />
 
     <title>log-in</title>
   </head>
@@ -26,14 +27,16 @@
             <span class="placeholder"> Email</span>
           </div>
           <div class="inp-parent">
-            <input type="password" id="password" required />
+            <input type="password" class="password" required />
             <span class="placeholder">password</span>
+            <span class="eye"><i class="fa-solid fa-eye"></i></span>
           </div>
           <button class="submit">Log In</button>
           <a href="../sign up/sign up.html" id="log-link">Create New Account</a>
         </form>
       </div>
     </div>
+    <script src="../../fontawesome/all.js"></script>
     <script src="login.js"></script>
   </body>
 </html>

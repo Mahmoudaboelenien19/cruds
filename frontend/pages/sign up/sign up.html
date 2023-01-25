@@ -3,10 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <link rel="icon" href="../../assets/c.png" type="image/x-icon" />
+    <link rel="icon" href="../../assets/images/c.png" type="image/x-icon" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="../log in/login.css">
     <link rel="stylesheet" href="./../../main.css" />
+    <link rel="stylesheet" href="./../../fontawesome/all.css" />
     <link rel="stylesheet" href="./sign up.css" />
 
     <title>Sign-Up</title>
@@ -30,24 +32,33 @@
             <span class="placeholder"> Email</span>
           </div>
           <div class="inp-parent">
-            <input type="password" id="password" required />
+            <input type="password" class="password" required />
             <span class="placeholder">password</span>
+            <span class="eye"><i class="fa fa-eye" aria-hidden="true"></i>
+
           </div>
           <div class="inp-parent">
-            <input type="password" id="password" required />
+            <input type="password" class="password" required />
             <span class="placeholder">Confirm password</span>
+            <span class="eye"><i class="fa fa-eye" aria-hidden="true"></i>
+            </span>
           </div>
           <div class="inp-parent">
             <input type="password" id="phone" required />
             <span class="placeholder">phone</span>
           </div>
-          <div class="inp-parent">check strength</div>
+          <div class="inp-parent">
+            <div id="strength"><span ></span><span ></span> <span ></span></div>
+            <p class="strength-p hide">check strength <span class="strength-span "> </span></p>
+          </div>
           <button class="submit">Sign Up</button>
           <a href="../log in/login.html" id="log-link"
           >Log In</a
         </form>
       </div>
     </div>
-    <script src="login.js"></script>
+    <script src="./../../fontawesome/all.js"></script>
+    <script src="../log in/login.js"></script>
+    <script src="./sign up.js"></script>
   </body>
 </html>
