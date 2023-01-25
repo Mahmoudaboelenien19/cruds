@@ -1,4 +1,5 @@
-import { ads, clear, discount, price, tax, tbody, total, totalCont } from "../index.js";
+import { totalCont, clear } from "../index.js";
+import { ads, discount, price, tax, total } from "./Actions.js";
 const popCont = document.querySelector( ".pop-cont" );
 
 

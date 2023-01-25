@@ -2,6 +2,6 @@
   "files.exclude": {
     "backend/node_modules": true,
     "backend/.env": true,
-    "backend": false
+    "backend": true
   }
 }

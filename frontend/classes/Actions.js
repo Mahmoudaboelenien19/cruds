@@ -1,11 +1,8 @@
-import { Arr, showDataInPage } from "../index.js";
+import { Arr, btn, clear, showDataInPage } from "../index.js";
 import fetchProduct from "./fetchApi.js";
 import { ui } from "./UI.js";
 
 export const product = document.getElementById( "product" );
-const prices = document.querySelector( ".prices" );
-export const totalCont = document.querySelector( "#total-cont" );
-export const btn = document.querySelector( "#btn button" );
 export const price = document.getElementById( "price" );
 export const tax = document.getElementById( "tax" );
 export const ads = document.getElementById( "ads" );
@@ -13,10 +10,6 @@ export const discount = document.getElementById( "discount" );
 export const total = document.getElementById( "total" );
 export const catagery = document.getElementById( "catagery" );
 export const count = document.getElementById( "count" );
-export const tbody = document.getElementById( "tbody" );
-export const clear = document.getElementById( 'clear' );
-const form = document.querySelector( "form" );
-const search = document.getElementById( "search" );
 
 
 class Actions {
@@ -111,8 +104,17 @@ class Actions {
             showDataInPage();
             ui.handlePop( data.message );
         }
-
     };
+
+    validation () {
+        if ( [...document.querySelectorAll( ".inp" )].every( inp => inp.value != "" ) ) {
+            this.addElementsToDatabase( Arr );
+
+        } else {
+            ui.handlePop( "you must fill all inputs", "danger" );
+
+        }
+    }
 }
 
 export const action = new Actions(); 
