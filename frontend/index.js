@@ -1,3 +1,4 @@
+import { action } from "./classes/Actions.js";
 import fetchProduct from "./classes/fetchApi.js";
 import { ui } from "./classes/UI.js";
 
@@ -17,27 +18,26 @@ export const clear = document.getElementById( 'clear' );
 const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
 
-let mode = 'create';
-let updatedEle;
-
 export let Arr = [];
 
-let showDataInPage = async () => {
-  let data = await fetchProduct.get();
 
+export let showDataInPage = async () => {
+
+  let data = await fetchProduct.get();
   Arr = data.products;
   ui.buildUI( Arr );
   ui.handleClearAllBtn( Arr );
+
 };
 
-showDataInPage();
+window.addEventListener( "load", showDataInPage );
 
 form.addEventListener( "submit", ( e ) => e.preventDefault() );
 
 
 btn.onclick = function () {
   if ( catagery.value != '' && price.value != '' && product.value != '' ) {
-    addElementsToDatabase( Arr );
+    action.addElementsToDatabase( Arr );
 
   } else {
 
@@ -47,151 +47,70 @@ btn.onclick = function () {
 };
 
 prices.addEventListener( "keyup", ui.getTotal );
+clear.addEventListener( "click", action.handeClearAll );
 
-
-const addElementsToDatabase = async () => {
-
-  const productData = {
-
-    product_name: product.value,
-    price: price.value,
-    tax: tax.value,
-    ads: ads.value,
-    discount: discount.value,
-    catagery: catagery.value,
-    count: count.value
-
-  };
-
-  if ( mode == 'create' ) {
-
-    let data = await fetchProduct.create( productData );
-    console.log( data );
-    showDataInPage();
-
-    ui.emptyinputs();
-    ui.handlePop( data.message );
-
-  } else {
-
-    const data = await fetchProduct.update( productData, Arr[updatedEle].id );
-    showDataInPage();
-
-    ui.handlePop( data.message );
-    mode = 'create';
-    ui.emptyinputs();
-
-  }
-};
-
-
-
-const handeClearAll = async () => {
-  const data = await fetchProduct.clear();
-  showDataInPage();
-  clear.innerHTML = '';
-  ui.handlePop( data.message );
-};
-
-
-const handleUpdate = ( e ) => {
-  if ( e.target.classList.contains( "update" ) ) {
-
-    mode = "update";
-    let i = Arr.findIndex( ele => ele.id == e.target.dataset.id );
-    product.value = Arr[i].product_name;
-    price.value = Arr[i].price;
-    tax.value = Arr[i].tax;
-    count.value = Arr[i].count;
-    ads.value = Arr[i].ads;
-    discount.value = Arr[i].discount;
-    catagery.value = Arr[i].catagery;
-
-
-    btn.innerHTML = "update Product";
-
-    updatedEle = i;
-    ui.getTotal();
-    scroll( {
-      top: 0,
-      behavior: "smooth"
-    } );
-  };
-
-};
-
-
-const handleDelete = async ( e ) => {
-  if ( e.target.classList.contains( "del" ) ) {
-    console.log( "del clicked" );
-    let deletedElement = Arr.find( ele => ele.id == e.target.dataset.id );
-    let data = await fetchProduct.delete( deletedElement.id );
-    showDataInPage();
-    ui.handlePop( data.message );
-  }
-
-};
 
 const handleActions = ( e ) => {
-  handleDelete( e );
-  handleUpdate( e );
+  action.handleDelete( e );
+  action.handleUpdate( e );
 };
 
 tbody.addEventListener( "click", handleActions );
-clear.addEventListener( "click", handeClearAll );
 
 
 
-let searchMode = 'title';
-
-const tSearch = document.getElementById( "tSearch" );
-const cSearch = document.getElementById( "cSearch" );
-
-function searchFunction ( id ) {
-  search.value = '';
-  ShowDataInPage( Arr );
-  const search_placeholder = document.querySelector( "#search-placeholder" );
-  if ( id == "tSearch" ) {
-    searchMode = 'title';
-    search_placeholder.innerHTML = 'Search by Title';
-
-  } else {
-    searchMode = 'categry';
-    search_placeholder.innerHTML = 'Search by categery';
-
-  }
-  search.focus();
-
-}
-search.onblur = function () {
-  document.querySelector( "#search-placeholder" ).innerHTML = 'Search';
-
-};
 
 
-function searchfun ( value ) {
-  tbody.innerHTML = '';
-  table = '';
-  let searchArr = [];
-  if ( searchMode == 'title' ) {
-    for ( i = 0; i < Arr.length; i++ ) {
-      if ( Arr[i].product_name.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
-        searchArr.push( Arr[i] );
+// let searchMode = 'title';
 
-      }
-    }
-    ShowDataInPage( searchArr );
-  } else if ( searchMode = 'categry' ) {
-    for ( i = 0; i < Arr.length; i++ ) {
-      if ( Arr[i].catagery.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
-        searchArr.push( Arr[i] );
+// const tSearch = document.getElementById( "tSearch" );
+// const cSearch = document.getElementById( "cSearch" );
 
-      }
-    }
-    ShowDataInPage( searchArr );
+// function searchFunction ( id ) {
+//   search.value = '';
+//   ShowDataInPage( Arr );
+//   const search_placeholder = document.querySelector( "#search-placeholder" );
+//   if ( id == "tSearch" ) {
+//     searchMode = 'title';
+//     search_placeholder.innerHTML = 'Search by Title';
 
-  }
-}
+//   } else {
+//     searchMode = 'categry';
+//     search_placeholder.innerHTML = 'Search by categery';
+
+//   }
+//   search.focus();
+
+// }
+// search.onblur = function () {
+//   document.querySelector( "#search-placeholder" ).innerHTML = 'Search';
+
+// };
+
+
+// function searchfun ( value ) {
+//   tbody.innerHTML = '';
+//   table = '';
+//   let searchArr = [];
+//   if ( searchMode == 'title' ) {
+//     for ( i = 0; i < Arr.length; i++ ) {
+//       if ( Arr[i].product_name.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
+//         searchArr.push( Arr[i] );
+
+//       }
+//     }
+//     ShowDataInPage( searchArr );
+//   } else if ( searchMode = 'categry' ) {
+//     for ( i = 0; i < Arr.length; i++ ) {
+//       if ( Arr[i].catagery.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
+//         searchArr.push( Arr[i] );
+
+//       }
+//     }
+//     ShowDataInPage( searchArr );
+
+//   }
+// }
 
 
 
