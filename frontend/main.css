@@ -296,3 +296,7 @@ td#update button:hover {
 .pop.danger {
   background: rgb(70, 21, 21);
 }
+
+#clear.hide {
+  display: none;
+}

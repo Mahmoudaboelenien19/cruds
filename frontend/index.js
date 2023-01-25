@@ -13,37 +13,44 @@ const catagery = document.getElementById( "catagery" );
 const count = document.getElementById( "count" );
 const tbody = document.getElementById( "tbody" );
 const del = document.querySelector( ".del" );
+const clear = document.getElementById( 'clear' );
 const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
+const popCont = document.querySelector( ".pop-cont" );
 
 let mode = 'create';
+let updatedEle;
 
 export let Arr = [];
-
-// const fetchFn = async () => {
-//   const res = await fetch( "/products" );
-//   const data = await res.json();
-//   Arr = data.products;
-//   ShowDataInPage( Arr );
-//   return data;
-// };
-// fetchFn();
-
-
 
 let showDataInPage = async () => {
   let data = await fetchProduct.get();
 
   Arr = data.products;
-  ShowDataInPage( Arr );
+  buildUI( Arr );
+  handleClearAllBtn( Arr );
 };
+
 showDataInPage();
-const popCont = document.querySelector( ".pop-cont" );
+
+const handleClearAllBtn = ( Arr ) => {
+
+  if ( Arr.length > 1 ) {
+    clear.classList.remove( "hide" );
+    clear.innerHTML = `Clear (${ Arr.length })`;
+  } else {
+    clear.classList.add( "hide" );
+
+  }
+};
+
+form.addEventListener( "submit", ( e ) => e.preventDefault() );
+
 
 const handlePop = ( content, type ) => {
   const span = `<span class="${ type } pop">${ content }</span>`;
   popCont.insertAdjacentHTML( "afterbegin", span );
-  document.querySelectorAll( ".pop-cont .pop" ).forEach( ( e, i ) => {
+  document.querySelectorAll( ".pop-cont .pop" ).forEach( e => {
 
     setTimeout( () => {
       e.remove();
@@ -52,7 +59,6 @@ const handlePop = ( content, type ) => {
   } );
 };
 
-form.addEventListener( "submit", ( e ) => e.preventDefault() );
 
 btn.onclick = function () {
   if ( catagery.value != '' && price.value != '' && product.value != '' ) {
@@ -64,6 +70,8 @@ btn.onclick = function () {
   }
 
 };
+
+
 const getTotal = prices.onkeyup = function () {
   if ( price.value != "" ) {
     let result = ( +price.value + +tax.value + +ads.value ) - +discount.value;
@@ -72,11 +80,10 @@ const getTotal = prices.onkeyup = function () {
   } else {
     totalCont.style.cssText = `background-color:rgb(91, 23, 23);`;
     total.innerHTML = '';
-
   }
 };
 
-async function addElementsToDatabase () {
+const addElementsToDatabase = async () => {
 
   const productData = {
 
@@ -86,39 +93,29 @@ async function addElementsToDatabase () {
     ads: ads.value,
     discount: discount.value,
     catagery: catagery.value,
-    count: count.value,
+    count: count.value
 
   };
+
   if ( mode == 'create' ) {
 
-    // let res = await fetch( "/product", {
-    //   method: "POST",
-    //   headers: { 'content-Type': 'application/json' },
-    //   body: JSON.stringify( productData )
-    // } );
-    // let data = await res.json();
-    // fetchFn();
-    fetchProduct.create( productData );
-    let data = await fetchProduct.get();
+    let data = await fetchProduct.create( productData );
     console.log( data );
-    ShowDataInPage( data.products );
+    showDataInPage();
+
     emptyinputs();
     handlePop( data.message, "success" );
+
   } else {
 
-    // fetch( `/product/${ Arr[updatedEle].id }`, {
-    //   method: "PATCH",
-    //   headers: { 'content-Type': 'application/json' },
-    //   body: JSON.stringify( productData )
-    // } );
-    // Arr[updatedEle] = productData;
-    await fetchFn();
+    fetchProduct.update( productData, Arr[updatedEle].id );
+    showDataInPage();
     btn.innerHTML = "Add Product";
     mode = 'create';
     emptyinputs();
 
   }
-}
+};
 
 
 
@@ -138,7 +135,7 @@ function emptyinputs () {
 
 }
 
-function ShowDataInPage ( Arr ) {
+function buildUI ( Arr ) {
   tbody.innerHTML = '';
 
   // table = '';
@@ -159,32 +156,15 @@ function ShowDataInPage ( Arr ) {
   <td id="del"><button class="del" data-id=${ Arr[i].id }>del</button></td>
 </tr>`;
 
-    const delAll = document.getElementById( 'delAll' );
-    if ( Arr.length > 1 ) {
-      delAll.innerHTML = `<button onclick="delAllData()"> Clear (${ Arr.length })</button>`;
-    } else {
-      delAll.innerHTML = '';
-    }
-
   }
-
 }
 
+const handeClearAll = async () => {
+  fetchProduct.clear();
+  showDataInPage();
+  clear.innerHTML = '';
+};
 
-
-// async function delAllData () {
-
-//   fetch( `/products`, {
-//     method: "DELETE"
-
-
-
-//   } );
-
-//   await fetchFn();
-//   delAll.innerHTML = '';
-
-// }
 
 const handleUpdate = ( e ) => {
   if ( e.target.classList.contains( "update" ) ) {
@@ -217,13 +197,8 @@ const handleDelete = ( e ) => {
   if ( e.target.classList.contains( "del" ) ) {
     console.log( "del clicked" );
     let deletedElement = Arr.find( ele => ele.id == e.target.dataset.id );
-
-    //     fetch( `/product/${ deletedElement.id }`, {
-    //       method: "DELETE",
-    //       headers: { 'content-Type': 'application/json' },
-    //     } );
-
-    fetchFn();
+    fetchProduct.delete( deletedElement.id );
+    showDataInPage();
   }
 
 };
@@ -234,6 +209,12 @@ const handleActions = ( e ) => {
 };
 
 tbody.addEventListener( "click", handleActions );
+
+
+console.log( document.getElementById( "clear" ) );
+clear.addEventListener( "click", handeClearAll );
+
+
 
 let searchMode = 'title';
 

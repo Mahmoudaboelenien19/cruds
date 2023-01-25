@@ -25,11 +25,10 @@ class FetchClass {
         let data = await res.json();
         return data;
     }
-    async delete () {
+    async delete ( id ) {
 
-        fetch( `/product/${ deletedElement.id }`, {
+        fetch( `/product/${ id }`, {
             method: "DELETE",
-            headers: { 'content-Type': 'application/json' },
         } );
     }
 
@@ -41,13 +40,11 @@ class FetchClass {
         } );
     }
 
-    async update () {
-
-
-        fetch( `/product/${ Arr[updatedEle].id }`, {
+    async update ( product, id ) {
+        fetch( `/product/${ id }`, {
             method: "PATCH",
             headers: { 'content-Type': 'application/json' },
-            body: JSON.stringify( productData )
+            body: JSON.stringify( product )
         } );
     };
 
