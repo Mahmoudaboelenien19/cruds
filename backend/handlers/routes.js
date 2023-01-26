@@ -1,4 +1,5 @@
 const Router = require( "express" );
+const autorization = require( "../middleware/authorization.js" );
 
 const Product = require( "../models/model" );
 const store = new Product();
@@ -64,8 +65,9 @@ const clearAll = async ( req, res ) => {
     res.json( { message: "All Cleared" } );
 };
 const routes = Router();
-routes.route( '/product' ).post( create );
-routes.route( '/products' ).get( index ).delete( clearAll );
-routes.route( '/product/:id' ).patch( update ).delete( destroy );
+routes.route( '/product' ).post( autorization, create );
+routes.route( '/product' ).post( autorization, create );
+routes.route( '/products' ).get( index ).delete( autorization, clearAll );
+routes.route( '/product/:id' ).patch( autorization, update ).delete( autorization, destroy );
 
 module.exports = routes;
