@@ -2,6 +2,7 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  font-family: "PT Sans", sans-serif;
 }
 
 body {
@@ -201,8 +202,9 @@ table {
 }
 
 /* Handle */
+
 *::-webkit-scrollbar-thumb {
-  background: rgb(26, 105, 46);
+  background: linear-gradient(135deg, wheat, green);
 }
 td button {
   width: 80px;

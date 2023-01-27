@@ -15,6 +15,7 @@ const hashPassword = ( password ) => {
 
 class Users {
     async create ( user ) {
+        console.log( user );
         try {
             const conn = await Client.connect();
             const sql = `INSERT INTO users (name,email,password,phone) VALUES($1,$2,$3,$4) RETURNING *;`;

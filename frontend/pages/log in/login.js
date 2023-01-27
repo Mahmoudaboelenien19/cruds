@@ -1,10 +1,9 @@
-const passwordInp = document.querySelector( ".password" );
+const LogInForm = document.querySelector( "#log-form" );
 
-document.querySelector( ".eye" ).addEventListener( "click", ( e ) => {
-    if ( e.target.classList.contains( "fa-eye" ) ) {
 
-        console.log( "entered" );
-        return passwordInp.type === "password" ? passwordInp.type = "text" : passwordInp.type = "password";
-    }
+const handleLogInForm = ( e ) => {
+    e.preventDefault();
+};
 
-} );
+
+LogInForm.addEventListener( "click", handleLogInForm );

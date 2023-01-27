@@ -12,7 +12,7 @@ const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
 
 export let Arr = [];
-
+console.log( "index" );
 
 export let showDataInPage = async () => {
 

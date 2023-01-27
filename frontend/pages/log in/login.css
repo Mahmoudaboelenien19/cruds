@@ -1,3 +1,8 @@
+:root {
+  --main-sign: rgb(48, 77, 206);
+  --secondary-sign: rgb(42, 122, 95);
+}
+
 .content {
   width: 100%;
   height: calc(100vh - 40px - 40px);
@@ -12,19 +17,31 @@ form {
   align-items: center;
   padding: 10px;
   gap: 20px;
-  height: 280px;
+  height: max-content;
   width: 400px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
 }
 .label {
+  position: relative;
   font-size: 20px;
-  padding: 4px;
+  padding: 6px;
+  margin: 15px 0;
+  color: var(--main-sign);
+  font-weight: bold;
+}
+.label::before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 30%;
+  width: 40%;
+  height: 3px;
 
-  color: rgb(24, 5, 79);
-  border-bottom: 4px solid rgb(42, 122, 95);
+  background: var(--secondary-sign);
   border-radius: 4px;
 }
+
 .inp-parent {
   position: relative;
   width: 70%;
@@ -36,12 +53,12 @@ button.submit {
 #log-link {
   text-decoration: none;
   font-weight: bold;
-  color: rgb(42, 122, 95);
+  color: var(--main-sign);
   font-size: 20px;
+  margin: 15px 0;
 }
 
 .inp-parent span.eye {
-  /* font-size: 20px; */
   display: inline-block;
   height: 20px;
   width: 20px;
@@ -49,7 +66,11 @@ button.submit {
   position: absolute;
   top: 50%;
   right: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
 }
 .inp-parent span.eye .fa-eye {
   color: white;
+  padding: 5px;
 }
