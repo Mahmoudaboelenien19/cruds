@@ -14,20 +14,41 @@ const hashPassword = ( password ) => {
 
 
 class Users {
+    async checkEmail ( user ) {
+        const conn = await Client.connect();
+        const checkEmailsql = 'select * from users where email=($1);';
+        const check = await conn.query( checkEmailsql, [user.email] );
+
+        if ( check.rowCount > 0 ) {
+            return { message: 'Email already in use' };
+        }
+
+
+    }
+
+
+
     async create ( user ) {
-        console.log( user );
+
         try {
+            console.log( "create 1" );
             const conn = await Client.connect();
-            const sql = `INSERT INTO users (name,email,password,phone) VALUES($1,$2,$3,$4) RETURNING *;`;
+            console.log( "create 2" );
+
+            const sql = `INSERT INTO users (name,email,password,phone) VALUES($1,$2,$3,$4) RETURNING * ;`;
+            console.log( "create 3" );
+
             const result = await conn.query( sql, [
                 user.name,
                 user.email,
                 hashPassword( user.password ),
                 user.phone
             ] );
+            console.log( "create 4" );
 
             conn.release();
             return result.rows[0];
+
         }
         catch ( err ) {
             throw new Error( "can't create this user" );
