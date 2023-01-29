@@ -1,6 +1,7 @@
 import { action } from "./classes/Actions.js";
 import fetchProduct from "./classes/fetchApi.js";
 import { ui } from "./classes/UI.js";
+import { handlePop } from "./widgets/popup.js";
 
 export const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
@@ -23,6 +24,18 @@ export let showDataInPage = async () => {
 
 };
 
+
+
+
+
+if ( localStorage.getItem( "iscreated" ) ) {
+  handlePop( localStorage.getItem( "iscreated" ) );
+  setTimeout( () => {
+    localStorage.clear();
+  }, 4000 );
+
+}
+
 window.addEventListener( "load", showDataInPage );
 
 form.addEventListener( "submit", ( e ) => e.preventDefault() );
@@ -42,7 +55,10 @@ const handleActions = ( e ) => {
 tbody.addEventListener( "click", handleActions );
 
 
-
+document.addEventListener( 'user-created', () => {
+  handlePop( "user created sucessfully" );
+  console.log( "created ev" );
+} );
 
 
 // let searchMode = 'title';

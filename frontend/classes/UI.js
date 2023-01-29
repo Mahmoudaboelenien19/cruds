@@ -1,6 +1,5 @@
 import { totalCont, clear } from "../index.js";
 import { ads, discount, price, tax, total } from "./Actions.js";
-const popCont = document.querySelector( ".pop-cont" );
 
 
 class Ui {
@@ -32,7 +31,7 @@ class Ui {
     <td>${ Arr[i].catagery }</td>
     <td>${ Arr[i].count }</td>
     <td id="update"><button class ="update" data-id=${ Arr[i].id }>update</button></td>
-    <td id="del"><button class="del" data-id=${ Arr[i].id }>del</button></td>
+    <td id="del"><button class="del" data-id=${ Arr[i].id }>delete</button></td>
   </tr>`;
         }
     }
@@ -41,24 +40,15 @@ class Ui {
 
         if ( Arr.length > 1 ) {
             clear.classList.remove( "hide" );
-            clear.innerHTML = `Clear (${ Arr.length })`;
+            clear.innerHTML = `<i class="fas fa-trash-alt"></i>
+            Clear (${ Arr.length })`;
         } else {
             clear.classList.add( "hide" );
 
         }
     }
 
-    handlePop ( content, type = "success" ) {
-        const span = `<span class="${ type } pop">${ content }</span>`;
-        popCont.insertAdjacentHTML( "afterbegin", span );
-        document.querySelectorAll( ".pop-cont .pop" ).forEach( e => {
 
-            setTimeout( () => {
-                e.remove();
-            }, 4000 );
-
-        } );
-    };
 
 
     getTotal () {

@@ -55,6 +55,24 @@ nav {
 #nav-link:hover {
   color: rgb(102, 102, 250);
 }
+
+.log-part {
+  display: flex;
+}
+
+#guest-user {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+}
+
+#user {
+  color: white;
+  margin: 0 10px;
+  gap: 5px;
+  display: flex;
+  text-transform: capitalize;
+}
 .head h2 {
   text-transform: uppercase;
 }
@@ -81,11 +99,6 @@ input {
   border-radius: 5px;
 }
 
-/* input:focus {
-  background-color: #000;
-  transform: scale(1.04);
-} */
-
 .inp-parent {
   width: 100%;
   height: 40px;
@@ -110,11 +123,24 @@ input {
   color: white;
   transition: 0.4s;
   text-transform: capitalize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
 }
 .prices .inp-parent input {
   width: 100%;
   height: 100%;
 }
+input ~ .placeholder .icon {
+  display: none;
+}
+
+input:focus ~ .placeholder .icon,
+input:valid ~ .placeholder .icon {
+  display: block;
+}
+
 input:focus ~ .placeholder,
 input:valid ~ .placeholder {
   top: 0;
@@ -158,11 +184,12 @@ div#btn {
 }
 
 button {
-  width: 20%;
+  width: max-content;
   height: 40px;
+  padding: 0 5px;
   background-color: #2e12ce;
   color: white;
-  text-transform: uppercase;
+  text-transform: capitalize;
   letter-spacing: 0.7px;
   transition: 0.3s;
   border-radius: 10px;
@@ -173,6 +200,7 @@ button:hover {
   transform: scale(1.05);
   background-color: rgb(36, 18, 200);
 }
+
 .search button {
   width: 180px;
   text-transform: capitalize;
@@ -182,7 +210,7 @@ table {
   width: 100%;
   text-align: center;
   margin-top: 20px;
-  text-transform: capitalize;
+  text-transform: lowercase;
   background-color: rgba(0, 0, 0, 0.2);
   padding: 10px;
   border-radius: 5px;
@@ -207,7 +235,9 @@ table {
   background: linear-gradient(135deg, wheat, green);
 }
 td button {
-  width: 80px;
+  width: fit-content;
+  padding: 0 5px;
+  text-transform: lowercase;
 }
 #delAll {
   display: flex;

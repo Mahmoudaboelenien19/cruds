@@ -1,7 +1,7 @@
 :root {
   --weak: rgb(179, 38, 10);
   --medium: rgb(232, 232, 64);
-  --strong: rgb(10, 71, 31);
+  --strong: rgb(39, 105, 31);
 }
 
 .content {
@@ -63,7 +63,10 @@ button.submit {
 #strength span.weak {
   background: var(--weak);
 }
-
+#name,
+#phone {
+  position: relative;
+}
 .strength-p {
   width: 70%;
   margin: 0 auto;
@@ -99,10 +102,37 @@ button.submit {
 
 .fa-check {
   color: var(--strong);
+  animation: opacity-icon 0.2s linear forwards;
+  transition: ;
 }
 .fa-x {
   color: var(--weak);
+  animation: opacity-icon 0.2s linear forwards;
+}
+
+@keyframes opacity-icon {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 .hide {
   display: none;
+}
+
+#password.weak {
+  border-bottom: 2px solid var(--weak);
+}
+
+#password.medium {
+  border-bottom: 2px solid var(--medium);
+}
+
+#password.strong {
+  border-bottom: 2px solid var(--strong);
 }

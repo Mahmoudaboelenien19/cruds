@@ -3,7 +3,7 @@
     "backend/node_modules": true,
     "backend/.env": false,
     "backend": false,
-    "backend/migrations": true,
+    "backend/migrations": false,
     "frontend": false,
     "frontend/fontawesome": true,
     "frontend/webfonts": true,

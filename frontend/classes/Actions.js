@@ -84,7 +84,8 @@ class Actions {
             catagery.value = Arr[updatedEle].catagery;
 
 
-            btn.innerHTML = "update Product";
+            btn.innerHTML = `<i class="fas fa-sync-alt"></i>
+             update Product`;
 
             Actions.updatedElement = updatedEle;
             ui.getTotal();

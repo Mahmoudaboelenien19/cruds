@@ -23,43 +23,68 @@
       <nav class="head">
         <a id="logo" href="./index.html"> Cruds</a>
 
-        <a href="./pages/log in/login.html" id="nav-link">Login</a>
+        <div class="log-part">
+          <div id="user">
+            <img id="guest-user" src="./assets/images/guest.png" alt="" />
+
+            guest
+          </div>
+          <a href="./pages/log in/login.html" id="nav-link">Login</a>
+        </div>
       </nav>
       <div class="content">
         <form action="" novalidate>
           <div class="inp-parent">
             <input class="inp" type="text" id="product" required />
-            <span class="placeholder">product name</span>
+            <span class="placeholder">
+              <i class="icon fas fa-gift"></i> product
+            </span>
           </div>
 
           <div class="prices">
             <div class="inp-parent">
               <input class="inp" type="number" id="price" required />
-              <span class="placeholder"> price</span>
+              <span class="placeholder">
+                <i class="icon fa-solid fa-dollar-sign"></i>price</span
+              >
             </div>
             <div class="inp-parent">
               <input class="inp" type="number" id="tax" required />
-              <span class="placeholder">tax</span>
+              <span class="placeholder"
+                ><i class="icon fas fa-percent"></i>tax</span
+              >
             </div>
             <div class="inp-parent">
               <input class="inp" type="number" id="ads" required />
-              <span class="placeholder">ads</span>
+              <span class="placeholder"
+                ><i class="icon fa-solid fa-bullhorn"></i>ads</span
+              >
             </div>
             <div class="inp-parent">
               <input class="inp" type="number" id="discount" required />
-              <span class="placeholder">discount</span>
+              <span class="placeholder"
+                ><i class="icon fas fa-percent"></i>discount</span
+              >
             </div>
-            <div id="total-cont">Total: <span id="total"></span></div>
+            <div id="total-cont">
+              <i class="fas fa-dollar-sign"></i> Total: <span id="total"></span>
+            </div>
           </div>
           <div class="inp-parent">
             <input type="number" id="count" required />
-            <span class="placeholder">Count</span>
+            <span class="placeholder"
+              ><i class="icon fas fa-hashtag"></i> Count</span
+            >
           </div>
           <div class="inp-parent">
             <input class="inp" type="text" id="catagery" required />
-            <span class="placeholder">catagery</span>
+            <span class="placeholder"
+              ><i class="icon fas fa-th-list"></i> catagery</span
+            >
           </div>
-          <div id="btn"><button>Add Product</button></div>
+          <div id="btn">
+            <button><i class="icon fas fa-plus-square"></i> Add Product</button>
+          </div>
           <div class="search">
             <div class="inp-parent">
               <input
@@ -68,14 +93,17 @@
                 id="search"
                 required
               />
-              <span class="placeholder" id="search-placeholder">search</span>
+              <span class="placeholder" id="search-placeholder"
+                ><i class="icon fas fa-search"></i> search</span
+              >
             </div>
             <div class="search-btn">
               <button onclick=" searchFunction(this.id) " id="tSearch">
-                SEARCH BY TITLE
+                <i class="icon fas fa-gift"></i> Search by name
               </button>
               <button onclick=" searchFunction(this.id)" id="cSearch">
-                SEARCH BY Catagery
+                <i class="fas fa-box"></i>
+                Search by Catagery
               </button>
             </div>
           </div>
@@ -85,7 +113,7 @@
           <table>
             <tr>
               <td>id</td>
-              <td>title</td>
+              <td>name</td>
               <td>price</td>
               <td>tax</td>
               <td>ads</td>

@@ -10,7 +10,6 @@ document.querySelectorAll( ".eye" ).forEach( ( eye, i ) => {
         if ( e.target.classList.contains( "fa-eye" ) ) {
 
             return passwordInp[i].type === "password" ? passwordInp[i].type = "text" : passwordInp[i].type = "password";
-            // return passwordInp.forEach( ele => ele.type === "password" ? ele.type = "text" : ele.type = "password" );
         }
 
     } );

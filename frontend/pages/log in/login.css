@@ -56,8 +56,12 @@ button.submit {
   color: var(--main-sign);
   font-size: 20px;
   margin: 15px 0;
+  transition: 0.3s;
 }
 
+#log-link:hover {
+  color: var(--secondary-sign);
+}
 .inp-parent span.eye {
   display: inline-block;
   height: 20px;
@@ -73,4 +77,12 @@ button.submit {
 .inp-parent span.eye .fa-eye {
   color: white;
   padding: 5px;
+}
+
+.submit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 100px;
 }

@@ -21,7 +21,7 @@ const create = async ( req, res ) => {
 
 
     catch ( err ) {
-        res.json( { message: "can't create this product" } );
+        res.status( 404 ).json( { message: "can't create this product" } );
 
     }
 

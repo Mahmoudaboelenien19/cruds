@@ -54,7 +54,7 @@ const create = async ( req, res ) => {
 
 
     catch ( err ) {
-        res.json( { error: "can't create this user" } );
+        res.status( 404 ).json( { error: "can't create this user" } );
 
     }
 };
