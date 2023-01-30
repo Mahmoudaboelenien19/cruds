@@ -28,14 +28,6 @@ export let showDataInPage = async () => {
 
 
 
-if ( localStorage.getItem( "iscreated" ) ) {
-  handlePop( localStorage.getItem( "iscreated" ) );
-  setTimeout( () => {
-    localStorage.clear();
-  }, 4000 );
-
-}
-
 window.addEventListener( "load", showDataInPage );
 
 form.addEventListener( "submit", ( e ) => e.preventDefault() );

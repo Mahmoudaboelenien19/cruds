@@ -1,5 +1,5 @@
 import general from "../../classes/general.js";
-import fetchUser from "../../classes/UserApi.js";
+import { handlePop } from "../../widgets/popup.js";
 import { passwordMatch, passWordStrength } from "./checkStrength.js";
 
 let isUserValid = false;
@@ -127,3 +127,70 @@ export const emailValidiation = ( e ) => {
     }
 
 };
+
+
+
+export const handleSignUpPopUps = ( e ) => {
+    console.log( "blur" );
+
+    if ( e.target.value != '' ) {
+
+        if ( e.target.classList.contains( "user-inp" ) ) {
+
+            if ( isUserValid ) {
+                handlePop( " valid username !" );
+
+            } else {
+                handlePop( "invalid username !", "danger" );
+
+            }
+
+        }
+
+
+        else if ( e.target.classList.contains( "email" ) ) {
+            if ( isEmailValid ) {
+
+                handlePop( "valid email !" );
+            } else {
+                handlePop( "invalid email !", "danger" );
+
+            }
+        }
+
+
+        else if ( e.target.classList.contains( "phone" ) ) {
+
+            if ( isPhoneValid ) {
+                handlePop( "valid phone !" );
+
+
+            } else {
+                handlePop( "invalid phone !", "danger" );
+            }
+        }
+
+        else if ( e.target.classList.contains( "confirm" ) ) {
+            if ( passwordMatch ) {
+
+                handlePop( "password  match !" );
+
+            } else {
+                handlePop( "password doesn't match!", "danger" );
+
+            }
+        }
+
+        else if ( e.target.classList.contains( "pass" ) ) {
+            if ( passWordStrength ) {
+                handlePop( "your password is valid !" );
+            }
+            else {
+                handlePop( "your password is weak !", "danger" );
+
+            }
+        }
+    }
+};
+
+

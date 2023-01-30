@@ -1,6 +1,7 @@
 import fetchUser from "../../classes/UserApi.js";
+import { handlePop } from "../../widgets/popup.js";
 import { handleCHange, handleStrengthUI } from "./checkStrength.js";
-import { emailValidiation, phoneValidiation, signUpCheck, userNameValidiation } from "./SignUp.js";
+import { emailValidiation, handleSignUpPopUps, phoneValidiation, signUpCheck, userNameValidiation } from "./SignUp.js";
 export const confirm = document.querySelector( "#confirm" );
 export const pass = document.querySelector( "#password" );
 export const email = document.querySelector( "#email" );
@@ -17,17 +18,19 @@ const emptySignUoInputs = () => {
 
 
 
-const checkValidiation = () => {
+const checkValidiation = async () => {
     // console.log( signUpCheck() );
-    return signUpCheck() && [...document.querySelectorAll( ".inp" )].every( e => e.value !== "" );
+    let check = await signUpCheck();
+    console.log( { check } );
+    return check;
 
 };
-console.log( signUpCheck() );
+
 
 const handleSignUpForm = async ( e ) => {
     e.preventDefault();
-
-    if ( checkValidiation() ) {
+    console.log( await checkValidiation() );
+    if ( await checkValidiation() ) {
 
         let user = {
             name: userName.value,
@@ -36,30 +39,20 @@ const handleSignUpForm = async ( e ) => {
             phone: phone.value
         };
 
-        let { data, status } = await fetchUser.create( user );
-        console.log( data );
+        let { data } = await fetchUser.create( user );
 
-        localStorage.setItem( "existedemail", email.value );
+        localStorage.setItem( "email", email.value );
+        localStorage.setItem( "signupmessage", data.message );
 
         emptySignUoInputs();
-        if ( status == 200 ) {
-            console.log( "status 200" );
-            localStorage.setItem( "iscreated", data.message );
+        setTimeout( () => {
+
+            window.location.href = "./../log in/login.html";
+        }, 1000 );
 
 
-        } else if ( status == 409 ) {
-
-            setTimeout( () => {
-
-                window.location.href = "./../log in/login.html";
-                localStorage.setItem( "isexist", data.message );
-
-            }, 1000 );
-            setTimeout( () => {
-                localStorage.removeItem( "existedemail" );
-            }, 1200 );
-
-        }
+    } else {
+        handlePop( "invalid inputs", "danger" );
     }
 
 };
@@ -72,7 +65,7 @@ pass.addEventListener( "keyup", () => {
 } );
 
 
-const signUpForm = document.querySelector( "#sign-up-form" );
+export const signUpForm = document.querySelector( "#sign-up-form" );
 
 signUpForm.addEventListener( "submit", handleSignUpForm );
 signUpForm.addEventListener( "keyup", ( e ) => {
@@ -89,3 +82,10 @@ phone.addEventListener( "keydown", ( e ) => {
     }
 }
 );
+
+document.querySelectorAll( "form input" ).forEach( inp => {
+    console.log( inp );
+    inp.addEventListener( "blur", handleSignUpPopUps );
+}
+)
+

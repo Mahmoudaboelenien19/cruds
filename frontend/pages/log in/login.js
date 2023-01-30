@@ -10,13 +10,22 @@ const handleLogInForm = ( e ) => {
 
 LogInForm.addEventListener( "click", handleLogInForm );
 
-if ( localStorage.getItem( "isexist" ) ) {
-    console.log( localStorage.getItem( "existedemail" ) );
-    logInp.value = localStorage.getItem( "existedemail" );
-    console.log( "isexist" );
-    handlePop( localStorage.getItem( "isexist" ) );
+if ( localStorage.getItem( "email" ) && localStorage.getItem( "signupmessage" ) ) {
+
+    logInp.value = localStorage.getItem( "email" );
+    handlePop( localStorage.getItem( "signupmessage" ) );
     setTimeout( () => {
         localStorage.clear();
-    }, 4000 );
+    }, 1200 );
 
 }
+
+
+
+// if ( localStorage.getItem( "iscreated" ) ) {
+//     handlePop( localStorage.getItem( "iscreated" ) );
+//     setTimeout( () => {
+//         localStorage.remove( iscreated );
+//     }, 4000 );
+
+// }
