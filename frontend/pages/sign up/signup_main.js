@@ -8,6 +8,8 @@ export const email = document.querySelector( "#email" );
 export const userName = document.querySelector( "#name" );
 export const phone = document.querySelector( "#phone" );
 
+
+const inputs = document.querySelectorAll( "form input" );
 const emptySignUoInputs = () => {
     userName.value = "";
     email.value = "";
@@ -19,9 +21,7 @@ const emptySignUoInputs = () => {
 
 
 const checkValidiation = async () => {
-    // console.log( signUpCheck() );
     let check = await signUpCheck();
-    console.log( { check } );
     return check;
 
 };
@@ -29,7 +29,8 @@ const checkValidiation = async () => {
 
 const handleSignUpForm = async ( e ) => {
     e.preventDefault();
-    console.log( await checkValidiation() );
+
+
     if ( await checkValidiation() ) {
 
         let user = {
@@ -52,7 +53,16 @@ const handleSignUpForm = async ( e ) => {
 
 
     } else {
-        handlePop( "invalid inputs", "danger" );
+
+        let EmptyInps = [...inputs].filter( e => e.value == "" );
+
+        if ( EmptyInps.length ) {
+            handlePop( `${ EmptyInps[0].id } is required`, "danger" );
+        } else {
+
+            handleSignUpPopUps();
+        }
+
     }
 
 };
@@ -75,7 +85,6 @@ signUpForm.addEventListener( "keyup", ( e ) => {
 
 } );
 
-// signUpForm.addEventListener( "change", signUpCheck );
 phone.addEventListener( "keydown", ( e ) => {
     if ( e.key === "e" ) {
         e.preventDefault();
@@ -83,9 +92,8 @@ phone.addEventListener( "keydown", ( e ) => {
 }
 );
 
-document.querySelectorAll( "form input" ).forEach( inp => {
-    console.log( inp );
-    inp.addEventListener( "blur", handleSignUpPopUps );
-}
-)
+// inputs.forEach( inp => {
+//     inp.addEventListener( "blur", handleSignUpPopUps );
+// }
+// )
 

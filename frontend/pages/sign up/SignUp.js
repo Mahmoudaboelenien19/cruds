@@ -9,7 +9,6 @@ let isPhoneValid = false;
 
 export let signUpCheck = async () => {
 
-    console.log( { passWordStrength, passwordMatch, isEmailValid, isPhoneValid, isUserValid } );
     if ( passWordStrength && passwordMatch && isEmailValid && isPhoneValid && isUserValid ) {
         return true;
 
@@ -130,67 +129,43 @@ export const emailValidiation = ( e ) => {
 
 
 
-export const handleSignUpPopUps = ( e ) => {
-    console.log( "blur" );
-
-    if ( e.target.value != '' ) {
-
-        if ( e.target.classList.contains( "user-inp" ) ) {
-
-            if ( isUserValid ) {
-                handlePop( " valid username !" );
-
-            } else {
-                handlePop( "invalid username !", "danger" );
-
-            }
-
-        }
+export const handleSignUpPopUps = () => {
 
 
-        else if ( e.target.classList.contains( "email" ) ) {
-            if ( isEmailValid ) {
+    if ( !isUserValid ) {
 
-                handlePop( "valid email !" );
-            } else {
-                handlePop( "invalid email !", "danger" );
+        handlePop( "invalid username !", "danger" );
 
-            }
-        }
-
-
-        else if ( e.target.classList.contains( "phone" ) ) {
-
-            if ( isPhoneValid ) {
-                handlePop( "valid phone !" );
-
-
-            } else {
-                handlePop( "invalid phone !", "danger" );
-            }
-        }
-
-        else if ( e.target.classList.contains( "confirm" ) ) {
-            if ( passwordMatch ) {
-
-                handlePop( "password  match !" );
-
-            } else {
-                handlePop( "password doesn't match!", "danger" );
-
-            }
-        }
-
-        else if ( e.target.classList.contains( "pass" ) ) {
-            if ( passWordStrength ) {
-                handlePop( "your password is valid !" );
-            }
-            else {
-                handlePop( "your password is weak !", "danger" );
-
-            }
-        }
     }
-};
+
+
+    else if ( !isEmailValid ) {
+
+
+        handlePop( "invalid email !", "danger" );
+
+    }
+
+
+
+    else if ( !isPhoneValid ) {
+
+        handlePop( "invalid phone !", "danger" );
+    }
+
+    else if ( !passwordMatch ) {
+
+        handlePop( "password doesn't match!", "danger" );
+
+    }
+
+
+    else if ( !passWordStrength ) {
+
+        handlePop( "your password is weak !", "danger" );
+
+    }
+}
+
 
 
