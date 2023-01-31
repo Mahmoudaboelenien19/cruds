@@ -13,7 +13,8 @@ const form = document.querySelector( "form" );
 const search = document.getElementById( "search" );
 
 export let Arr = [];
-console.log( "index" );
+
+
 
 export let showDataInPage = async () => {
 
@@ -25,7 +26,14 @@ export let showDataInPage = async () => {
 };
 
 
+if ( localStorage.getItem( "log-message" ) ) {
 
+  handlePop( localStorage.getItem( "log-message" ) );
+  setTimeout( () => {
+    localStorage.clear();
+  }, 1200 );
+
+}
 
 
 window.addEventListener( "load", showDataInPage );
@@ -47,10 +55,9 @@ const handleActions = ( e ) => {
 tbody.addEventListener( "click", handleActions );
 
 
-document.addEventListener( 'user-created', () => {
-  handlePop( "user created sucessfully" );
-  console.log( "created ev" );
-} );
+// document.addEventListener( 'user-created', () => {
+//   handlePop( "user created sucessfully" );
+// } );
 
 
 // let searchMode = 'title';

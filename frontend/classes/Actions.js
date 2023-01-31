@@ -1,4 +1,5 @@
 import { Arr, btn, clear, showDataInPage } from "../index.js";
+import { handlePop } from "../widgets/popup.js";
 import fetchProduct from "./fetchApi.js";
 import { ui } from "./UI.js";
 
@@ -45,14 +46,14 @@ class Actions {
             showDataInPage();
 
             ui.emptyinputs();
-            ui.handlePop( data.message );
+            handlePop( data.message );
 
         } else {
 
             const data = await fetchProduct.update( productData, Arr[Actions.updatedElement].id );
             showDataInPage();
 
-            ui.handlePop( data.message );
+            handlePop( data.message );
             Actions.mode = 'create';
             ui.emptyinputs();
 
@@ -65,7 +66,7 @@ class Actions {
         const data = await fetchProduct.clear();
         showDataInPage();
         clear.innerHTML = '';
-        ui.handlePop( data.message );
+        handlePop( data.message );
     };
 
 
@@ -103,7 +104,7 @@ class Actions {
             let deletedElement = Arr.find( ele => ele.id == e.target.dataset.id );
             let data = await fetchProduct.delete( deletedElement.id );
             showDataInPage();
-            ui.handlePop( data.message );
+            handlePop( data.message );
         }
     };
 
@@ -112,7 +113,7 @@ class Actions {
             this.addElementsToDatabase( Arr );
 
         } else {
-            ui.handlePop( "you must fill all inputs", "danger" );
+            handlePop( "you must fill all inputs", "danger" );
 
         }
     }

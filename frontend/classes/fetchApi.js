@@ -1,3 +1,18 @@
+
+function getTokenFromCookie () {
+    const cookie = document.cookie;
+    console.log( { cookie } );
+    const parts = cookie.split( ';' );
+    for ( const part of parts ) {
+        const [name, value] = part.split( '=' );
+        if ( name.trim() === 'token' ) {
+            return value;
+        }
+    }
+    return null;
+}
+
+
 class FetchClass {
 
     constructor() {
@@ -16,10 +31,14 @@ class FetchClass {
 
 
     async create ( product ) {
+        const token = getTokenFromCookie();
 
         let res = await fetch( "/product", {
             method: "POST",
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${ token }`
+            },
             body: JSON.stringify( product )
         } );
         let data = await res.json();
@@ -28,9 +47,13 @@ class FetchClass {
 
 
     async delete ( id ) {
-
+        const token = getTokenFromCookie();
         const data = await fetch( `/product/${ id }`, {
             method: "DELETE",
+            headers: {
+
+                'Authorization': `Bearer ${ token }`
+            }
         } );
 
         return data.json();
@@ -38,16 +61,25 @@ class FetchClass {
 
 
     async clear () {
+        const token = getTokenFromCookie();
         const data = await fetch( `/products`, {
             method: "DELETE"
+            , headers: {
+
+                'Authorization': `Bearer ${ token }`
+            }
         } );
         return data.json();
     }
 
     async update ( product, id ) {
+        const token = getTokenFromCookie();
         const data = await fetch( `/product/${ id }`, {
             method: "PATCH",
-            headers: { 'content-Type': 'application/json' },
+            headers: {
+                'content-Type': 'application/json'
+                , 'Authorization': `Bearer ${ token }`
+            },
             body: JSON.stringify( product )
         } );
         return await data.json();

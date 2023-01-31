@@ -81,14 +81,18 @@ const authenticate = async ( req, res ) => {
     if ( result.email ) {
 
         const token = jwt.sign( { user }, process.env.TOKEN_SECRET );
-        res.json( { user, token } );
+        res.cookie( 'token', token );
+        // , { httpOnly: true }
+
+        res.json( { message: "successfully log in !", email: user.email, token } );
     } else if ( result == "password is wrong" ) {
-        res.json( { message: "password is wrong" } );
+
+        res.json( { message: "password is wrong  !" } );
 
     }
 
     else {
-        res.json( { message: "this email is not regesitered" } );
+        res.json( { message: "this email is not regesitered  !" } );
     }
 };
 

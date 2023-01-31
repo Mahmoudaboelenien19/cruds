@@ -92,8 +92,5 @@ phone.addEventListener( "keydown", ( e ) => {
 }
 );
 
-// inputs.forEach( inp => {
-//     inp.addEventListener( "blur", handleSignUpPopUps );
-// }
-// )
+
 

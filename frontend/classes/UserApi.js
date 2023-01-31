@@ -24,6 +24,22 @@ class User {
         return { data, status };
     }
 
+
+    async authenticate ( data ) {
+
+
+        let res = await fetch( "/user/authenticate", {
+            method: "POST",
+            headers: { "content-Type": "application/json" },
+            body: JSON.stringify( data )
+        } );
+
+
+        let info = await res.json( data );
+        console.log( { info } );
+        return info;
+    }
+
 }
 
 let fetchUser = new User();

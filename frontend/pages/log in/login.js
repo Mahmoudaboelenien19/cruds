@@ -1,3 +1,4 @@
+import fetchUser from "../../classes/UserApi.js";
 import { handlePop } from "../../widgets/popup.js";
 
 const LogInForm = document.querySelector( "#log-form" );
@@ -21,11 +22,33 @@ if ( localStorage.getItem( "email" ) && localStorage.getItem( "signupmessage" ) 
 }
 
 
+const handleLogIn = async ( e ) => {
+    e.preventDefault();
+    if ( e.target.classList.contains( "submit" ) ) {
 
-// if ( localStorage.getItem( "iscreated" ) ) {
-//     handlePop( localStorage.getItem( "iscreated" ) );
-//     setTimeout( () => {
-//         localStorage.remove( iscreated );
-//     }, 4000 );
 
-// }
+        const logEmail = document.querySelector( "#log-email" ).value;
+        const logPass = document.querySelector( "#log-password" ).value;
+        const logInData = {
+            email: logEmail,
+            password: logPass
+        };
+
+
+        let res = await fetchUser.authenticate( logInData );
+        setTimeout( () => {
+
+            localStorage.setItem( "log-message", res.message );
+
+            window.location.href = "./../../index.html";
+        }, 1000 );
+    };
+};
+
+
+
+
+
+
+LogInForm.addEventListener( "click", handleLogIn )
+

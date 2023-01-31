@@ -2,7 +2,18 @@ const dotenv = require( "dotenv" );
 const bcrypt = require( "bcrypt" );
 const Client = require( "../database" );
 
+
+// const app = require( "../server.js" );
+
+// const app = express();
+// app.use( cookieParser() );
+
 dotenv.config();
+
+
+
+
+
 const { SALT_ROUNDS, BCRYPT_PASSWORD } = process.env;
 
 const hashPassword = ( password ) => {
@@ -91,7 +102,6 @@ class Users {
                 );
                 console.log( { check } );
                 if ( check ) {
-
                     return user;
                 } else {
                     return "password is wrong";

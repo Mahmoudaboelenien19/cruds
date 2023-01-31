@@ -1,12 +1,17 @@
 {
   "files.exclude": {
     "backend/node_modules": true,
-    "backend/.env": false,
+    "backend/.env": true,
     "backend": false,
-    "backend/migrations": false,
+    "backend/migrations": true,
     "frontend": false,
     "frontend/fontawesome": true,
     "frontend/webfonts": true,
-    "frontend/assets": true
+    "frontend/widgets": true,
+    "frontend/assets": true,
+    "frontend/pages/sign up": true,
+    "frontend/main.css": true,
+    "frontend/index.html": false,
+    "frontend/index.js": false
   }
 }
