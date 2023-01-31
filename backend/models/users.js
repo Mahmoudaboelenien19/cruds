@@ -77,20 +77,32 @@ class Users {
         }
     }
 
-    async authenticate ( email, password ) {
-        const sql = `SELECT password from users where email=($1);`;
-        const conn = await Client.connect();
-        const result = await conn.query( sql, [email] );
-        if ( result.rows.length ) {
-            const user = result.rows[0];
-            const check = bcrypt.compareSync(
-                password + BCRYPT_PASSWORD, user.password
-            );
-            if ( check ) {
-                return user;
+    async authenticate ( user ) {
+        try {
+            const sql = `SELECT password from users where email=($1);`;
+            const conn = await Client.connect();
+            const result = await conn.query( sql, [user.email] );
+            console.log( { len: result.rows } );
+            if ( result.rows.length ) {
+                console.log( "entered check" );
+                const pass = result.rows[0];
+                const check = bcrypt.compareSync(
+                    user.password + BCRYPT_PASSWORD, pass.password
+                );
+                console.log( { check } );
+                if ( check ) {
+
+                    return user;
+                } else {
+                    return "password is wrong";
+                }
             }
+            return "this email not resigetered";
+
         }
-        return null;
+        catch ( err ) {
+            throw new Error( "this email not regestired" );
+        }
     }
 
 
