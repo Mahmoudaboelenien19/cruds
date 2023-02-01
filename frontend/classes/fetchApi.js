@@ -1,3 +1,4 @@
+import { handlePop } from "../widgets/popup.js";
 
 function getTokenFromCookie () {
     const cookie = document.cookie;
@@ -33,56 +34,78 @@ class FetchClass {
     async create ( product ) {
         const token = getTokenFromCookie();
 
-        let res = await fetch( "/product", {
-            method: "POST",
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${ token }`
-            },
-            body: JSON.stringify( product )
-        } );
-        let data = await res.json();
-        return data;
+        if ( token ) {
+
+
+            let res = await fetch( "/product", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${ token }`
+                },
+                body: JSON.stringify( product )
+            } );
+            let data = await res.json();
+            return data;
+        } else {
+            return null;
+        }
+
     }
 
 
     async delete ( id ) {
         const token = getTokenFromCookie();
-        const data = await fetch( `/product/${ id }`, {
-            method: "DELETE",
-            headers: {
+        if ( token ) {
+            const data = await fetch( `/product/${ id }`, {
+                method: "DELETE",
+                headers: {
 
-                'Authorization': `Bearer ${ token }`
-            }
-        } );
+                    'Authorization': `Bearer ${ token }`
+                }
+            } );
 
-        return data.json();
+            return data.json();
+        } else {
+            return null;
+        }
     }
 
 
     async clear () {
         const token = getTokenFromCookie();
-        const data = await fetch( `/products`, {
-            method: "DELETE"
-            , headers: {
+        if ( token ) {
 
-                'Authorization': `Bearer ${ token }`
-            }
-        } );
-        return data.json();
+            const data = await fetch( `/products`, {
+                method: "DELETE"
+                , headers: {
+
+                    'Authorization': `Bearer ${ token }`
+                }
+            } );
+            return data.json();
+        } else {
+            return null;
+        }
     }
 
     async update ( product, id ) {
         const token = getTokenFromCookie();
-        const data = await fetch( `/product/${ id }`, {
-            method: "PATCH",
-            headers: {
-                'content-Type': 'application/json'
-                , 'Authorization': `Bearer ${ token }`
-            },
-            body: JSON.stringify( product )
-        } );
-        return await data.json();
+        if ( token ) {
+
+
+            const data = await fetch( `/product/${ id }`, {
+                method: "PATCH",
+                headers: {
+                    'content-Type': 'application/json'
+                    , 'Authorization': `Bearer ${ token }`
+                },
+                body: JSON.stringify( product )
+            } );
+            return await data.json();
+        } else {
+            return null;
+        }
     };
 
 }

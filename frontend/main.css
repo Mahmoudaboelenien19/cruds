@@ -1,3 +1,5 @@
+@import "./variables.css";
+
 * {
   padding: 0;
   margin: 0;
@@ -31,20 +33,10 @@ nav {
   text-align: center;
   margin: 20px 0;
   color: transparent;
-  background: url(assets/images/wooden.jpg);
+  background: linear-gradient(120deg, rgb(62, 62, 223), darkgrey);
   -webkit-background-clip: text;
-  animation: bg-animate 15s linear alternate infinite;
   cursor: pointer;
   font-weight: bold;
-}
-
-@keyframes bg-animate {
-  0% {
-    background-position: 0 100%;
-  }
-  100% {
-    background-position: 100% 0;
-  }
 }
 
 #nav-link {

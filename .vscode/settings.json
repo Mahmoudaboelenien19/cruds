@@ -7,10 +7,10 @@
     "frontend": false,
     "frontend/fontawesome": true,
     "frontend/webfonts": true,
-    "frontend/widgets": true,
+    "frontend/widgets": false,
     "frontend/assets": true,
     "frontend/pages/sign up": true,
-    "frontend/main.css": true,
+    "frontend/main.css": false,
     "frontend/index.html": false,
     "frontend/index.js": false
   }

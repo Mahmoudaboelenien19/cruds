@@ -42,20 +42,31 @@ class Actions {
         if ( Actions.mode == 'create' ) {
 
             let data = await fetchProduct.create( productData );
-            console.log( data );
-            showDataInPage();
+            if ( data ) {
+                showDataInPage();
 
-            ui.emptyinputs();
-            handlePop( data.message );
+                ui.emptyinputs();
+                handlePop( data.message );
+            } else {
+                handlePop( "you must login to create new item !", "danger" );
+
+            }
+
 
         } else {
 
             const data = await fetchProduct.update( productData, Arr[Actions.updatedElement].id );
-            showDataInPage();
+            if ( data ) {
+                showDataInPage();
 
-            handlePop( data.message );
-            Actions.mode = 'create';
-            ui.emptyinputs();
+                handlePop( data.message );
+                Actions.mode = 'create';
+                ui.emptyinputs();
+            } else {
+                handlePop( "you must login to update this item !", "danger" );
+
+            }
+
 
         }
     };
@@ -64,9 +75,15 @@ class Actions {
 
     async handeClearAll () {
         const data = await fetchProduct.clear();
-        showDataInPage();
-        clear.innerHTML = '';
-        handlePop( data.message );
+        if ( data ) {
+            showDataInPage();
+            clear.innerHTML = '';
+            handlePop( data.message );
+        } else {
+            handlePop( "you must login to clear all products !", "danger" );
+
+        }
+
     };
 
 
@@ -103,8 +120,12 @@ class Actions {
         if ( e.target.classList.contains( "del" ) ) {
             let deletedElement = Arr.find( ele => ele.id == e.target.dataset.id );
             let data = await fetchProduct.delete( deletedElement.id );
-            showDataInPage();
-            handlePop( data.message );
+            if ( data ) {
+                showDataInPage();
+                handlePop( data.message );
+            } else {
+                handlePop( "you must login to delete this item !", "danger" );
+            }
         }
     };
 

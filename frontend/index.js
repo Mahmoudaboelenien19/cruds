@@ -14,8 +14,6 @@ const search = document.getElementById( "search" );
 
 export let Arr = [];
 
-
-
 export let showDataInPage = async () => {
 
   let data = await fetchProduct.get();
@@ -25,18 +23,27 @@ export let showDataInPage = async () => {
 
 };
 
-
-if ( localStorage.getItem( "log-message" ) ) {
-
-  handlePop( localStorage.getItem( "log-message" ) );
+window.addEventListener( "load", () => {
   setTimeout( () => {
-    localStorage.clear();
-  }, 1200 );
 
-}
+    document.querySelector( ".loading-cont" ).classList.add( "hide" );
+    if ( localStorage.getItem( "log-message" ) ) {
+
+      handlePop( localStorage.getItem( "log-message" ) );
+      setTimeout( () => {
+        localStorage.clear();
+      }, 1200 );
+
+    }
+    showDataInPage();
+  }, 4500 );
 
 
-window.addEventListener( "load", showDataInPage );
+} );
+
+
+
+
 
 form.addEventListener( "submit", ( e ) => e.preventDefault() );
 
@@ -55,9 +62,6 @@ const handleActions = ( e ) => {
 tbody.addEventListener( "click", handleActions );
 
 
-// document.addEventListener( 'user-created', () => {
-//   handlePop( "user created sucessfully" );
-// } );
 
 
 // let searchMode = 'title';
