@@ -1,12 +1,8 @@
 const dotenv = require( "dotenv" );
 const bcrypt = require( "bcrypt" );
 const Client = require( "../database" );
+const jwt = require( "jsonwebtoken" );
 
-
-// const app = require( "../server.js" );
-
-// const app = express();
-// app.use( cookieParser() );
 
 dotenv.config();
 
@@ -90,19 +86,19 @@ class Users {
 
     async authenticate ( user ) {
         try {
-            const sql = `SELECT password from users where email=($1);`;
+            console.log( "1" );
+            const sql = `SELECT name,password from users where email=($1) ;`;
+            console.log( "2" );
+
             const conn = await Client.connect();
             const result = await conn.query( sql, [user.email] );
-            console.log( { len: result.rows } );
             if ( result.rows.length ) {
-                console.log( "entered check" );
                 const pass = result.rows[0];
                 const check = bcrypt.compareSync(
                     user.password + BCRYPT_PASSWORD, pass.password
                 );
-                console.log( { check } );
                 if ( check ) {
-                    return user;
+                    return { ...user, name: result.rows[0].name };
                 } else {
                     return "password is wrong";
                 }
@@ -122,7 +118,19 @@ class Users {
 
 
 
+    async verfiyRefeshToken ( refToken ) {
+        try {
 
+
+            const decode = jwt.verify(
+                refToken, process.env.Refresh_TOKEN_SECRET );
+            console.log( { decode } );
+            return decode;
+        }
+        catch ( err ) {
+            throw new Error( "this email not regestired" );
+        }
+    }
 
 }
 

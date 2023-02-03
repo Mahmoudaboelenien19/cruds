@@ -6,7 +6,6 @@ const userRoutes = require( "./handlers/userRoutes" );
 const cookieParser = require( 'cookie-parser' );
 
 
-// other middleware and routes
 
 
 const app = express();
