@@ -118,6 +118,32 @@ const regenerateToken = async ( req, res ) => {
     }
 };
 
+
+
+
+const deleteRefreshToken = async ( req, res ) => {
+    const { refToken } = req.body;
+    if ( !refToken ) {
+        console.log( "wrong refresh token" );
+    } else {
+        let user = await store.verfiyRefeshToken( refToken );
+        console.log( { 104: user } );
+        if ( user ) {
+
+
+
+            res.clearCookie( 'user' );
+            res.clearCookie( 'token' );
+            res.clearCookie( 'refresh token' );
+            res.json( { message: "you logout successfully" } );
+        } else {
+            res.json( "wrong refresh token" );
+        }
+    }
+};
+
+
+
 const userRoutes = Router();
 
 userRoutes.route( "/user" ).post( checkBeforeCreate, create );
@@ -125,5 +151,6 @@ userRoutes.route( "/user/:id" ).patch( authorization, update );
 
 userRoutes.route( "/user/authenticate" ).post( authenticate );
 userRoutes.route( "/user/auth/refresh" ).post( regenerateToken );
+userRoutes.route( "/user/logout" ).delete( deleteRefreshToken );
 
 module.exports = userRoutes;

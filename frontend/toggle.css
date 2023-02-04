@@ -1,0 +1,150 @@
+@import "./variables.css";
+
+.toggle {
+  width: 60px;
+  height: 30px;
+  border-radius: 60px;
+  background: var(--main);
+  color: rgb(245, 240, 240);
+  overflow: hidden;
+  margin-left: 30px;
+  transition: 0.3s 1.5s;
+}
+
+.dark {
+  position: relative;
+}
+.fa-star {
+  font-size: 5px;
+  height: 5px;
+}
+.star1 {
+  position: absolute;
+  top: 5px;
+  left: 25px;
+  animation: animate 2s linear reverse;
+}
+
+.star2 {
+  position: absolute;
+  top: 20px;
+  left: 15px;
+  animation: animate 2s linear reverse;
+}
+
+.dot1 {
+  display: inline-block;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: rgb(245, 240, 240);
+  position: absolute;
+  left: 25px;
+  top: 18px;
+}
+
+.dot2 {
+  display: inline-block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgb(245, 240, 240);
+  position: absolute;
+  left: 10px;
+  top: 5px;
+}
+
+.star1.light-mode,
+.star2.light-mode {
+  animation: animate 2s linear forwards;
+}
+@keyframes animate {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(60px);
+  }
+}
+.fa-moon {
+  font-size: 30px;
+  transform: rotateY(180deg);
+  position: absolute;
+  top: 0;
+  right: 4px;
+  opacity: 1;
+  animation: opacity 1s linear;
+}
+.fa-moon.light-mode {
+  animation: dark 2s linear forwards;
+}
+.fa-moon.return {
+  animation: dark 2s linear reverse;
+}
+
+@keyframes dark {
+  0% {
+    transform: translateX(0) rotate(0);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateX(-30px) rotate(360deg);
+  }
+  100% {
+    transform: translateX(-30px) rotate(360deg);
+
+    opacity: 0;
+  }
+}
+.light {
+  position: relative;
+}
+.sun {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: #bbb20f;
+  border-radius: 50%;
+  opacity: 1;
+  transition: 1s;
+  animation: opacity 1s linear;
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.sun.dark-mode {
+  animation: light 2s linear;
+}
+
+@keyframes light {
+  0% {
+    transform: translateX(0) rotate(0);
+    opacity: 1;
+  }
+
+  80% {
+    transform: translateX(30px) rotate(360deg);
+  }
+  100% {
+    transform: translateX(30px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+.sun.hide,
+.fa-moon.hide {
+  display: none;
+}

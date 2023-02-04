@@ -2,6 +2,7 @@ import { Arr, btn, clear, showDataInPage } from "../index.js";
 import { handlePop } from "../widgets/popup.js";
 import fetchProduct from "./fetchApi.js";
 import { ui } from "./UI.js";
+import fetchUser from "./UserApi.js";
 
 export const product = document.getElementById( "product" );
 export const price = document.getElementById( "price" );
@@ -137,6 +138,19 @@ class Actions {
             handlePop( "you must fill all inputs", "danger" );
 
         }
+    }
+
+
+
+    async handlelogout () {
+
+        let { message } = await fetchUser.logout();
+        localStorage.setItem( "logoutMsg", message );
+        location.href = "./../pages/log in/login.html";
+        setTimeout( () => {
+            localStorage.removeItem( "logoutMsg", message );
+
+        }, 1000 );
     }
 }
 

@@ -1,7 +1,7 @@
 {
   "files.exclude": {
     "backend/node_modules": true,
-    "backend/.env": true,
+    "backend/.env": false,
     "backend": false,
     "backend/migrations": true,
     "frontend": false,

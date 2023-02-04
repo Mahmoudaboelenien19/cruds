@@ -1,5 +1,6 @@
 import { totalCont, clear } from "../index.js";
 import { ads, discount, price, tax, total } from "./Actions.js";
+import { getTokenFromCookie } from "./fetchApi.js";
 
 
 class Ui {
@@ -75,6 +76,30 @@ class Ui {
         count.value = '';
 
     }
+
+
+    handleUserName () {
+        const userName = document.querySelector( "#username" );
+        const login = document.getElementById( "login" );
+        const logout = document.getElementById( "logout" );
+        let data = getTokenFromCookie();
+        console.log( { data } );
+        if ( data.user ) {
+            userName.innerHTML = data.user;
+            console.log( { login, logout } );
+            logout.classList.remove( "hide" );
+            login.classList.add( "hide" );
+            console.log( "loginCheck" );
+
+        }
+        else {
+            userName.innerHTML = "guest";
+            login.classList.remove( "hide" );
+            logout.classList.add( "hide" );
+
+        }
+    }
+
 
 }
 

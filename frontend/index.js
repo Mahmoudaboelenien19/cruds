@@ -2,6 +2,7 @@ import { action } from "./classes/Actions.js";
 import fetchProduct from "./classes/fetchApi.js";
 import { ui } from "./classes/UI.js";
 import { handlePop } from "./widgets/popup.js";
+import { handleToggle, hanleColors, toggle } from "./widgets/toggle.js";
 
 export const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
@@ -24,23 +25,26 @@ export let showDataInPage = async () => {
 };
 
 window.addEventListener( "load", () => {
+  hanleColors();
+  ui.handleUserName();
   setTimeout( () => {
 
     document.querySelector( ".loading-cont" ).classList.add( "hide" );
-    if ( localStorage.getItem( "log-message" ) ) {
-
-      handlePop( localStorage.getItem( "log-message" ) );
-      setTimeout( () => {
-        localStorage.clear();
-      }, 1200 );
-
-    }
     showDataInPage();
+
   }, 4500 );
 
 
 } );
 
+if ( localStorage.getItem( "log-message" ) ) {
+
+  handlePop( localStorage.getItem( "log-message" ) );
+  setTimeout( () => {
+    localStorage.clear();
+  }, 1200 );
+
+}
 
 
 
@@ -60,6 +64,7 @@ const handleActions = ( e ) => {
 };
 
 tbody.addEventListener( "click", handleActions );
+toggle.addEventListener( "click", handleToggle );
 
 
 
@@ -118,3 +123,5 @@ tbody.addEventListener( "click", handleActions );
 
 
 
+
+document.querySelector( "#logout" ).addEventListener( "click", action.handlelogout );

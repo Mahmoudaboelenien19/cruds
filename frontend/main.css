@@ -1,15 +1,17 @@
 @import "./variables.css";
+@import "./toggle.css";
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
   font-family: "PT Sans", sans-serif;
+  transition: 0.5s;
 }
 
 body {
   width: 100%;
-  background-color: rgb(245, 240, 240);
+  background-color: var(--main);
   color: #3b0404;
 }
 
@@ -24,7 +26,7 @@ nav {
   align-items: center;
   justify-content: space-between;
   padding: 0 20px;
-  background: black;
+  background: var(--secondary);
   margin-bottom: 40px;
 }
 
@@ -39,17 +41,26 @@ nav {
   font-weight: bold;
 }
 
-#nav-link {
+#login,
+#logout {
   text-decoration: none;
-  color: white;
+  color: var(--main);
   transition: 0.3s;
 }
-#nav-link:hover {
+
+#login.hide,
+#logout.hide {
+  display: none;
+}
+#login:hover,
+#logout:hover {
   color: rgb(102, 102, 250);
 }
 
 .log-part {
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #guest-user {
@@ -59,7 +70,7 @@ nav {
 }
 
 #user {
-  color: white;
+  color: var(--main);
   margin: 0 10px;
   gap: 5px;
   display: flex;
@@ -85,8 +96,8 @@ input {
   border-style: none none solid none;
   border-bottom: 2px solid wheat;
   padding-left: 10px;
-  background-color: #353935;
-  color: white;
+  background-color: var(--secondary);
+  color: var(--main);
   text-transform: lowercase;
   border-radius: 5px;
 }
@@ -112,7 +123,7 @@ input {
   top: 50%;
   left: 10px;
   transform: translateY(-50%);
-  color: white;
+  color: var(--main);
   transition: 0.4s;
   text-transform: capitalize;
   display: flex;
@@ -136,11 +147,10 @@ input:valid ~ .placeholder .icon {
 input:focus ~ .placeholder,
 input:valid ~ .placeholder {
   top: 0;
-  color: white;
+  color: var(--main);
   background: darkgrey;
   border-right: 2px solid wheat;
   border-left: 2px solid wheat;
-  color: #000;
   padding: 0 4px;
   font-size: 16px;
 }
@@ -149,7 +159,7 @@ input:valid ~ .placeholder {
   min-height: 100%;
   width: 120px;
   background-color: rgb(91, 23, 23);
-  color: white;
+  color: rgb(245, 240, 240);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -180,7 +190,7 @@ button {
   height: 40px;
   padding: 0 5px;
   background-color: #2e12ce;
-  color: white;
+  color: rgb(245, 240, 240);
   text-transform: capitalize;
   letter-spacing: 0.7px;
   transition: 0.3s;
@@ -206,6 +216,7 @@ table {
   background-color: rgba(0, 0, 0, 0.2);
   padding: 10px;
   border-radius: 5px;
+  color: var(--secondary);
 }
 
 .tableContainer {
@@ -214,18 +225,17 @@ table {
   margin-bottom: 20px;
 }
 *::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px black;
+  box-shadow: inset 0 0 5px var(--secondary);
 }
 
 *::-webkit-scrollbar {
   width: 10px;
 }
 
-/* Handle */
-
 *::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, wheat, green);
+  background: linear-gradient(135deg, var(--secondary), darkblue);
 }
+
 td button {
   width: fit-content;
   padding: 0 5px;
@@ -287,6 +297,7 @@ td#update button:hover {
   width: 400px;
   padding: 20px;
   overflow: hidden;
+  z-index: 120;
 }
 .pop {
   display: inline-block;
@@ -295,9 +306,10 @@ td#update button:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 4px;
   border-radius: 2px;
   color: white;
-  animation: pop-entry 4s linear;
+  animation: pop-entry 4s linear forwards;
   max-height: fit-content;
 }
 

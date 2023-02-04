@@ -1,17 +1,65 @@
-import { handlePop } from "../widgets/popup.js";
 
-function getTokenFromCookie () {
+export const getRefreshTOken = () => {
     const cookie = document.cookie;
-    console.log( { cookie } );
     const parts = cookie.split( ';' );
+
+
+
     for ( const part of parts ) {
         const [name, value] = part.split( '=' );
-        if ( name.trim() === 'token' ) {
+
+
+        if ( name.trim() === 'refresh token' ) {
             return value;
         }
+
+    };
+};
+
+
+
+const generateNewToken = async () => {
+    let refToken = getRefreshTOken();
+    if ( refToken ) {
+
+        let res = await fetch( "/user/auth/refresh", {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify( { refToken } )
+        } );
+        let data = await res.json();
+        console.log( { newToken: data } );
+        return data;
+
+    } else {
+        console.log( "unautharized" );
     }
-    return null;
-}
+};
+
+
+
+
+export const getTokenFromCookie = () => {
+    const cookie = document.cookie;
+    const parts = cookie.split( ';' );
+
+    let user = null;
+    let token = null;
+    for ( const part of parts ) {
+        const [name, value] = part.split( '=' );
+
+        if ( name.trim() === 'token' ) {
+            token = value;
+        }
+        if ( name.trim() === 'user' ) {
+            user = value;
+        }
+
+    }
+    return { user, token };
+};
 
 
 class FetchClass {
@@ -32,16 +80,16 @@ class FetchClass {
 
 
     async create ( product ) {
-        const token = getTokenFromCookie();
-
-        if ( token ) {
+        const cookie = await generateNewToken();
+        // console.log( cookie );
+        if ( cookie ) {
 
 
             let res = await fetch( "/product", {
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${ token }`
+                    'Authorization': `Bearer ${ cookie.token }`
                 },
                 body: JSON.stringify( product )
             } );
@@ -55,13 +103,13 @@ class FetchClass {
 
 
     async delete ( id ) {
-        const token = getTokenFromCookie();
-        if ( token ) {
+        const cookie = await generateNewToken();
+        if ( cookie ) {
             const data = await fetch( `/product/${ id }`, {
                 method: "DELETE",
                 headers: {
 
-                    'Authorization': `Bearer ${ token }`
+                    'Authorization': `Bearer ${ cookie.token }`
                 }
             } );
 
@@ -73,14 +121,14 @@ class FetchClass {
 
 
     async clear () {
-        const token = getTokenFromCookie();
-        if ( token ) {
+        const cookie = await generateNewToken();
+        if ( cookie ) {
 
             const data = await fetch( `/products`, {
                 method: "DELETE"
                 , headers: {
 
-                    'Authorization': `Bearer ${ token }`
+                    'Authorization': `Bearer ${ cookie.token }`
                 }
             } );
             return data.json();
@@ -90,15 +138,15 @@ class FetchClass {
     }
 
     async update ( product, id ) {
-        const token = getTokenFromCookie();
-        if ( token ) {
+        const cookie = await generateNewToken();
+        if ( cookie ) {
 
 
             const data = await fetch( `/product/${ id }`, {
                 method: "PATCH",
                 headers: {
                     'content-Type': 'application/json'
-                    , 'Authorization': `Bearer ${ token }`
+                    , 'Authorization': `Bearer ${ cookie.token }`
                 },
                 body: JSON.stringify( product )
             } );

@@ -1,4 +1,4 @@
 :root {
-  --main: black;
-  --secondary: white;
+  --main: rgb(245, 240, 240);
+  --secondary: #161716;
 }

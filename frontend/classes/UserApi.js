@@ -1,3 +1,5 @@
+import { getRefreshTOken } from "./fetchApi.js";
+
 class User {
     constructor() {
         if ( User.instance ) {
@@ -32,6 +34,23 @@ class User {
             method: "POST",
             headers: { "content-Type": "application/json" },
             body: JSON.stringify( data )
+        } );
+
+
+        let info = await res.json( data );
+        console.log( { info } );
+        return info;
+    }
+
+
+
+    async logout ( data ) {
+        let refToken = getRefreshTOken();
+
+        let res = await fetch( "/user/logout", {
+            method: "delete",
+            headers: { "content-Type": "application/json" },
+            body: JSON.stringify( { refToken } )
         } );
 
 

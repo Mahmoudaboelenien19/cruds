@@ -21,6 +21,12 @@ if ( localStorage.getItem( "email" ) && localStorage.getItem( "signupmessage" ) 
 
 }
 
+if ( localStorage.getItem( "logoutMsg" ) ) {
+
+    handlePop( localStorage.getItem( "logoutMsg" ) );
+
+}
+
 
 const handleLogIn = async ( e ) => {
     e.preventDefault();
