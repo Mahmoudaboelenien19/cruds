@@ -32,7 +32,7 @@
   animation: animate 2s linear reverse;
 }
 
-.dot1 {
+.dot {
   display: inline-block;
   width: 2px;
   height: 2px;
@@ -43,13 +43,9 @@
   top: 18px;
 }
 
-.dot2 {
-  display: inline-block;
+.dot:nth-of-type(2) {
   width: 4px;
   height: 4px;
-  border-radius: 50%;
-  background: rgb(245, 240, 240);
-  position: absolute;
   left: 10px;
   top: 5px;
 }
@@ -73,14 +69,13 @@
   top: 0;
   right: 4px;
   opacity: 1;
-  animation: opacity 1s linear;
 }
 .fa-moon.light-mode {
   animation: dark 2s linear forwards;
 }
-.fa-moon.return {
+/* .fa-moon.return {
   animation: dark 2s linear reverse;
-}
+} */
 
 @keyframes dark {
   0% {
@@ -144,7 +139,7 @@
   }
 }
 
-.sun.hide,
+/* .sun.hide,
 .fa-moon.hide {
   display: none;
-}
+} */

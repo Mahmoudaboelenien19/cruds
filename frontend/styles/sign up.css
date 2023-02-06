@@ -63,10 +63,12 @@ button.submit {
 #strength span.weak {
   background: var(--weak);
 }
+
 #name,
 #phone {
   position: relative;
 }
+
 .strength-p {
   width: 70%;
   margin: 0 auto;
@@ -88,6 +90,7 @@ button.submit {
 .strength-p span.strong {
   color: var(--strong);
 }
+
 .strength-p.hide {
   display: none;
 }
@@ -103,8 +106,8 @@ button.submit {
 .fa-check {
   color: var(--strong);
   animation: opacity-icon 0.2s linear forwards;
-  transition: ;
 }
+
 .fa-x {
   color: var(--weak);
   animation: opacity-icon 0.2s linear forwards;
@@ -121,6 +124,7 @@ button.submit {
     opacity: 1;
   }
 }
+
 .hide {
   display: none;
 }

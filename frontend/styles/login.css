@@ -1,8 +1,17 @@
+@import "./variables.css";
+
 :root {
   --main-sign: rgb(48, 77, 206);
   --secondary-sign: rgb(42, 122, 95);
 }
 
+#nav-link {
+  text-decoration: none;
+  color: var(--main);
+}
+#nav-link:hover {
+  color: var(--secondary-sign);
+}
 .content {
   width: 100%;
   height: calc(100vh - 40px - 40px);

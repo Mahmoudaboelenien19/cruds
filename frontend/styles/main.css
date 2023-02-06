@@ -1,0 +1,38 @@
+@import "./toggle.css";
+@import "./variables.css";
+@import "./nav.css";
+@import "./form.css";
+@import "./table.css";
+@import "./popup.css";
+@import "./loading.css";
+@import "./pop-clear.css";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "PT Sans", sans-serif;
+  transition: 0.5s;
+}
+
+body {
+  width: 100%;
+  background-color: var(--main);
+}
+
+.container {
+  width: 100%;
+  height: auto;
+}
+
+*::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--secondary);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--secondary), darkblue);
+}

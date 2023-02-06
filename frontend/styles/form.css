@@ -1,0 +1,151 @@
+@import "./variables.css";
+
+form {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+input {
+  width: 100%;
+  height: 40px;
+  outline: none;
+  border-style: none none solid none;
+  border-bottom: 2px solid wheat;
+  padding-left: 10px;
+  background-color: var(--secondary);
+  color: var(--main);
+  text-transform: lowercase;
+  border-radius: 5px;
+}
+
+.inp-parent {
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+.prices {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  gap: 10px;
+}
+
+.prices .inp-parent {
+  height: 100%;
+  width: 20%;
+}
+
+.inp-parent .placeholder {
+  font-size: 12px;
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: var(--main);
+  text-transform: capitalize;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+}
+
+.prices .inp-parent input {
+  width: 100%;
+  height: 100%;
+}
+
+input ~ .placeholder .icon {
+  display: none;
+}
+
+input:focus ~ .placeholder,
+input:valid ~ .placeholder {
+  top: 0;
+  color: var(--secondary);
+  background: darkgrey;
+  border-right: 2px solid wheat;
+  border-left: 2px solid wheat;
+  padding: 0 4px;
+  font-size: 16px;
+}
+
+input:focus ~ .placeholder .icon,
+input:valid ~ .placeholder .icon {
+  display: block;
+  font-size: 12px;
+  transition: 0;
+}
+
+.prices #total-cont {
+  height: 40px;
+  min-height: 100%;
+  width: 120px;
+  background-color: rgb(91, 23, 23);
+  color: rgb(245, 240, 240);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border-bottom: 2px solid wheat;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+div#btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-btn {
+  display: flex;
+  justify-content: space-evenly;
+  margin: 12px 0;
+}
+
+button {
+  width: max-content;
+  height: 40px;
+  padding: 0 5px;
+  background-color: #2e12ce;
+  color: rgb(245, 240, 240);
+  text-transform: capitalize;
+  letter-spacing: 0.7px;
+  transition: 0.3s;
+  border-radius: 10px;
+  border: 2px wheat solid;
+}
+
+button:hover {
+  letter-spacing: 1.5px;
+  transform: scale(1.05);
+  background-color: rgb(36, 18, 200);
+}
+
+.search button {
+  width: 180px;
+  text-transform: capitalize;
+}
+
+.clear {
+  position: absolute;
+  text-transform: capitalize;
+  /* color: rgb(124, 37, 37); */
+  color: var(--main);
+  padding: 0 5px;
+  font-size: 16px;
+  /* background: var(--main); */
+  top: 50%;
+  right: 10px;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}

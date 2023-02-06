@@ -6,8 +6,8 @@
     <link rel="icon" href="../../assets/images/c.png" type="image/x-icon" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../main.css" />
-    <link rel="stylesheet" href="./login.css" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/login.css" />
     <link rel="stylesheet" href="../../fontawesome/all.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@1,700&display=swap"
@@ -27,10 +27,12 @@
           <p class="label">Log In</p>
           <div class="inp-parent">
             <input type="text" id="log-email" required />
+            <span class="clear hide"  title="clear this input"> x</span>
             <span class="placeholder"><i class=" icon fa fa-envelope" aria-hidden="true"></i> Email</span>
           </div>
           <div class="inp-parent">
             <input type="password" id="log-password" class="password" required />
+
             <span class="placeholder"><i class="icon fa-solid fa-lock"></i>password</span>
             <span class="eye"><i class="fa-solid fa-eye"></i></span>
           </div>
@@ -46,5 +48,6 @@
     <script src="../../fontawesome/all.js"></script>
     <script src="login.js" type="module"></script>
     <script src="../login&signUp.js"></script>
+    <script src="../../widgets/inp.js"></script>
   </body>
 </html>

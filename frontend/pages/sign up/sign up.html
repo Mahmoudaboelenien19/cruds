@@ -6,14 +6,14 @@
     <link rel="icon" href="../../assets/images/c.png" type="image/x-icon" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-   <link rel="stylesheet" href="../log in/login.css">
-    <link rel="stylesheet" href="./../../main.css" />
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/login.css" />
+    <link rel="stylesheet" href="../../styles/sign up.css" />
     <link rel="stylesheet" href="./../../fontawesome/all.css" />
-    <link rel="stylesheet" href="./sign up.css" />
     <link
-    href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@1,700&display=swap"
-    rel="stylesheet"
-  />
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
     <title>Sign-Up</title>
   </head>
   <body>
@@ -21,63 +21,115 @@
       <nav class="head">
         <a id="logo" href="../../index.html"> CrudCastle</a>
 
-        <a  id="nav-link" href="../log in/login.html">Log In</a>
+        <a id="nav-link" href="../log in/login.html">Log In</a>
       </nav>
       <div class="content">
-        <form id="sign-up-form"  novalidate>
+        <form id="sign-up-form" novalidate>
           <p class="label">Sign Up</p>
           <div class="inp-parent">
-            <input type="text" id="name"  class="user-inp" required />
-            <span class="placeholder"> <i class="icon fa-solid fa-user"></i>Username</span>
+            <input type="text" id="name" class="user-inp" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder">
+              <i class="icon fa-solid fa-user"></i>Username</span
+            >
             <div class="validiation-icons hide" id="user-validate-icon">
-              <i class="fa-solid  fa-x" id="user-x"></i>
-              <i class="fa-solid  fa-check" id="user-check"></i>            </div>
-          </div>
-    
-          <div class="inp-parent">
-            <input type="text" id="email" class="email"  required />
-            <span class="placeholder"><i class=" icon fa fa-envelope" aria-hidden="true"></i>
-              Email</span>
-              <div class="validiation-icons hide" id="email-validate-icon">
-                <i class="fa-solid  fa-x" id="email-x"></i>
-                <i class="fa-solid  fa-check" id="email-check"></i>            </div>
+              <span title="this username isn't valid">
+                <i class="fa-solid fa-x" id="user-x"></i
+              ></span>
+              <span title="this username is valid">
+                <i class="fa-solid fa-check" id="user-check"></i>
+              </span>
+            </div>
           </div>
           <div class="inp-parent">
-            <input type="password" id="password" class=" pass password sign-up-inp"  required />
-            <span class="placeholder"><i class="icon fa-solid fa-lock"></i>password</span>
-            <span class="eye"><i class="fa fa-eye" aria-hidden="true"></i>
+            <input type="text" id="email" class="email" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder"
+              ><i class="icon fa fa-envelope" aria-hidden="true"></i>
+              Email</span
+            >
+            <div class="validiation-icons hide" id="email-validate-icon">
+              <span title="this Email isn't valid">
+                <i class="fa-solid fa-x" id="email-x"></i
+              ></span>
+              <span title="this Email is valid">
+                <i class="fa-solid fa-check" id="email-check"></i>
+              </span>
+            </div>
           </div>
-          
           <div class="inp-parent">
-            <input type="password" id="confirm" class="confirm password inp" required />
-            <span class="placeholder"><i class="icon fa-solid fa-lock" ></i>Confirm password</span>
-            <span class="eye"><i class="fa fa-eye" aria-hidden="true" ></i>
+            <input
+              type="password"
+              id="password"
+              class="pass password sign-up-inp"
+              required
+            />
+            <span class="placeholder"
+              ><i class="icon fa-solid fa-lock"></i>password</span
+            >
+            <span class="eye" title="show password"><i
+              class="fa fa-eye"
+              aria-hidden="true"
+            ></i>
+          </div>
+
+          <div class="inp-parent">
+            <input
+              type="password"
+              id="confirm"
+              class="confirm password inp"
+              required
+            />
+            <span class="placeholder"
+              ><i class="icon fa-solid fa-lock"></i>Confirm password</span
+            >
+            <span class="eye" title="show password"
+              ><i class="fa fa-eye" aria-hidden="true"></i>
             </span>
             <div class="validiation-icons">
-              <i class="fa-solid hide fa-x" id="confirm-x"></i>
-              <i class="fa-solid hide fa-check"  id="confirm-check"></i>            </div>
+              <span title="passwords aren't match">
+                <i class="fa-solid hide fa-x" id="confirm-x"></i
+              ></span>
+              <span title="passwords are match">
+                <i class="fa-solid hide fa-check" id="confirm-check"></i>
+              </span>
+            </div>
           </div>
           <div class="inp-parent">
-            <input type="number" id="phone" class="phone"  required />
-            <span class="placeholder"><i class="icon fa-solid fa-user"></i>phone</span>
+            <input type="number" id="phone" class="phone" required />
+            <span class="clear hide" title="clear this input"> x</span>
+            <span class="placeholder"
+              ><i class="icon fa-solid fa-user"></i>phone</span
+            >
+
             <div class="validiation-icons hide" id="phone-validate-icon">
-              <i class="fa-solid  fa-x" id="phone-x"></i>
-              <i class="fa-solid  fa-check" id="phone-check"></i>            </div>
-      
+              <span title="this phone is valid">
+                <i class="fa-solid fa-check" id="phone-check"></i>
+              </span>
+              <span title="this phone isn't valid">
+                <i class="fa-solid fa-x" id="phone-x"></i>
+              </span>
+            </div>
           </div>
           <div class="inp-parent hide" id="strength-cont">
-            <div id="strength"><span ></span><span ></span> <span ></span></div>
-            <p class="strength-p ">check strength <span class="strength-description"> </span></p>
+            <div id="strength"><span></span><span></span> <span></span></div>
+            <p class="strength-p">
+              check strength <span class="strength-description"> </span>
+            </p>
           </div>
-          <button class="submit">Sign Up<i class="fa-solid fa-arrow-right-from-bracket"></i></button>
-          <a  href="../log in/login.html" id="log-link"> Log In </a>
+          <button class="submit">
+            Sign Up<i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </button>
+          <a href="../log in/login.html" id="log-link"> Log In </a>
         </form>
       </div>
       <div class="pop-cont"></div>
-
     </div>
     <script src="./../../fontawesome/all.js"></script>
     <script src="signup_main.js" type="module"></script>
-    <script src="../login&signUp.js" ></script>
+    <script src="../login&signUp.js"></script>
+    <script src="../../widgets/inp.js"></script>
   </body>
 </html>

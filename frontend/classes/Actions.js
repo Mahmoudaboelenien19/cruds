@@ -1,4 +1,4 @@
-import { Arr, btn, clear, showDataInPage } from "../index.js";
+import { Arr, btn, clear, clearPopUp, overLey, showDataInPage } from "../index.js";
 import { handlePop } from "../widgets/popup.js";
 import fetchProduct from "./fetchApi.js";
 import { ui } from "./UI.js";
@@ -72,6 +72,21 @@ class Actions {
         }
     };
 
+    handleCLearPopup () {
+        overLey.classList.remove( "hide" );
+        clearPopUp.classList.remove( "hide" );
+    }
+
+    clearPopUpActions ( e ) {
+        if ( e.target.classList.contains( "cancel" ) ) {
+            overLey.classList.add( "hide" );
+            clearPopUp.classList.add( "hide" );
+        } else {
+            overLey.classList.add( "hide" );
+            clearPopUp.classList.add( "hide" );
+            action.handeClearAll();
+        }
+    }
 
 
     async handeClearAll () {
@@ -133,6 +148,11 @@ class Actions {
     validation () {
         if ( [...document.querySelectorAll( ".inp" )].every( inp => inp.value != "" ) ) {
             this.addElementsToDatabase( Arr );
+            const inputs = document.querySelectorAll( "input" );
+
+            inputs.forEach( inp => inp.nextElementSibling.classList.add( "hide" ) );
+
+
 
         } else {
             handlePop( "you must fill all inputs", "danger" );

@@ -1,0 +1,68 @@
+@import "./variables.css";
+
+table {
+  width: 90%;
+  margin: 0 auto;
+  text-align: center;
+  margin-top: 20px;
+  text-transform: lowercase;
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  color: var(--secondary);
+}
+
+.tableContainer {
+  max-height: 400px;
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+td button {
+  width: fit-content;
+  padding: 0 5px;
+  text-transform: lowercase;
+}
+#delAll {
+  display: flex;
+  justify-content: flex-end;
+}
+#delAll button {
+  width: fit-content;
+  padding: 0 10px;
+  height: 40px;
+}
+
+tr {
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+td {
+  min-width: 20px;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+td#del button,
+#delAll button {
+  background: rgb(91, 23, 23);
+}
+
+td#update button {
+  background: rgb(7, 67, 7);
+}
+
+td#del button:hover,
+#delAll button:hover {
+  background: rgb(147, 40, 40);
+  color: white;
+}
+
+td#update button:hover {
+  background: rgb(27, 119, 27);
+  color: white;
+}

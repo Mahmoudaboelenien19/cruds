@@ -1,81 +1,176 @@
-const moon = document.querySelector( "#moon" );
+// const moon = document.querySelector( "#moon" );
 const sun = document.querySelector( "#sun" );
 export const toggle = document.querySelector( ".toggle" );
-const dot1 = document.querySelector( ".dot1" );
-const dot2 = document.querySelector( ".dot2" );
 
-// --main: rgb( 245, 240, 240 );
-// --secondary: #161716;
 
-console.log( localStorage.getItem( "mode" ) );
-let isToggleCLicked = localStorage.getItem( "mode" ) || false;
-export const hanleColors = () => {
 
-    let clr1 = "rgb(245, 240, 240)";
-    let clr2 = "#161716";
-    if ( isToggleCLicked ) {
+let isClicked = false;
+let darkMode = localStorage.getItem( "mode" ) || false;
 
-        document.documentElement.style.setProperty( "--main", clr2 );
-        document.documentElement.style.setProperty( "--secondary", clr1 );
-    } else {
+console.log( { darkMode } );
 
-        document.documentElement.style.setProperty( "--main", clr1 );
-        document.documentElement.style.setProperty( "--secondary", clr2 );
-    }
+let clr1 = "rgb(245, 240, 240)";
+let clr2 = "#161716";
+
+
+
+// export const hanleColors = () => {
+
+//     // let clr1 = "rgb(245, 240, 240)";
+//     // let clr2 = "#161716";
+
+//     if ( isClicked ) {
+//         document.documentElement.style.setProperty( "--main", clr2 );
+//         document.documentElement.style.setProperty( "--secondary", clr1 );
+//     } else {
+//         document.documentElement.style.setProperty( "--main", clr1 );
+//         document.documentElement.style.setProperty( "--secondary", clr2 );
+
+//     }
+
+// };
+
+
+
+
+const handleLightMode = () => {
+    const dots = document.querySelectorAll( ".dot" );
+    const stars = document.querySelectorAll( ".fa-star" );
+    const moon = document.querySelector( "#moon" );
+
+
+
+    document.documentElement.style.setProperty( "--main", clr1 );
+    document.documentElement.style.setProperty( "--secondary", clr2 );
+
+    dots.forEach( dot => {
+        dot.classList.add( "hide" );
+    } );
+
+    sun.classList.remove( "dark-mode" );
+    moon.classList.add( "light-mode" );
+
+
+
+    stars.forEach( e => {
+        e.classList.add( "light-mode", "hide" );
+    } );
+
+    setTimeout( () => {
+        moon.classList.add( "hide" );
+        sun.classList.remove( "hide" );
+    }, 1500 );
+};
+
+
+
+const handleDarkMode = () => {
+
+    document.documentElement.style.setProperty( "--main", clr2 );
+    document.documentElement.style.setProperty( "--secondary", clr1 );
+
+    const dots = document.querySelectorAll( ".dot" );
+    const stars = document.querySelectorAll( ".fa-star" );
+    const moon = document.querySelector( "#moon" );
+
+    setTimeout( () => {
+        moon.classList.remove( "light-mode", "hide" );
+
+    }, 500 );
+
+    setTimeout( () => {
+
+        sun.classList.add( "hide" );
+        dots.forEach( dot => {
+            dot.classList.remove( "hide" );
+        } );
+    }, 1500 );
+
+
+    sun.classList.add( "dark-mode" );
+    stars.forEach( e => {
+        e.classList.remove( "light-mode" );
+        e.classList.remove( "hide" );
+
+
+    } );
 };
 
 
 export const handleToggle = ( e ) => {
+
     if ( e.target.classList.contains( "fa-moon" ) ) {
-        isToggleCLicked = !isToggleCLicked;
-        localStorage.setItem( "mode", isToggleCLicked );
-        hanleColors();
+        isClicked = !isClicked;
+        darkMode = false;
+        // hanleColors();
+        handleLightMode();
+        localStorage.setItem( "mode", darkMode );
+        // dots.forEach( dot => {
+        //     dot.classList.add( "hide" );
+        // } );
 
-        document.querySelector( "#moon" ).classList.remove( "return" );
-        sun.classList.remove( "dark-mode" );
-        e.target.classList.add( "light-mode" );
+        // sun.classList.remove( "dark-mode" );
+        // moon.classList.add( "light-mode" );
 
 
-        dot1.classList.add( "light-mode" );
-        dot2.classList.add( "light-mode" );
-        document.querySelectorAll( ".fa-star" ).forEach( e => {
-            e.classList.add( "light-mode" );
-        } );
-        setTimeout( () => {
-            e.target.classList.add( "hide" );
-            sun.classList.remove( "hide" );
-        }, 1500 );
+
+        // stars.forEach( e => {
+        //     e.classList.add( "light-mode", "hide" );
+        // } );
+
+        // setTimeout( () => {
+        //     moon.classList.add( "hide" );
+        //     sun.classList.remove( "hide" );
+        // }, 1500 );
     }
 
 
     if ( e.target.classList.contains( "sun" ) ) {
-        isToggleCLicked = !isToggleCLicked;
-        // localStorage.setItem( "mode", isToggleCLicked );
+        isClicked = !isClicked;
+        darkMode = true;
+        // hanleColors();
+        handleDarkMode();
+        localStorage.setItem( "mode", darkMode );
 
-        hanleColors();
 
-        setTimeout( () => {
-            setTimeout( () => {
-                document.querySelector( "#moon" ).classList.remove( "light-mode" );
+        // handleLightMode();
+        // setTimeout( () => {
+        //     moon.classList.remove( "light-mode", "hide" );
 
-                document.querySelector( "#moon" ).classList.remove( "hide" );
-            }, 500 );
-            e.target.classList.add( "hide" );
-        }, 1500 );
-        setTimeout( () => {
-            dot1.classList.remove( "light-mode" );
-            dot2.classList.remove( "light-mode" );
-        }, 1000 );
-        e.target.classList.add( "dark-mode" );
-        document.querySelectorAll( ".fa-star" ).forEach( e => {
-            e.classList.remove( "light-mode" );
+        // }, 500 );
 
-        } );
+        // setTimeout( () => {
+
+        //     sun.classList.add( "hide" );
+        //     dots.forEach( dot => {
+        //         dot.classList.remove( "hide" );
+        //     } );
+        // }, 1500 );
+
+
+        // sun.classList.add( "dark-mode" );
+        // stars.forEach( e => {
+        //     e.classList.remove( "light-mode" );
+        //     e.classList.remove( "hide" );
+
+
+        // } );
 
     }
 
 
-}
+};
 
 
 
+
+
+
+export const handleMode = () => {
+    if ( darkMode ) {
+        handleDarkMode();
+    } else {
+        handleLightMode();
+    }
+
+};

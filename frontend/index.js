@@ -1,8 +1,9 @@
+import search from "./classes/searchAPI.js";
 import { action } from "./classes/Actions.js";
 import fetchProduct from "./classes/fetchApi.js";
 import { ui } from "./classes/UI.js";
 import { handlePop } from "./widgets/popup.js";
-import { handleToggle, hanleColors, toggle } from "./widgets/toggle.js";
+import { handleToggle, handleMode, toggle } from "./widgets/toggle.js";
 
 export const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
@@ -11,9 +12,28 @@ export const btn = document.querySelector( "#btn button" );
 export const tbody = document.getElementById( "tbody" );
 export const clear = document.getElementById( 'clear' );
 const form = document.querySelector( "form" );
-const search = document.getElementById( "search" );
+const searchInp = document.getElementById( "search" );
+export const clearPopUp = document.querySelector( ".clear-pop" );
+export const overLey = document.querySelector( ".overley" );
 
 export let Arr = [];
+let searchType = "title";
+
+window.addEventListener( "load", () => {
+  handleMode();
+  ui.handleUserName();
+  setTimeout( () => {
+
+    document.querySelector( ".loading-cont" ).classList.add( "hide" );
+    document.querySelector( ".container" ).classList.remove( "hide" );
+    showDataInPage();
+
+  }, 4500 );
+
+
+} );
+
+
 
 export let showDataInPage = async () => {
 
@@ -24,18 +44,6 @@ export let showDataInPage = async () => {
 
 };
 
-window.addEventListener( "load", () => {
-  hanleColors();
-  ui.handleUserName();
-  setTimeout( () => {
-
-    document.querySelector( ".loading-cont" ).classList.add( "hide" );
-    showDataInPage();
-
-  }, 4500 );
-
-
-} );
 
 if ( localStorage.getItem( "log-message" ) ) {
 
@@ -55,8 +63,10 @@ form.addEventListener( "submit", ( e ) => e.preventDefault() );
 btn.addEventListener( "click", action.validation.bind( action ) );
 
 prices.addEventListener( "keyup", ui.getTotal );
-clear.addEventListener( "click", action.handeClearAll );
 
+
+clear.addEventListener( "click", action.handleCLearPopup );
+clearPopUp.addEventListener( "click", action.clearPopUpActions );
 
 const handleActions = ( e ) => {
   action.handleDelete( e );
@@ -66,59 +76,54 @@ const handleActions = ( e ) => {
 tbody.addEventListener( "click", handleActions );
 toggle.addEventListener( "click", handleToggle );
 
+const tSearch = document.getElementById( "tSearch" );
+const cSearch = document.getElementById( "cSearch" );
+const searchPlaceholder = document.getElementById( "search-placeholder" );
+tSearch.addEventListener( "click", () => {
+  searchType = "title";
+  searchPlaceholder.innerHTML = "search by name";
+} );
+
+cSearch.addEventListener( "click", () => {
+  searchType = "catageory";
+  searchPlaceholder.innerHTML = "search by catageory";
+
+} );
 
 
+searchInp.addEventListener( "keyup", async ( e ) => {
 
-// let searchMode = 'title';
-
-// const tSearch = document.getElementById( "tSearch" );
-// const cSearch = document.getElementById( "cSearch" );
-
-// function searchFunction ( id ) {
-//   search.value = '';
-//   ShowDataInPage( Arr );
-//   const search_placeholder = document.querySelector( "#search-placeholder" );
-//   if ( id == "tSearch" ) {
-//     searchMode = 'title';
-//     search_placeholder.innerHTML = 'Search by Title';
-
-//   } else {
-//     searchMode = 'categry';
-//     search_placeholder.innerHTML = 'Search by categery';
-
-//   }
-//   search.focus();
-
-// }
-// search.onblur = function () {
-//   document.querySelector( "#search-placeholder" ).innerHTML = 'Search';
-
-// };
+  if ( searchInp.value == "" ) {
+    ui.buildUI( Arr );
+    ui.handleClearAllBtn( Arr );
 
 
-// function searchfun ( value ) {
-//   tbody.innerHTML = '';
-//   table = '';
-//   let searchArr = [];
-//   if ( searchMode == 'title' ) {
-//     for ( i = 0; i < Arr.length; i++ ) {
-//       if ( Arr[i].product_name.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
-//         searchArr.push( Arr[i] );
+  }
 
-//       }
-//     }
-//     ShowDataInPage( searchArr );
-//   } else if ( searchMode = 'categry' ) {
-//     for ( i = 0; i < Arr.length; i++ ) {
-//       if ( Arr[i].catagery.toLowerCase().trim().includes( value.toLowerCase().trim() ) ) {
-//         searchArr.push( Arr[i] );
+  else {
 
-//       }
-//     }
-//     ShowDataInPage( searchArr );
+    if ( searchType == "title" ) {
 
-//   }
-// }
+      const { data } = await search.titleSearch( e.target.value );
+
+      if ( data ) {
+        ui.buildUI( data );
+        ui.handleClearAllBtn( [] );
+
+      }
+    }
+
+    else {
+      const { data } = await search.catageorySearch( e.target.value );
+
+      if ( data ) {
+        ui.buildUI( data );
+        ui.handleClearAllBtn( [] );
+
+      }
+    }
+  }
+} );
 
 
 

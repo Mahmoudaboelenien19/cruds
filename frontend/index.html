@@ -9,8 +9,7 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>CrudCastle</title>
-    <link rel="stylesheet" href="main.css" />
-    <link rel="stylesheet" href="./loading/loading.css" />
+    <link rel="stylesheet" href="./styles/main.css" />
     <link rel="stylesheet" href="fontawesome/all.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -20,14 +19,14 @@
     />
   </head>
   <body>
-    <div class="container">
-      <div class="loading-cont">
-        <span id="loading"> CrudCastle</span>
-        <span id="description"
-          >Efficient Product Management with Centralized System.</span
-        >
-      </div>
-      <nav class="head">
+    <div class="loading-cont">
+      <span id="loading"> CrudCastle</span>
+      <span id="description"
+        >Efficient Product Management with Centralized System.</span
+      >
+    </div>
+    <div class="container hide">
+      <nav>
         <a id="logo" href="./index.html"> CrudCastle</a>
 
         <div class="log-part">
@@ -38,14 +37,13 @@
           </div>
           <a href="./pages/log in/login.html" id="login">Login</a>
           <a id="logout">Logout</a>
-          <!-- href="./pages/log in/login.html" -->
           <div class="toggle light">
             <div class="dark">
               <i class="fa-solid fa-moon" id="moon"></i>
               <i class="fa-solid star1 fa-star hide"></i>
               <i class="fa-solid star2 fa-star hide"></i>
-              <span class="dot1 hide"></span>
-              <span class="dot2 hide"></span>
+              <span class="dot hide"></span>
+              <span class="dot hide"></span>
             </div>
             <div class="light">
               <span class="sun" id="sun"></span>
@@ -54,106 +52,131 @@
         </div>
       </nav>
 
-      <div class="content">
-        <form action="" novalidate>
-          <div class="inp-parent">
-            <input class="inp" type="text" id="product" required />
-            <span class="placeholder">
-              <i class="icon fas fa-gift"></i> product
-            </span>
-          </div>
-
-          <div class="prices">
-            <div class="inp-parent">
-              <input class="inp" type="number" id="price" required />
-              <span class="placeholder">
-                <i class="icon fa-solid fa-dollar-sign"></i>price</span
-              >
-            </div>
-            <div class="inp-parent">
-              <input class="inp" type="number" id="tax" required />
-              <span class="placeholder"
-                ><i class="icon fas fa-percent"></i>tax</span
-              >
-            </div>
-            <div class="inp-parent">
-              <input class="inp" type="number" id="ads" required />
-              <span class="placeholder"
-                ><i class="icon fa-solid fa-bullhorn"></i>ads</span
-              >
-            </div>
-            <div class="inp-parent">
-              <input class="inp" type="number" id="discount" required />
-              <span class="placeholder"
-                ><i class="icon fas fa-percent"></i>discount</span
-              >
-            </div>
-            <div id="total-cont">
-              <i class="fas fa-dollar-sign"></i> Total: <span id="total"></span>
-            </div>
-          </div>
-          <div class="inp-parent">
-            <input type="number" id="count" required />
-            <span class="placeholder"
-              ><i class="icon fas fa-hashtag"></i> Count</span
-            >
-          </div>
-          <div class="inp-parent">
-            <input class="inp" type="text" id="catagery" required />
-            <span class="placeholder"
-              ><i class="icon fas fa-th-list"></i> catagery</span
-            >
-          </div>
-          <div id="btn">
-            <button><i class="icon fas fa-plus-square"></i> Add Product</button>
-          </div>
-          <div class="search">
-            <div class="inp-parent">
-              <input
-                type="text"
-                onkeyup="searchfun(this.value)"
-                id="search"
-                required
-              />
-              <span class="placeholder" id="search-placeholder"
-                ><i class="icon fas fa-search"></i> search</span
-              >
-            </div>
-            <div class="search-btn">
-              <button onclick=" searchFunction(this.id) " id="tSearch">
-                <i class="icon fas fa-gift"></i> Search by name
-              </button>
-              <button onclick=" searchFunction(this.id)" id="cSearch">
-                <i class="fas fa-box"></i>
-                Search by Catagery
-              </button>
-            </div>
-          </div>
-        </form>
-        <div id="delAll"><button id="clear" class="hide"></button></div>
-        <div class="tableContainer">
-          <table>
-            <tr>
-              <td>id</td>
-              <td>name</td>
-              <td>price</td>
-              <td>tax</td>
-              <td>ads</td>
-              <td>discount</td>
-              <td>total</td>
-              <td>catagery</td>
-              <td>count</td>
-              <td class="update">update</td>
-              <td class="del">delete</td>
-            </tr>
-            <tbody id="tbody"></tbody>
-          </table>
+      <form action="" novalidate>
+        <div class="inp-parent">
+          <input class="inp" type="text" id="product" required />
+          <span class="clear hide" title="clear this input"> x</span>
+          <span class="placeholder">
+            <i class="icon fas fa-gift"></i> product
+          </span>
         </div>
-        <div class="pop-cont"></div>
+
+        <div class="prices">
+          <div class="inp-parent">
+            <input class="inp" type="number" id="price" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder">
+              <i class="icon fa-solid fa-dollar-sign"></i>price</span
+            >
+          </div>
+          <div class="inp-parent">
+            <input class="inp" type="number" id="tax" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder"
+              ><i class="icon fas fa-percent"></i>tax</span
+            >
+          </div>
+          <div class="inp-parent">
+            <input class="inp" type="number" id="ads" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder"
+              ><i class="icon fa-solid fa-bullhorn"></i>ads</span
+            >
+          </div>
+          <div class="inp-parent">
+            <input class="inp" type="number" id="discount" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder"
+              ><i class="icon fas fa-percent"></i>discount</span
+            >
+          </div>
+          <div id="total-cont">
+            <i class="fas fa-dollar-sign"></i> Total: <span id="total"></span>
+          </div>
+        </div>
+        <div class="inp-parent">
+          <input type="number" id="count" required />
+          <span class="clear hide" title="clear this input"> x</span>
+
+          <span class="placeholder"
+            ><i class="icon fas fa-hashtag"></i> Count</span
+          >
+        </div>
+        <div class="inp-parent">
+          <input class="inp" type="text" id="catagery" required />
+          <span class="clear hide" title="clear this input"> x</span>
+
+          <span class="placeholder"
+            ><i class="icon fas fa-th-list"></i> catagery</span
+          >
+        </div>
+        <div id="btn">
+          <button><i class="icon fas fa-plus-square"></i> Add Product</button>
+        </div>
+        <div class="search">
+          <div class="inp-parent">
+            <input type="text" id="search" required />
+            <span class="clear hide" title="clear this input"> x</span>
+
+            <span class="placeholder" id="search-placeholder"
+              ><i id="search-placeholder" class="icon fas fa-search"></i>
+              search</span
+            >
+          </div>
+          <div class="search-btn">
+            <button id="tSearch">
+              <i class="icon fas fa-gift"></i>Search by name
+            </button>
+
+            <button id="cSearch">
+              <i class="fas fa-box"></i>
+              Search by Catagery
+            </button>
+          </div>
+        </div>
+      </form>
+      <div id="delAll"><button id="clear" class="hide"></button></div>
+      <div class="tableContainer">
+        <table>
+          <tr>
+            <td>id</td>
+            <td>name</td>
+            <td>price</td>
+            <td>tax</td>
+            <td>ads</td>
+            <td>discount</td>
+            <td>total</td>
+            <td>catagery</td>
+            <td>count</td>
+            <td class="update">update</td>
+            <td class="del">delete</td>
+          </tr>
+          <tbody id="tbody"></tbody>
+        </table>
+      </div>
+
+      <div class="pop-cont"></div>
+    </div>
+
+    <div class="overley hide"></div>
+
+    <div class="clear-pop hide">
+      <div class="content">
+        <span>you are about to clear all data. </span>
+        <span>are you sure ?</span>
+      </div>
+
+      <div class="pop-btns">
+        <button class="cancel">cancel</button>
+        <button class="clear-btn">clear</button>
       </div>
     </div>
   </body>
   <script src="fontawesome/all.js"></script>
+  <script src="./widgets/inp.js"></script>
   <script type="module" src="index.js"></script>
-  <!-- <script type="module" src=""></script> -->
 </html>

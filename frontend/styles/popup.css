@@ -1,0 +1,54 @@
+@import "./variables.css";
+.pop-cont {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  bottom: 20px;
+  left: 0;
+  width: 400px;
+  padding: 20px;
+  overflow: hidden;
+  z-index: 120;
+}
+.pop {
+  display: inline-block;
+  width: 70%;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: 2px;
+  color: white;
+  animation: pop-entry 4s linear forwards;
+  max-height: fit-content;
+}
+
+@keyframes pop-entry {
+  0% {
+    transform: translateY(-100px);
+  }
+  30%,
+  70% {
+    transform: translateY(0);
+  }
+  80% {
+    transform: translateX(20px);
+  }
+
+  100% {
+    transform: translateX(calc(-100% - 70% - 10px));
+  }
+}
+.pop.success {
+  background: rgb(30, 84, 30);
+}
+.pop.danger {
+  background: rgb(70, 21, 21);
+}
+
+.hide {
+  display: none;
+}
