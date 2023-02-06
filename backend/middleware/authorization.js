@@ -7,9 +7,7 @@ const autorization = ( req, res, next ) => {
         console.log( autorizationHeader );
         if ( autorizationHeader ) {
             const token = autorizationHeader.split( " " )[1];
-            // console.log( token );
             const decode = jwt.verify( token, process.env.TOKEN_SECRET );
-            // console.log( { decode } );
 
             if ( decode ) {
                 next();

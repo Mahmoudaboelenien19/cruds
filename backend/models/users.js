@@ -38,12 +38,9 @@ class Users {
     async create ( user ) {
 
         try {
-            console.log( "create 1" );
             const conn = await Client.connect();
-            console.log( "create 2" );
 
             const sql = `INSERT INTO users (name,email,password,phone) VALUES($1,$2,$3,$4) RETURNING * ;`;
-            console.log( "create 3" );
 
             const result = await conn.query( sql, [
                 user.name,
@@ -51,8 +48,6 @@ class Users {
                 hashPassword( user.password ),
                 user.phone
             ] );
-            console.log( "create 4" );
-
             conn.release();
             return result.rows[0];
 
@@ -65,9 +60,7 @@ class Users {
     async update ( user, id ) {
         try {
             const conn = await Client.connect();
-            console.log( "before sql" );
             const sql = `UPDATE users SET name=($1),email=($2),password=($3),phone=($4) WHERE id=($5) RETURNING * ;`;
-            console.log( "after sql" );
 
             const result = await conn.query( sql, [
                 user.name,
@@ -86,9 +79,7 @@ class Users {
 
     async authenticate ( user ) {
         try {
-            console.log( "1" );
             const sql = `SELECT name,password from users where email=($1) ;`;
-            console.log( "2" );
 
             const conn = await Client.connect();
             const result = await conn.query( sql, [user.email] );
@@ -124,7 +115,6 @@ class Users {
 
             const decode = jwt.verify(
                 refToken, process.env.Refresh_TOKEN_SECRET );
-            console.log( { decode } );
             return decode;
         }
         catch ( err ) {

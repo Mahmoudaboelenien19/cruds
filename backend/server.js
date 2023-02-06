@@ -4,6 +4,7 @@ const cors = require( "cors" );
 const routes = require( "./handlers/routes" );
 const userRoutes = require( "./handlers/userRoutes" );
 const cookieParser = require( 'cookie-parser' );
+const searchRoutes = require( "./handlers/searchRoutes" );
 
 
 
@@ -17,6 +18,7 @@ app.use( cors() );
 
 app.use( "/", routes );
 app.use( "/", userRoutes );
+app.use( "/", searchRoutes );
 app.get( "/", ( req, res ) => {
     res.send( "hello mahmoud" );
 } );

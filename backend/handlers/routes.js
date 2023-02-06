@@ -66,7 +66,6 @@ const clearAll = async ( req, res ) => {
 };
 const routes = Router();
 routes.route( '/product' ).post( autorization, create );
-routes.route( '/product' ).post( autorization, create );
 routes.route( '/products' ).get( index ).delete( autorization, clearAll );
 routes.route( '/product/:id' ).patch( autorization, update ).delete( autorization, destroy );
 
