@@ -40,13 +40,15 @@ class Users {
         try {
             const conn = await Client.connect();
 
-            const sql = `INSERT INTO users (name,email,password,phone) VALUES($1,$2,$3,$4) RETURNING * ;`;
+            const sql = `INSERT INTO users (name,email,password,phone,gender,country) VALUES($1,$2,$3,$4,$5,$6) RETURNING * ;`;
 
             const result = await conn.query( sql, [
                 user.name,
                 user.email,
                 hashPassword( user.password ),
-                user.phone
+                user.phone,
+                user.gender,
+                user.country
             ] );
             conn.release();
             return result.rows[0];

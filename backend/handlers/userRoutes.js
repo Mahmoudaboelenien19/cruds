@@ -38,7 +38,9 @@ const create = async ( req, res ) => {
             name: req.body.name,
             email: req.body.email,
             password: req.body.password,
-            phone: req.body.phone
+            phone: req.body.phone,
+            gender: req.body.gender,
+            country: req.body.country
         };
         console.log( "create route" );
         console.log( { newUser } );
