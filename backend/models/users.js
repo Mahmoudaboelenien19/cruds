@@ -59,17 +59,16 @@ class Users {
         }
     }
 
-    async update ( user, id ) {
+    async update ( user, email ) {
         try {
             const conn = await Client.connect();
-            const sql = `UPDATE users SET name=($1),email=($2),password=($3),phone=($4) WHERE id=($5) RETURNING * ;`;
+            const sql = `UPDATE users SET name=($1),password=($2),phone=($3) WHERE email=($4) RETURNING * ;`;
 
             const result = await conn.query( sql, [
                 user.name,
-                user.email,
                 hashPassword( user.password ),
                 user.phone,
-                id
+                email
             ] );
             conn.release();
             return result.rows[0];
@@ -78,6 +77,22 @@ class Users {
             throw new Error( "failed to update " );
         }
     }
+
+
+    async getUser ( email ) {
+        try {
+            const conn = await Client.connect();
+            const sql = `SELECT  * FROM users WHERE email=($1) ;`;
+
+            const result = await conn.query( sql, [email] );
+            conn.release();
+            return result.rows[0];
+        }
+        catch ( err ) {
+            throw new Error( "no user with this email" );
+        }
+    }
+
 
     async authenticate ( user ) {
         try {
@@ -104,6 +119,29 @@ class Users {
         }
     }
 
+
+    async checkPass ( user ) {
+        try {
+            const sql = `SELECT password from users where email=($1) ;`;
+
+            const conn = await Client.connect();
+            const result = await conn.query( sql, [user.email] );
+            console.log( { result: result.rows[0] } );
+            if ( result.rows.length ) {
+                console.log( "entered" );
+                const pass = result.rows[0];
+                const check = bcrypt.compareSync(
+                    user.password + BCRYPT_PASSWORD, pass.password
+                );
+
+                console.log( { check } );
+                return check;
+            }
+        }
+        catch ( err ) {
+            throw new Error( "this email not regestired" );
+        }
+    }
 
 
 

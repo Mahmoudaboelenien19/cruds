@@ -58,12 +58,21 @@ const create = async ( req, res ) => {
 const update = async ( req, res ) => {
     const upatedUser = {
         name: req.body.name,
-        email: req.body.email,
         password: req.body.password,
         phone: req.body.phone,
     };
-    const user = await store.update( upatedUser, req.params.id );
+    const user = await store.update( upatedUser, req.params.email );
     res.json( { message: "user Updated successfully", user } );
+
+};
+
+const showUser = async ( req, res ) => {
+
+    const email = req.params.email;
+
+
+    const user = await store.getUser( email );
+    res.json( { user } );
 
 };
 
@@ -84,16 +93,36 @@ const authenticate = async ( req, res ) => {
         res.cookie( 'refresh token', refreshToken );
         res.cookie( 'user', result.name );
 
-        res.json( { message: "successfully log in !", email: user.email, token, refreshToken, name: result.name } );
+        res.status( 200 ).json( { message: "successfully log in !", email: user.email, token, refreshToken, name: result.name } );
     } else if ( result == "password is wrong" ) {
 
-        res.json( { message: "password is wrong  !" } );
+        res.status( 404 ).json( { message: "password is wrong  !" } );
 
     }
 
     else {
-        res.json( { message: "this email is not regesitered  !" } );
+        res.status( 401 ).json( { message: "this email is not regesitered  !" } );
     }
+};
+
+
+
+const checkPassword = async ( req, res ) => {
+    const user = {
+        email: req.body.email,
+        password: req.body.password
+    };
+    const check = await store.checkPass( user );
+
+    if ( check ) {
+        res.status( 200 ).json( { message: "password is correct!" } );
+    } else {
+
+        res.status( 404 ).json( { message: "password is wrong  !" } );
+
+    }
+
+
 };
 
 
@@ -149,9 +178,11 @@ const deleteRefreshToken = async ( req, res ) => {
 const userRoutes = Router();
 
 userRoutes.route( "/user" ).post( checkBeforeCreate, create );
-userRoutes.route( "/user/:id" ).patch( authorization, update );
+userRoutes.route( "/user/:email" ).patch( update );
+userRoutes.route( "/user/:email" ).get( showUser );
 
 userRoutes.route( "/user/authenticate" ).post( authenticate );
+userRoutes.route( "/user/checkpass" ).post( checkPassword );
 userRoutes.route( "/user/auth/refresh" ).post( regenerateToken );
 userRoutes.route( "/user/logout" ).delete( deleteRefreshToken );
 
