@@ -42,7 +42,7 @@ class Ui {
     <td>${ +Arr[i].tax + +Arr[i].price + +Arr[i].ads + - Arr[i].discount }</td>   
     <td>${ Arr[i].catagery }</td>
     <td>${ Arr[i].count }</td>
-    <td>${ check ? "you" : Arr[i].username }</td>
+    <td id="owner">${ check ? "you" : Arr[i].username }</td>
      <td id="update">${ check ? ` <button class ='update' data-id=${ Arr[i].id }>update</button> ` : "-" }</td>
      <td id="del">${ check ? `<button class ='del' data-id=${ Arr[i].id }>delete</button>` : "-" }</td>
   </tr>`;

@@ -92,7 +92,8 @@ class Actions {
 
 
     async handeClearAll () {
-        const data = await fetchProduct.clear();
+        const userId = getuserId();
+        const data = await fetchProduct.clear( userId );
         if ( data ) {
             showDataInPage();
             clear.innerHTML = '';

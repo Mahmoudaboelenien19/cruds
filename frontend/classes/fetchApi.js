@@ -120,11 +120,11 @@ class FetchClass {
     }
 
 
-    async clear () {
+    async clear ( id ) {
         const cookie = await generateNewToken();
         if ( cookie ) {
 
-            const data = await fetch( `/products`, {
+            const data = await fetch( `/products/${ id }`, {
                 method: "DELETE"
                 , headers: {
 

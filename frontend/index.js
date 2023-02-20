@@ -14,6 +14,8 @@ const form = document.querySelector( "form" );
 const searchInp = document.getElementById( "search" );
 export const clearPopUp = document.querySelector( ".clear-pop" );
 export const overLey = document.querySelector( ".overley" );
+const searchPlaceholder = document.getElementById( "search-placeholder" );
+const searchCont = document.querySelector( ".search-btn" );
 
 export let Arr = [];
 let searchType = "title";
@@ -78,24 +80,21 @@ const handleActions = ( e ) => {
 tbody.addEventListener( "click", handleActions );
 toggle.addEventListener( "click", handleToggle );
 
-// const tSearch = document.getElementById( "tSearch" );
-// const cSearch = document.getElementById( "cSearch" );
 
-const searchPlaceholder = document.getElementById( "search-placeholder" );
-const searchCont = document.querySelector( ".search-btn" );
+
 
 searchCont.addEventListener( "click", ( e ) => {
   if ( e.target.classList.contains( "tSearch" ) ) {
 
     searchType = "title";
-    searchPlaceholder.innerHTML = "search by name";
+    searchPlaceholder.innerHTML = `<i class="icon fas fa-gift"> </i> search by name`;
   } else if ( e.target.classList.contains( "cSearch" ) ) {
 
     searchType = "catageory";
-    searchPlaceholder.innerHTML = "search by catageory";
+    searchPlaceholder.innerHTML = `<i class="icon fas fa-box"></i>search by catageory  `;
   } else if ( e.target.classList.contains( "user-search" ) ) {
     searchType = "user";
-    searchPlaceholder.innerHTML = "search by user";
+    searchPlaceholder.innerHTML = `<i class="icon fa-solid fa-user"></i> search by user`;
 
   }
 } );

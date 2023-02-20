@@ -47,8 +47,8 @@ class Product {
     async clear ( id ) {
         try {
             const conn = await Client.connect();
-            const sql = "DELETE  FROM products";
-            const result = await conn.query( sql );
+            const sql = "DELETE  FROM products Where userid=($1);";
+            const result = await conn.query( sql, [id] );
             conn.release();
             return result.rows;
         }

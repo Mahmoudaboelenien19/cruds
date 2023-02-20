@@ -63,12 +63,13 @@ const destroy = async ( req, res ) => {
 };
 
 const clearAll = async ( req, res ) => {
-    const products = await store.clear();
-    res.json( { message: "All Cleared" } );
+    const products = await store.clear( req.params.id );
+    res.json( { message: "All your products Cleared" } );
 };
 const routes = Router();
 routes.route( '/product' ).post( autorization, create );
-routes.route( '/products' ).get( index ).delete( autorization, clearAll );
+routes.route( '/products' ).get( index );
+routes.route( '/products/:id' ).delete( autorization, clearAll );
 routes.route( '/product/:id' ).patch( autorization, update ).delete( autorization, destroy );
 
 module.exports = routes;
