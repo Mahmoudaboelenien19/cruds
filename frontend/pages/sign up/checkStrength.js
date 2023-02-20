@@ -1,5 +1,5 @@
 import general from "../../classes/general.js";
-import { pass, confirm } from "./signup_main.js";
+// import { pass, confirm } from "./signup_main.js";
 
 
 
@@ -49,6 +49,10 @@ export const handleStrengthUI = () => {
 
     const spans = document.querySelectorAll( "#strength span" );
     const stregnthCont = document.querySelector( "#strength-cont" );
+
+    const pass = document.querySelector( "#password" );
+
+
     let password = pass.value;
     let stregnth = chechStrength( password );
 
@@ -104,10 +108,14 @@ export const handleStrengthUI = () => {
 
 
 
+
+
 export const handleCHange = () => {
     const passWrong = document.querySelector( "#confirm-x" );
     const passCorrect = document.querySelector( "#confirm-check" );
 
+    const confirm = document.querySelector( "#confirm" );
+    const pass = document.querySelector( "#password" );
     if ( pass.value.length == 0 ) {
         passwordMatch = false;
 
@@ -130,5 +138,6 @@ export const handleCHange = () => {
 
         }
     }
+}
 
-};
+

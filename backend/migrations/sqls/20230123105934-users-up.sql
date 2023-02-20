@@ -6,7 +6,8 @@ CREATE TABLE users(
     password VARCHAR(400) NOT NULL,
     phone VARCHAR(20) NOT NULL,
     gender VARCHAR(20) NOT NULL,
-    country  VARCHAR(100) NOT NULL
+    country  VARCHAR(100) NOT NULL,
+    image VARCHAR(5000)
 );
 
 ALTER TABLE users ADD CONSTRAINT unique_email UNIQUE (email);

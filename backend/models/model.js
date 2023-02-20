@@ -82,7 +82,7 @@ class Product {
     async create ( product ) {
         try {
             const conn = await Client.connect();
-            const sql = "INSERT INTO products(product_name,price,tax , ads ,discount ,count ,catagery) VALUES($1,$2,$3,$4,$5,$6,$7) RETURNING * ;";
+            const sql = "INSERT INTO products(product_name,price,tax , ads ,discount ,count ,catagery,userid,username) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING * ;";
             const result = await conn.query( sql, [
                 product.product_name,
                 product.price,
@@ -90,7 +90,9 @@ class Product {
                 product.ads,
                 product.discount,
                 product.count,
-                product.catagery
+                product.catagery,
+                product.userid,
+                product.username
             ] );
             conn.release();
             return result.rows[0];

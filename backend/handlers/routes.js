@@ -13,7 +13,9 @@ const create = async ( req, res ) => {
             ads: req.body.ads,
             discount: req.body.discount,
             count: req.body.count,
-            catagery: req.body.catagery
+            catagery: req.body.catagery,
+            userid: req.body.userid,
+            username: req.body.username
         };
         const product = await store.create( newProduct );
         res.json( { message: 'product created successfully', product } );

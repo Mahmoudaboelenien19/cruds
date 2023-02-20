@@ -1,5 +1,4 @@
 const Router = require( "express" );
-const authorization = require( "../middleware/authorization.js" );
 const Users = require( "../models/users" );
 const jwt = require( "jsonwebtoken" );
 
@@ -20,7 +19,6 @@ const checkBeforeCreate = async ( req, res, next ) => {
     const check = await store.checkEmail( newUser );
 
     if ( check && check.message === 'Email already in use' ) {
-        console.log( "entered check" );
 
         res.status( 409 ).json( { message: 'Email already in use' } );
     }
@@ -66,11 +64,18 @@ const update = async ( req, res ) => {
 
 };
 
+const updateImgRoute = async ( req, res ) => {
+    const binaryData = req.body;
+    console.log( " req.body ", req.body );
+    const user = await store.updateImg( binaryData, req.params.email );
+    console.log( "updated" );
+    res.json( { message: "user Updated successfully", user } );
+
+};
+
 const showUser = async ( req, res ) => {
 
     const email = req.params.email;
-
-
     const user = await store.getUser( email );
     res.json( { user } );
 
@@ -92,6 +97,7 @@ const authenticate = async ( req, res ) => {
         res.cookie( 'token', token );
         res.cookie( 'refresh token', refreshToken );
         res.cookie( 'user', result.name );
+        res.cookie( 'userId', result.id );
 
         res.status( 200 ).json( { message: "successfully log in !", email: user.email, token, refreshToken, name: result.name } );
     } else if ( result == "password is wrong" ) {
@@ -166,6 +172,8 @@ const deleteRefreshToken = async ( req, res ) => {
             res.clearCookie( 'user' );
             res.clearCookie( 'token' );
             res.clearCookie( 'refresh token' );
+            res.clearCookie( 'userId' );
+
             res.json( { message: "you logout successfully" } );
         } else {
             res.json( "wrong refresh token" );
@@ -180,10 +188,12 @@ const userRoutes = Router();
 userRoutes.route( "/user" ).post( checkBeforeCreate, create );
 userRoutes.route( "/user/:email" ).patch( update );
 userRoutes.route( "/user/:email" ).get( showUser );
+userRoutes.route( "/user/saveimg/:email" ).patch( updateImgRoute );
 
 userRoutes.route( "/user/authenticate" ).post( authenticate );
 userRoutes.route( "/user/checkpass" ).post( checkPassword );
 userRoutes.route( "/user/auth/refresh" ).post( regenerateToken );
 userRoutes.route( "/user/logout" ).delete( deleteRefreshToken );
+// userRoutes.route( "/user/" ).delete( deleteRefreshToken );
 
 module.exports = userRoutes;

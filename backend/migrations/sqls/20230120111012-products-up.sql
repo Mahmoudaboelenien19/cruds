@@ -6,6 +6,8 @@ CREATE TABLE products(
     ads NUMERIC,
     discount NUMERIC,
     count INT NOT NULL,
-    catagery VARCHAR(20) NOT NULL
+    catagery VARCHAR(20) NOT NULL,
+    userId VARCHAR(100) NOT NULL,
+    username  VARCHAR(100) NOT NULL
 );
 

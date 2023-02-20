@@ -1,0 +1,157 @@
+@import "../../styles/variables.css";
+@import "./pop-clear.css";
+
+.user-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template: "img cont cont ";
+}
+
+button.user-btn {
+  border: 0;
+  outline: 0;
+  background: var(--main);
+  color: grey;
+  transition: 0.3s;
+  text-decoration: none;
+  text-transform: capitalize;
+}
+
+button.user-btn:hover {
+  background: var(--main);
+  color: darkblue;
+}
+
+.user-image {
+  grid-area: img;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+  position: relative;
+}
+
+.user-image::before {
+  position: absolute;
+  content: "";
+  top: 0%;
+  right: 0;
+  width: 0.2px;
+  background: var(--secondary);
+  height: 96%;
+}
+.user-image img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 30px;
+}
+
+.user-content {
+  grid-area: cont;
+  margin-left: 60px;
+}
+
+.detail {
+  display: inline-block;
+  width: 80px;
+  text-transform: capitalize;
+  letter-spacing: 1px;
+  margin: 20px 0;
+}
+
+.user-data {
+  display: inline-block;
+  width: 250px;
+  color: grey;
+}
+
+.user-pop {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
+  padding: 10px;
+  z-index: 100;
+  background: var(--main);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  animation: clr-popup 2s linear forwards;
+}
+
+.user-pop#new-password {
+  height: auto;
+}
+
+.user-pop#new-password > * {
+  margin: 10px;
+}
+.user-pop.hide {
+  display: none;
+}
+
+/* .hide {
+  display: none;
+} */
+.user-pop h3 {
+  width: fit-content;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  text-transform: capitalize;
+  margin-bottom: 20px;
+}
+
+.underline {
+  display: inline-block;
+  position: absolute;
+  top: 120%;
+  width: 50%;
+  left: 25%;
+  background: var(--secondary-sign);
+  height: 3px;
+}
+
+.pop-btn,
+.change {
+  border: 0;
+  outline: 0;
+  color: var(--secondary);
+  transition: 0.3s;
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  padding: 6px;
+  border-radius: 4px;
+  transition: 0.3s;
+}
+
+.pop-btn:hover {
+  transform: scaleX(1.1);
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  width: 100%;
+}
+
+button.update {
+  background: green;
+}
+
+.cancel {
+  background: grey;
+}
+
+input#file {
+  display: none;
+}

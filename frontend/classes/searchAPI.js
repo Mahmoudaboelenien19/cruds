@@ -25,6 +25,13 @@ class Search {
         return data;
     }
 
+    async userProdusctsSearch ( val ) {
+
+        const res = await fetch( `/search/userproducts/${ val }` );
+        let data = await res.json();
+        return data;
+    }
+
 }
 
 const search = new Search();

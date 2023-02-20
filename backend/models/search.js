@@ -29,6 +29,17 @@ class Seach {
         return result.rows;
     }
 
+    async searchByuser ( val ) {
+        console.log( "searchByTitle" );
+
+        const conn = await Client.connect();
+        const sql = "SELECT * FROM products WHERE username ILIKE '%' || $1 || '%' ;";
+        const result = await conn.query( sql, [val] );
+        console.log( { result } );
+        conn.release();
+        return result.rows;
+    }
+
 }
 
 

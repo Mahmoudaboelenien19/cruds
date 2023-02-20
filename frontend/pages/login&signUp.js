@@ -1,7 +1,6 @@
 
 
 const passwordInp = document.querySelectorAll( ".password" );
-const link = document.querySelector( "#log-link" );
 
 
 document.querySelectorAll( ".eye" ).forEach( ( eye, i ) => {
@@ -15,7 +14,3 @@ document.querySelectorAll( ".eye" ).forEach( ( eye, i ) => {
     } );
 }
 );
-link.addEventListener( "click", () => {
-
-    open( link.href, "_self" );
-} );

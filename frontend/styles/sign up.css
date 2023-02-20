@@ -1,15 +1,18 @@
+@import "./variables.css";
 :root {
   --weak: rgb(179, 38, 10);
-  --medium: rgb(232, 232, 64);
+  --medium: rgb(163, 163, 35);
   --strong: rgb(39, 105, 31);
 }
 
 .content {
   width: 100%;
-  height: calc(100vh - 40px - 40px);
+  /* height: calc(100vh - 40px - 40px); */
   display: flex;
   justify-content: center;
   align-items: center;
+  margin: 50px 0;
+  height: fit-content;
 }
 
 form {
@@ -19,7 +22,6 @@ form {
   align-items: center;
   padding: 10px;
   gap: 20px;
-  height: max-content;
   width: 400px;
   background: rgba(0, 0, 0, 0.2);
   border-radius: 5px;
@@ -139,4 +141,37 @@ button.submit {
 
 #password.strong {
   border-bottom: 2px solid var(--strong);
+}
+
+input[type="radio"] {
+  width: 10px;
+  height: 10px;
+  /* accent-color: var(--secondary); */
+  accent-color: rgb(183, 130, 31);
+  margin: 0 5px;
+}
+
+.main-label {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+
+.parent {
+  width: 100%;
+  padding: 2px 40px;
+}
+
+.radio {
+  display: flex;
+  gap: 30px;
+}
+
+select {
+  outline: 0;
+  border: 0;
+  background: var(--secondary);
+  color: var(--main);
+  height: 40px;
+  width: 100%;
+  padding: 0 4px;
 }

@@ -54,3 +54,8 @@ nav {
   display: flex;
   text-transform: capitalize;
 }
+
+#username a {
+  text-decoration: none;
+  color: var(--main);
+}

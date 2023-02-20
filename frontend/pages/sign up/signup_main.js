@@ -1,12 +1,13 @@
 import fetchUser from "../../classes/UserApi.js";
 import { handlePop } from "../../widgets/popup.js";
 import { handleCHange, handleStrengthUI } from "./checkStrength.js";
-import { emailValidiation, handleSignUpPopUps, phoneValidiation, signUpCheck, userNameValidiation } from "./SignUp.js";
+import { emailValidiation, getAllCountries, handleSignUpPopUps, phoneValidiation, signUpCheck, userNameValidiation } from "./SignUp.js";
 export const confirm = document.querySelector( "#confirm" );
 export const pass = document.querySelector( "#password" );
 export const email = document.querySelector( "#email" );
 export const userName = document.querySelector( "#name" );
 export const phone = document.querySelector( "#phone" );
+export const select = document.querySelector( "select" );
 
 
 const inputs = document.querySelectorAll( "form input" );
@@ -37,7 +38,9 @@ const handleSignUpForm = async ( e ) => {
             name: userName.value,
             email: email.value,
             password: pass.value,
-            phone: phone.value
+            phone: phone.value,
+            gender: document.querySelector( 'input[name="gender"]:checked' ).value,
+            country: select.value
         };
 
         let { data } = await fetchUser.create( user );
@@ -93,4 +96,11 @@ phone.addEventListener( "keydown", ( e ) => {
 );
 
 
+const link = document.querySelector( "#log-link" );
+link.addEventListener( "click", () => {
 
+    open( link.href, "_self" );
+} );
+
+
+window.addEventListener( "DOMContentLoaded", getAllCountries );

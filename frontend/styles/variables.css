@@ -1,4 +1,8 @@
 :root {
   --main: rgb(245, 240, 240);
   --secondary: #161716;
+  --del-clr: rgb(91, 23, 23);
+  --del-clr-hover: rgb(147, 40, 40);
+  --main-sign: rgb(48, 77, 206);
+  --secondary-sign: rgb(42, 122, 95);
 }

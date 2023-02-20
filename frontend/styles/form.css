@@ -84,7 +84,7 @@ input:valid ~ .placeholder .icon {
   height: 40px;
   min-height: 100%;
   width: 120px;
-  background-color: rgb(91, 23, 23);
+  background-color: var(--del-clr);
   color: rgb(245, 240, 240);
   display: flex;
   align-items: center;
@@ -112,7 +112,7 @@ div#btn {
   margin: 12px 0;
 }
 
-button {
+form button {
   width: max-content;
   height: 40px;
   padding: 0 5px;
@@ -125,7 +125,7 @@ button {
   border: 2px wheat solid;
 }
 
-button:hover {
+form button:hover {
   letter-spacing: 1.5px;
   transform: scale(1.05);
   background-color: rgb(36, 18, 200);
@@ -139,7 +139,6 @@ button:hover {
 .clear {
   position: absolute;
   text-transform: capitalize;
-  /* color: rgb(124, 37, 37); */
   color: var(--main);
   padding: 0 5px;
   font-size: 16px;
@@ -148,4 +147,14 @@ button:hover {
   right: 10px;
   transform: translate(-50%, -50%);
   cursor: pointer;
+}
+
+.clear :hover {
+  color: var(--del-clr-hover);
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

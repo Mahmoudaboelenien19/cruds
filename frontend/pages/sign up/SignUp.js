@@ -2,9 +2,9 @@ import general from "../../classes/general.js";
 import { handlePop } from "../../widgets/popup.js";
 import { passwordMatch, passWordStrength } from "./checkStrength.js";
 
-let isUserValid = false;
+export let isUserValid = false;
 let isEmailValid = false;
-let isPhoneValid = false;
+export let isPhoneValid = false;
 
 
 export let signUpCheck = async () => {
@@ -41,11 +41,10 @@ export const userNameValidiation = ( e ) => {
             general.addClass( userX, "hide" );
 
         } else {
-            isUserValid = false;
 
+            isUserValid = false;
             general.removeClass( userX, "hide" );
             general.addClass( userCheck, "hide" );
-
         }
     }
 
@@ -129,6 +128,7 @@ export const emailValidiation = ( e ) => {
 
 
 
+
 export const handleSignUpPopUps = () => {
 
 
@@ -149,23 +149,43 @@ export const handleSignUpPopUps = () => {
 
 
     else if ( !isPhoneValid ) {
-
         handlePop( "invalid phone !", "danger" );
     }
 
     else if ( !passwordMatch ) {
-
         handlePop( "password doesn't match!", "danger" );
 
     }
 
 
     else if ( !passWordStrength ) {
-
         handlePop( "your password is weak !", "danger" );
-
     }
-}
+};
+
+
+
+
+const addCountries = ( arr ) => {
+    let selectCountry = document.querySelector( "#country" );
+
+    for ( let i = 0; i < arr.length; i++ ) {
+        let option = `<option value=${ arr[i].name.common }>${ arr[i].name.common } </option>`;
+        selectCountry.insertAdjacentHTML( "afterbegin", option );
+    }
+
+};
+
+//data[0].name.official
+
+export let getAllCountries = async () => {
+    let res = await fetch( "https://restcountries.com/v3.1/all" );
+    const data = await res.json();
+    console.log( data[0].name );
+    addCountries( data );
+};
+
+
 
 
 

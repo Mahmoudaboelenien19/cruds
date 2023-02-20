@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CrudCastle</title>
+    <link rel="icon" href="../../assets/images/c.png" type="image/x-icon" />
+
+    <link rel="stylesheet" href="../../styles/main.css" />
+    <link rel="stylesheet" href="../../styles/login.css" />
+    <link rel="stylesheet" href="../../styles/sign up.css" />
+    <link rel="stylesheet" href="../../fontawesome/all.css" />
+    <link rel="stylesheet" href="../../styles/user.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@1,700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="overley hide"></div>
+
+    <div class="container">
+      <div class="user-pop hide" id="update-user">
+        <h3>
+          update username
+
+          <span class="underline"></span>
+        </h3>
+        <div class="inp-parent">
+          <input type="text" id="name" class="user-inp" required />
+          <span class="clear hide" title="clear this input"> x</span>
+
+          <span class="placeholder">
+            <i class="icon fa-solid fa-user"></i>new Username</span
+          >
+          <div class="validiation-icons hide" id="user-validate-icon">
+            <span title="this username isn't valid">
+              <i class="fa-solid fa-x" id="user-x"></i
+            ></span>
+            <span title="this username is valid">
+              <i class="fa-solid fa-check" id="user-check"></i>
+            </span>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="pop-btn update" id="update-username">update</button>
+          <button class="pop-btn cancel">close</button>
+        </div>
+      </div>
+
+      <div class="user-pop hide" id="update-phone">
+        <h3>
+          update phone
+
+          <span class="underline"></span>
+        </h3>
+        <div class="inp-parent">
+          <input type="number" id="phone" class="phone" required />
+          <span class="clear hide" title="clear this input"> x</span>
+          <span class="placeholder"
+            ><i class="icon fa-solid fa-user"></i>phone</span
+          >
+
+          <div class="validiation-icons hide" id="phone-validate-icon">
+            <span title="this phone is valid">
+              <i class="fa-solid fa-check" id="phone-check"></i>
+            </span>
+            <span title="this phone isn't valid">
+              <i class="fa-solid fa-x" id="phone-x"></i>
+            </span>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="pop-btn update" id="update-phone">update</button>
+          <button class="pop-btn cancel">close</button>
+        </div>
+      </div>
+
+      <div class="user-pop hide" id="update-password">
+        <h3>
+          old password
+
+          <span class="underline"></span>
+        </h3>
+        <div class="inp-parent">
+          <input type="password" id="old-pass" class="password" required />
+
+          <span class="placeholder"
+            ><i class="icon fa-solid fa-user"></i>old password</span
+          >
+          <span class="eye" title="show password"
+            ><i class="fa fa-eye" aria-hidden="true"></i>
+          </span>
+        </div>
+        <div class="btns">
+          <button class="pop-btn update" id="check-pass">check</button>
+          <button class="pop-btn cancel" >close</button>
+        </div>
+      </div> 
+
+
+
+
+
+      <div id="new-password" class="user-pop hide" >
+        <h3>
+          update password
+
+          <span class="underline"></span>
+        </h3>
+        <div class="inp-parent">
+          <input
+            type="password"
+            id="password"
+            class="pass password sign-up-inp"
+            required
+          />
+          <span class="placeholder"
+            ><i class="icon fa-solid fa-lock"></i>new password</span
+          >
+          <span class="eye" title="show password"><i
+            class="fa fa-eye"
+            aria-hidden="true"
+          ></i>
+        </div>
+
+        <div class="inp-parent">
+          <input
+            type="password"
+            id="confirm"
+            class="confirm password inp"
+            required
+          />
+          <span class="placeholder"
+            ><i class="icon fa-solid fa-lock"></i>Confirm password</span
+          >
+          <span class="eye" title="show password"
+            ><i class="fa fa-eye" aria-hidden="true"></i>
+          </span>
+          <div class="validiation-icons">
+            <span title="passwords aren't match">
+              <i class="fa-solid hide fa-x" id="confirm-x"></i
+            ></span>
+            <span title="passwords are match">
+              <i class="fa-solid hide fa-check" id="confirm-check"></i>
+            </span>
+          </div>
+        </div>
+        <div class="inp-parent hide" id="strength-cont">
+          <div id="strength"><span></span><span></span> <span></span></div>
+          <p class="strength-p">
+            check strength <span class="strength-description"> </span>
+          </p>
+        </div>
+
+        <div class="btns">
+          <button class="update pop-btn" id="update-password">update</button>
+          <button class="pop-btn cancel" >close</button>
+        </div>
+      </div>
+
+      <nav>
+        <a id="logo" href="../..//index.html"> CrudCastle</a>
+
+        <div class="log-part">
+          <a id="logout">Logout</a>
+        </div>
+      </nav>
+
+      <div class="user-details">
+        <div class="user-image">
+          <img   id="img" alt="user" />
+
+
+
+  <button class="change">
+    <label for="file">
+      change avatar
+              </label>
+            </button>
+            
+            <input type="file" id="file">
+
+          </div>
+        <div class="user-content">
+          <p>
+            <span class="detail">user</span
+              ><span class="user-data" id="user-name"></span
+                ><button class="user-btn" data-update="update-user">edit</button>
+              </p>
+          <p>
+            <span class="detail">email</span
+            ><span class="user-data" id="user-email"></span>
+          </p>
+          <p>
+            <span class="detail">password</span
+            ><span class="user-data" id="user-pass"></span
+            ><button class="user-btn" data-update="update-password">
+              edit
+            </button>
+          </p>
+
+          <p>
+            <span class="detail">phone</span
+            ><span class="user-data" id="user-phone"></span
+            ><button class="user-btn" data-update="update-phone">edit</button>
+          </p>
+          <p>
+            <span class="detail">gender</span
+            ><span class="user-data" id="user-gender"></span>
+          </p>
+          <p>
+            <span class="detail">country</span
+            ><span class="user-data" id="user-country"></span>
+          </p>
+        </div>
+      </div>
+      <div class="pop-cont"></div>
+
+    </div>
+
+    <script src="../../fontawesome/all.js"></script>
+    <script src="../../widgets/inp.js" type="module"></script>
+    <script src="../login&signUp.js"></script>
+    <script src="./user.js" type="module"></script>
+  </body>
+</html>

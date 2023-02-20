@@ -1,17 +1,17 @@
 import { Arr, btn, clear, clearPopUp, overLey, showDataInPage } from "../index.js";
 import { handlePop } from "../widgets/popup.js";
-import fetchProduct from "./fetchApi.js";
+import fetchProduct, { getTokenFromCookie } from "./fetchApi.js";
 import { ui } from "./UI.js";
-import fetchUser from "./UserApi.js";
+import fetchUser, { getuserId } from "./UserApi.js";
 
-export const product = document.getElementById( "product" );
-export const price = document.getElementById( "price" );
-export const tax = document.getElementById( "tax" );
-export const ads = document.getElementById( "ads" );
-export const discount = document.getElementById( "discount" );
+export const product = document.querySelector( "[name=product]" );
+export const price = document.querySelector( "[name=price]" );
+export const tax = document.querySelector( "[name=tax]" );
+export const ads = document.querySelector( "[name=ads]" );
+export const discount = document.querySelector( "[name=discount]" );
 export const total = document.getElementById( "total" );
-export const catagery = document.getElementById( "catagery" );
-export const count = document.getElementById( "count" );
+export const catagery = document.querySelector( "[name=catagery]" );
+export const count = document.querySelector( "[name=count]" );
 
 
 class Actions {
@@ -36,10 +36,12 @@ class Actions {
             ads: ads.value,
             discount: discount.value,
             catagery: catagery.value,
-            count: count.value
+            count: count.value,
+            userid: getuserId(),
+            username: getTokenFromCookie().user
 
         };
-
+        console.log( { productData } );
         if ( Actions.mode == 'create' ) {
 
             let data = await fetchProduct.create( productData );
@@ -167,10 +169,7 @@ class Actions {
         let { message } = await fetchUser.logout();
         localStorage.setItem( "logoutMsg", message );
         location.href = "./../pages/log in/login.html";
-        setTimeout( () => {
-            localStorage.removeItem( "logoutMsg", message );
 
-        }, 1000 );
     }
 }
 

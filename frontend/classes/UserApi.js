@@ -1,5 +1,45 @@
 import { getRefreshTOken } from "./fetchApi.js";
 
+
+
+export const getuserId = () => {
+    const cookie = document.cookie;
+    const parts = cookie.split( ';' );
+
+
+
+    for ( const part of parts ) {
+        const [name, value] = part.split( '=' );
+
+
+        if ( name.trim() === 'userId' ) {
+            return value;
+        }
+
+    };
+};
+
+
+
+export const getEmailFromCookies = () => {
+    const cookie = document.cookie;
+    const parts = cookie.split( ';' );
+
+
+
+    for ( const part of parts ) {
+        const [name, value] = part.split( '=' );
+
+
+        if ( name.trim() === 'mail' ) {
+            return value;
+        }
+
+    };
+};
+
+
+
 class User {
     constructor() {
         if ( User.instance ) {
@@ -27,6 +67,73 @@ class User {
     }
 
 
+    async getUserData () {
+        const userEmail = localStorage.getItem( "email" );
+
+        let res = await fetch( `/user/${ userEmail }` );
+
+
+        const data = await res.json();
+        const { user } = data;
+        console.log( user );
+        return user;
+    }
+
+    async getUserImg () {
+        const userEmail = localStorage.getItem( "email" );
+
+        let res = await fetch( `/user/${ userEmail }` );
+        let { user } = await res.json();
+        // console.log( { data } );
+        // const binaryData = new Uint8Array( data.user.image );
+        // const blob = new Blob( [binaryData], { type: 'image/jepg' } );
+
+        // console.log( { blob } );
+        return user.image;
+
+    }
+
+
+
+    async updateUser ( obj ) {
+        const userEmail = localStorage.getItem( "email" );
+
+        let res = await fetch( `/user/${ userEmail }`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify( obj )
+        } );
+
+
+
+        const data = await res.json();
+
+        return data;
+    }
+
+
+
+    async updateImg ( blob ) {
+        const userEmail = localStorage.getItem( "email" );
+        console.log( blob );
+
+        let res = await fetch( `/user/saveimg/${ userEmail }`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify( { blob } )
+        } );
+
+
+        const data = await res.json();
+
+        return data;
+    }
+
+
     async authenticate ( data ) {
 
 
@@ -38,10 +145,24 @@ class User {
 
 
         let info = await res.json( data );
-        console.log( { info } );
+        console.log( info );
         return info;
     }
 
+    async checkPass ( data ) {
+
+
+        let res = await fetch( "/user/checkpass", {
+            method: "POST",
+            headers: { "content-Type": "application/json" },
+            body: JSON.stringify( data )
+        } );
+
+
+        let status = res.status;
+        console.log( status );
+        return status;
+    }
 
 
     async logout ( data ) {

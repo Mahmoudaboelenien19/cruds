@@ -5,7 +5,6 @@ import { ui } from "./classes/UI.js";
 import { handlePop } from "./widgets/popup.js";
 import { handleToggle, handleMode, toggle } from "./widgets/toggle.js";
 
-export const product = document.getElementById( "product" );
 const prices = document.querySelector( ".prices" );
 export const totalCont = document.querySelector( "#total-cont" );
 export const btn = document.querySelector( "#btn button" );
@@ -19,9 +18,10 @@ export const overLey = document.querySelector( ".overley" );
 export let Arr = [];
 let searchType = "title";
 
-window.addEventListener( "load", () => {
+window.addEventListener( "load", async () => {
   handleMode();
   ui.handleUserName();
+  document.querySelector( "#guest-user" ).src = await ui.handleImg() || "./assets/images";
   setTimeout( () => {
 
     document.querySelector( ".loading-cont" ).classList.add( "hide" );
@@ -29,9 +29,9 @@ window.addEventListener( "load", () => {
     showDataInPage();
 
   }, 4500 );
-
-
 } );
+
+
 
 
 
@@ -39,8 +39,10 @@ export let showDataInPage = async () => {
 
   let data = await fetchProduct.get();
   Arr = data.products;
+
   ui.buildUI( Arr );
   ui.handleClearAllBtn( Arr );
+
 
 };
 
@@ -49,7 +51,7 @@ if ( localStorage.getItem( "log-message" ) ) {
 
   handlePop( localStorage.getItem( "log-message" ) );
   setTimeout( () => {
-    localStorage.clear();
+    localStorage.removeItem( "log-message" );
   }, 1200 );
 
 }
@@ -76,19 +78,29 @@ const handleActions = ( e ) => {
 tbody.addEventListener( "click", handleActions );
 toggle.addEventListener( "click", handleToggle );
 
-const tSearch = document.getElementById( "tSearch" );
-const cSearch = document.getElementById( "cSearch" );
+// const tSearch = document.getElementById( "tSearch" );
+// const cSearch = document.getElementById( "cSearch" );
+
 const searchPlaceholder = document.getElementById( "search-placeholder" );
-tSearch.addEventListener( "click", () => {
-  searchType = "title";
-  searchPlaceholder.innerHTML = "search by name";
+const searchCont = document.querySelector( ".search-btn" );
+
+searchCont.addEventListener( "click", ( e ) => {
+  if ( e.target.classList.contains( "tSearch" ) ) {
+
+    searchType = "title";
+    searchPlaceholder.innerHTML = "search by name";
+  } else if ( e.target.classList.contains( "cSearch" ) ) {
+
+    searchType = "catageory";
+    searchPlaceholder.innerHTML = "search by catageory";
+  } else if ( e.target.classList.contains( "user-search" ) ) {
+    searchType = "user";
+    searchPlaceholder.innerHTML = "search by user";
+
+  }
 } );
 
-cSearch.addEventListener( "click", () => {
-  searchType = "catageory";
-  searchPlaceholder.innerHTML = "search by catageory";
 
-} );
 
 
 searchInp.addEventListener( "keyup", async ( e ) => {
@@ -113,12 +125,21 @@ searchInp.addEventListener( "keyup", async ( e ) => {
       }
     }
 
-    else {
+    else if ( searchType == "catageory" ) {
       const { data } = await search.catageorySearch( e.target.value );
 
       if ( data ) {
         ui.buildUI( data );
         ui.handleClearAllBtn( [] );
+
+      }
+    } else {
+      const { data } = await search.userProdusctsSearch( e.target.value );
+
+      if ( data ) {
+        ui.buildUI( data );
+        ui.handleClearAllBtn( [] );
+
 
       }
     }

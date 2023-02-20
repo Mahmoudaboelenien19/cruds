@@ -78,6 +78,28 @@ class Users {
         }
     }
 
+    async updateImg ( img, email ) {
+        try {
+            const conn = await Client.connect();
+            console.log( 1 );
+            const sql = `UPDATE users SET image=($1) WHERE email=($2) ;`;
+            console.log( 2 );
+
+            const result = await conn.query( sql, [
+                img,
+                email
+            ] );
+            console.log( 3 );
+            console.log( result );
+            conn.release();
+            return result.rows[0];
+        }
+        catch ( err ) {
+            throw new Error( "failed to update " );
+        }
+    }
+
+
 
     async getUser ( email ) {
         try {
@@ -94,9 +116,10 @@ class Users {
     }
 
 
+
     async authenticate ( user ) {
         try {
-            const sql = `SELECT name,password from users where email=($1) ;`;
+            const sql = `SELECT name,password,id from users where email=($1) ;`;
 
             const conn = await Client.connect();
             const result = await conn.query( sql, [user.email] );
@@ -106,7 +129,9 @@ class Users {
                     user.password + BCRYPT_PASSWORD, pass.password
                 );
                 if ( check ) {
-                    return { ...user, name: result.rows[0].name };
+                    console.log( "132" );
+                    console.log( { rows: result.rows[0] } );
+                    return { ...user, id: result.rows[0].id, name: result.rows[0].name };
                 } else {
                     return "password is wrong";
                 }
@@ -142,11 +167,6 @@ class Users {
             throw new Error( "this email not regestired" );
         }
     }
-
-
-
-
-
 
 
     async verfiyRefeshToken ( refToken ) {
