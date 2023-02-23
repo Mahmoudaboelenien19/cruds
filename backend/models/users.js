@@ -62,11 +62,10 @@ class Users {
     async update ( user, id ) {
         try {
             const conn = await Client.connect();
-            const sql = `UPDATE users SET name=($1),password=($2),phone=($3) WHERE id=($4) RETURNING * ;`;
-
+            const sql = `UPDATE users SET name=($1), phone=($2) WHERE id=($3) RETURNING * ;`;
+            console.log( { ...user, id } );
             const result = await conn.query( sql, [
                 user.name,
-                hashPassword( user.password ),
                 user.phone,
                 id
             ] );
@@ -78,6 +77,23 @@ class Users {
         }
     }
 
+
+    async updatePassword ( pass, id ) {
+        try {
+            const conn = await Client.connect();
+            const sql = `UPDATE users SET password=($1) WHERE id=($2) RETURNING * ;`;
+
+            const result = await conn.query( sql, [
+                hashPassword( pass ),
+                id
+            ] );
+            conn.release();
+            return result.rows[0];
+        }
+        catch ( err ) {
+            throw new Error( "failed to update " );
+        }
+    }
     async updateImg ( img, id ) {
         try {
             const conn = await Client.connect();

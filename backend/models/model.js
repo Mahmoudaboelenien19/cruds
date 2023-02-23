@@ -57,6 +57,7 @@ class Product {
         }
     }
     async update ( id, product ) {
+
         try {
             const conn = await Client.connect();
             const sql = `UPDATE  products  SET product_name=($1), price=($2) ,tax=($3), ads=($4)  

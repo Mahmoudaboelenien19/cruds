@@ -56,18 +56,27 @@ const create = async ( req, res ) => {
 const update = async ( req, res ) => {
     const upatedUser = {
         name: req.body.name,
-        password: req.body.password,
         phone: req.body.phone,
     };
+    console.log( { upatedUser } );
     const user = await store.update( upatedUser, req.params.id );
     res.json( { message: "user Updated successfully", user } );
 
 };
 
+
+const updatePassword = async ( req, res ) => {
+    const newPass = req.body;
+    const user = await store.update( newPass, req.params.id );
+    res.json( { message: "user Updated successfully", user } );
+
+};
+
 const updateImgRoute = async ( req, res ) => {
+
     const binaryData = req.body;
     const user = await store.updateImg( binaryData, req.params.id );
-    res.json( { message: "user Updated successfully", user } );
+    res.json( { message: "image Updated successfully", user } );
 
 };
 
@@ -185,6 +194,7 @@ const userRoutes = Router();
 
 userRoutes.route( "/user" ).post( checkBeforeCreate, create );
 userRoutes.route( "/user/:id" ).patch( update );
+userRoutes.route( "/user/changepassword:id" ).patch( updatePassword );
 userRoutes.route( "/user/:id" ).get( showUser );
 userRoutes.route( "/user/saveimg/:id" ).patch( updateImgRoute );
 

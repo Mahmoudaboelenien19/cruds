@@ -7,7 +7,6 @@ CREATE TABLE products(
     discount NUMERIC,
     count INT NOT NULL,
     catagery VARCHAR(20) NOT NULL,
-    userId VARCHAR(100) NOT NULL,
-    username  VARCHAR(100) NOT NULL
-);
+    userId uuid REFERENCES  users(id)
+    ,username varchar(500) REFERENCES users (name) ON UPDATE CASCADE);
 
