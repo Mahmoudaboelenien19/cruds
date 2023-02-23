@@ -59,24 +59,22 @@ const update = async ( req, res ) => {
         password: req.body.password,
         phone: req.body.phone,
     };
-    const user = await store.update( upatedUser, req.params.email );
+    const user = await store.update( upatedUser, req.params.id );
     res.json( { message: "user Updated successfully", user } );
 
 };
 
 const updateImgRoute = async ( req, res ) => {
     const binaryData = req.body;
-    console.log( " req.body ", req.body );
-    const user = await store.updateImg( binaryData, req.params.email );
-    console.log( "updated" );
+    const user = await store.updateImg( binaryData, req.params.id );
     res.json( { message: "user Updated successfully", user } );
 
 };
 
 const showUser = async ( req, res ) => {
 
-    const email = req.params.email;
-    const user = await store.getUser( email );
+    const id = req.params.id;
+    const user = await store.getUser( id );
     res.json( { user } );
 
 };
@@ -186,9 +184,9 @@ const deleteRefreshToken = async ( req, res ) => {
 const userRoutes = Router();
 
 userRoutes.route( "/user" ).post( checkBeforeCreate, create );
-userRoutes.route( "/user/:email" ).patch( update );
-userRoutes.route( "/user/:email" ).get( showUser );
-userRoutes.route( "/user/saveimg/:email" ).patch( updateImgRoute );
+userRoutes.route( "/user/:id" ).patch( update );
+userRoutes.route( "/user/:id" ).get( showUser );
+userRoutes.route( "/user/saveimg/:id" ).patch( updateImgRoute );
 
 userRoutes.route( "/user/authenticate" ).post( authenticate );
 userRoutes.route( "/user/checkpass" ).post( checkPassword );

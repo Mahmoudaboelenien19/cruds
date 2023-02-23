@@ -67,10 +67,10 @@ class User {
     }
 
 
-    async getUserData () {
-        const userEmail = localStorage.getItem( "email" );
+    async getUserData ( id ) {
 
-        let res = await fetch( `/user/${ userEmail }` );
+
+        let res = await fetch( `/user/${ id }` );
 
 
         const data = await res.json();
@@ -79,31 +79,39 @@ class User {
         return user;
     }
 
+
+
     async getUserImg () {
-        const userEmail = localStorage.getItem( "email" );
+        const id = getuserId();
+        if ( id ) {
 
-        let res = await fetch( `/user/${ userEmail }` );
-        let { user } = await res.json();
-        // console.log( { data } );
-        // const binaryData = new Uint8Array( data.user.image );
-        // const blob = new Blob( [binaryData], { type: 'image/jepg' } );
+            let res = await fetch( `/user/${ id }` );
+            let { user } = await res.json();
+            // console.log( { data } );
+            // const binaryData = new Uint8Array( data.user.image );
+            // const blob = new Blob( [binaryData], { type: 'image/jepg' } );
 
-        // console.log( { blob } );
-        return user.image;
+            // console.log( { blob } );
+            return user.image;
+        } else {
+            return null;
+        }
+
 
     }
 
 
 
     async updateUser ( obj ) {
-        const userEmail = localStorage.getItem( "email" );
+        const id = getuserId();
 
-        let res = await fetch( `/user/${ userEmail }`, {
+        let res = await fetch( `/user/${ id }`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify( obj )
+
         } );
 
 
@@ -116,10 +124,9 @@ class User {
 
 
     async updateImg ( blob ) {
-        const userEmail = localStorage.getItem( "email" );
-        console.log( blob );
+        const id = getuserId();
 
-        let res = await fetch( `/user/saveimg/${ userEmail }`, {
+        let res = await fetch( `/user/saveimg/${ id }`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"

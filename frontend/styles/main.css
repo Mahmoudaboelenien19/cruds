@@ -6,6 +6,7 @@
 @import "./popup.css";
 @import "./loading.css";
 @import "./pop-clear.css";
+@import "./pop-user.css";
 
 * {
   padding: 0;

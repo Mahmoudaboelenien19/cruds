@@ -1,4 +1,4 @@
-import fetchUser from "../../classes/UserApi.js";
+import fetchUser, { getuserId } from "../../classes/UserApi.js";
 import { handlePop } from "../../widgets/popup.js";
 import { handleCHange, handleStrengthUI, passwordMatch, passWordStrength } from "../sign up/checkStrength.js";
 import { isUserValid, isPhoneValid, phoneValidiation, userNameValidiation } from "../sign up/SignUp.js";
@@ -32,8 +32,8 @@ const showData = async () => {
     let res = await fetchUser.getUserImg();
     res = JSON.parse( res );
     document.querySelector( "#img" ).src = res.blob || "../../assets/images";
-
-    const user = await fetchUser.getUserData();
+    const id = getuserId();
+    const user = await fetchUser.getUserData( id );
     const { password, email, country, gender, phone, name } = user;
     userName.innerHTML = name;
     userPass.innerHTML = hidePass( password );

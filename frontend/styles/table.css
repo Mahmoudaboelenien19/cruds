@@ -85,3 +85,7 @@ td#del button,
 td#update button {
   background: rgb(27, 119, 27);
 }
+
+.owner {
+  cursor: pointer;
+}

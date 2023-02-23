@@ -23,7 +23,9 @@ let searchType = "title";
 window.addEventListener( "load", async () => {
   handleMode();
   ui.handleUserName();
-  document.querySelector( "#guest-user" ).src = await ui.handleImg() || "./assets/images";
+  document.querySelector( "#guest-user" ).src = await ui.handleImg() || "./assets/images/guest.png";
+
+
   setTimeout( () => {
 
     document.querySelector( ".loading-cont" ).classList.add( "hide" );
@@ -72,9 +74,10 @@ prices.addEventListener( "keyup", ui.getTotal );
 clear.addEventListener( "click", action.handleCLearPopup );
 clearPopUp.addEventListener( "click", action.clearPopUpActions );
 
-const handleActions = ( e ) => {
+const handleActions = async ( e ) => {
   action.handleDelete( e );
   action.handleUpdate( e );
+  await action.handleUserPop( e );
 };
 
 tbody.addEventListener( "click", handleActions );

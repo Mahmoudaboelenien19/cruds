@@ -148,6 +148,35 @@ class Actions {
         }
     };
 
+
+    async handleUserPop ( e ) {
+        if ( e.target.classList.contains( "owner" ) ) {
+            const userName = document.querySelector( "#user-name" );
+            const userCountry = document.querySelector( "#user-country" );
+            const userGender = document.querySelector( "#user-gender" );
+            const userEmail = document.querySelector( "#user-email" );
+            const userImg = document.querySelector( "#user-img" );
+            const userPop = document.querySelector( ".user-pop" );
+
+            const id = e.target.dataset.userid;
+            let check = id === getuserId();
+            let { name, email, gender, image, country } = await fetchUser.getUserData( id );
+            let img = JSON.parse( image )?.blob || "../assets/images/guest.png";
+            userName.innerHTML = `${ check ? 'your' : name + "'s" } profile`;
+            userCountry.innerHTML = country;
+            userGender.innerHTML = gender;
+            userEmail.innerHTML = email;
+            userImg.src = img;
+            userPop.classList.remove( "hide" );
+            overLey.classList.remove( "hide" );
+            document.querySelector( "#close" ).addEventListener( "click", () => {
+                userPop.classList.add( "hide" );
+                overLey.classList.add( "hide" );
+            } );
+        }
+
+    }
+
     validation () {
         if ( [...document.querySelectorAll( ".inp" )].every( inp => inp.value != "" ) ) {
             this.addElementsToDatabase( Arr );
@@ -169,6 +198,7 @@ class Actions {
 
         let { message } = await fetchUser.logout();
         localStorage.setItem( "logoutMsg", message );
+        localStorage.removeItem( "email" );
         location.href = "./../pages/log in/login.html";
 
     }

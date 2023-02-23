@@ -168,14 +168,12 @@
             <td>catagery</td>
             <td>count</td>
             <td>added By</td>
-            <td class="update">update</td>
-            <td class="del">delete</td>
+            <td>update</td>
+            <td>delete</td>
           </tr>
           <tbody id="tbody"></tbody>
         </table>
       </div>
-
-      <div class="pop-cont"></div>
     </div>
 
     <div class="overley hide"></div>
@@ -191,6 +189,32 @@
         <button class="clear-btn">clear</button>
       </div>
     </div>
+    <div class="user-pop hide">
+      <h3>
+        <span id="user-name"></span>
+      </h3>
+      <section id="user-pop">
+        <img id="user-img" alt="user-image" />
+        <div class="user-details">
+          <p>
+            <span class="detail">email</span>
+            <span class="user-data" id="user-email"></span>
+          </p>
+
+          <p>
+            <span class="detail">country </span>
+            <span id="user-country"> </span>
+          </p>
+
+          <p>
+            <span class="detail">gender </span>
+            <span id="user-gender"></span>
+          </p>
+        </div>
+        <button title="close" id="close">X</button>
+      </section>
+    </div>
+    <div class="pop-cont"></div>
   </body>
   <script src="fontawesome/all.js"></script>
   <script src="./widgets/inp.js"></script>

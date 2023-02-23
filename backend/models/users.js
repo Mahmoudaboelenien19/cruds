@@ -59,16 +59,16 @@ class Users {
         }
     }
 
-    async update ( user, email ) {
+    async update ( user, id ) {
         try {
             const conn = await Client.connect();
-            const sql = `UPDATE users SET name=($1),password=($2),phone=($3) WHERE email=($4) RETURNING * ;`;
+            const sql = `UPDATE users SET name=($1),password=($2),phone=($3) WHERE id=($4) RETURNING * ;`;
 
             const result = await conn.query( sql, [
                 user.name,
                 hashPassword( user.password ),
                 user.phone,
-                email
+                id
             ] );
             conn.release();
             return result.rows[0];
@@ -78,19 +78,14 @@ class Users {
         }
     }
 
-    async updateImg ( img, email ) {
+    async updateImg ( img, id ) {
         try {
             const conn = await Client.connect();
-            console.log( 1 );
-            const sql = `UPDATE users SET image=($1) WHERE email=($2) ;`;
-            console.log( 2 );
-
+            const sql = `UPDATE users SET image=($1) WHERE id=($2) ;`;
             const result = await conn.query( sql, [
                 img,
-                email
+                id
             ] );
-            console.log( 3 );
-            console.log( result );
             conn.release();
             return result.rows[0];
         }
@@ -101,12 +96,12 @@ class Users {
 
 
 
-    async getUser ( email ) {
+    async getUser ( id ) {
         try {
             const conn = await Client.connect();
-            const sql = `SELECT  * FROM users WHERE email=($1) ;`;
+            const sql = `SELECT  * FROM users WHERE id=($1) ;`;
 
-            const result = await conn.query( sql, [email] );
+            const result = await conn.query( sql, [id] );
             conn.release();
             return result.rows[0];
         }

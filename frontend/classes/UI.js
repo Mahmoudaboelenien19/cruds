@@ -42,9 +42,9 @@ class Ui {
     <td>${ +Arr[i].tax + +Arr[i].price + +Arr[i].ads + - Arr[i].discount }</td>   
     <td>${ Arr[i].catagery }</td>
     <td>${ Arr[i].count }</td>
-    <td id="owner">${ check ? "you" : Arr[i].username }</td>
-     <td id="update">${ check ? ` <button class ='update' data-id=${ Arr[i].id }>update</button> ` : "-" }</td>
-     <td id="del">${ check ? `<button class ='del' data-id=${ Arr[i].id }>delete</button>` : "-" }</td>
+    <td class="owner" title="show ${ check ? "your" : Arr[i].username + "'s" } data" data-userid=${ Arr[i].userid }>${ check ? "you" : Arr[i].username }</td>
+     <td id="update">${ check ? ` <button class ='update' data-id=${ Arr[i].id }>update</button> ` : `<span title="you can't update this product">____</span>` }</td>
+     <td id="del">${ check ? `<button class ='del' data-id=${ Arr[i].id }>delete</button>` : `<span title="you can't delete this product">____</span>` }</td>
   </tr>`;
             }
         }
@@ -102,7 +102,6 @@ class Ui {
             userName.href = "./pages/user/user.html";
             userName.title = "update your info";
             userName.innerHTML = data.user;
-            console.log( { login, logout } );
             logout.classList.remove( "hide" );
             login.classList.add( "hide" );
 
@@ -125,6 +124,7 @@ class Ui {
 
     async handleImg () {
         const binaryData = await fetchUser.getUserImg();
+
         if ( binaryData ) {
 
             let res = JSON.parse( binaryData );

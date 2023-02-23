@@ -18,18 +18,18 @@ class Product {
         }
     }
 
-    async show ( id ) {
-        try {
-            const conn = await Client.connect();
-            const sql = "SELECT * FROM products WHERE id($1)  RETURNING *;";
-            const result = await conn.query( sql, [id] );
-            conn.release();
-            return result.rows[0];
-        }
-        catch ( err ) {
-            throw new Error( "this product can't be found" );
-        }
-    }
+    // async show ( id ) {
+    //     try {
+    //         const conn = await Client.connect();
+    //         const sql = "SELECT * FROM products WHERE id($1)  RETURNING *;";
+    //         const result = await conn.query( sql, [id] );
+    //         conn.release();
+    //         return result.rows[0];
+    //     }
+    //     catch ( err ) {
+    //         throw new Error( "this product can't be found" );
+    //     }
+    // }
 
     async delete ( id ) {
         try {
