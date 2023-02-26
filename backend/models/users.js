@@ -63,7 +63,6 @@ class Users {
         try {
             const conn = await Client.connect();
             const sql = `UPDATE users SET name=($1), phone=($2) WHERE id=($3) RETURNING * ;`;
-            console.log( { ...user, id } );
             const result = await conn.query( sql, [
                 user.name,
                 user.phone,
@@ -140,15 +139,12 @@ class Users {
                     user.password + BCRYPT_PASSWORD, pass.password
                 );
                 if ( check ) {
-                    console.log( "132" );
-                    console.log( { rows: result.rows[0] } );
                     return { ...user, id: result.rows[0].id, name: result.rows[0].name };
                 } else {
                     return "password is wrong";
                 }
             }
             return "this email not resigetered";
-
         }
         catch ( err ) {
             throw new Error( "this email not regestired" );
@@ -162,15 +158,12 @@ class Users {
 
             const conn = await Client.connect();
             const result = await conn.query( sql, [user.email] );
-            console.log( { result: result.rows[0] } );
             if ( result.rows.length ) {
-                console.log( "entered" );
                 const pass = result.rows[0];
                 const check = bcrypt.compareSync(
                     user.password + BCRYPT_PASSWORD, pass.password
                 );
 
-                console.log( { check } );
                 return check;
             }
         }

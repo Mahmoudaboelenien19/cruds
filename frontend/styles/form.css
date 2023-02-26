@@ -104,6 +104,7 @@ div#btn {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 20px;
 }
 
 .search-btn {
@@ -116,19 +117,20 @@ form button {
   width: max-content;
   height: 40px;
   padding: 0 5px;
-  background-color: #2e12ce;
-  color: rgb(245, 240, 240);
+  background-color: #5b43de;
+  color: white;
   text-transform: capitalize;
   letter-spacing: 0.7px;
   transition: 0.3s;
   border-radius: 10px;
-  border: 2px wheat solid;
+  margin: 0 10px;
+  white-space: nowrap;
 }
 
 form button:hover {
   letter-spacing: 1.5px;
   transform: scale(1.05);
-  background-color: rgb(36, 18, 200);
+  /* background-color: rgb(36, 18, 200); */
 }
 
 .search button {

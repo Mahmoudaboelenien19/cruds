@@ -30,10 +30,9 @@ const hidePop = () => {
 
 const showData = async () => {
     let res = await fetchUser.getUserImg();
-    res = JSON.parse( res );
-    document.querySelector( "#img" ).src = res.blob || "../../assets/images";
-    const id = getuserId();
-    const user = await fetchUser.getUserData( id );
+    res = JSON.parse( res )?.blob;
+    document.querySelector( "#img" ).src = res || "../../assets/images/guest.png";
+    const user = await fetchUser.getUserData();
     const { password, email, country, gender, phone, name } = user;
     userName.innerHTML = name;
     userPass.innerHTML = hidePass( password );
@@ -80,13 +79,13 @@ document.querySelector( "button#update-username" ).addEventListener( "click", as
         handlePop( `username input is required`, "danger" );
     } else {
         const user = await fetchUser.getUserData();
-        const { password, phone } = user;
+        const { phone } = user;
 
         if ( isUserValid ) {
 
             fetchUser.updateUser( {
                 name: userName.value,
-                password, phone
+                phone
             } );
 
             showData();
@@ -114,12 +113,11 @@ document.querySelector( "button#update-phone" ).addEventListener( "click", async
     } else {
 
         const user = await fetchUser.getUserData();
-        const { password, name } = user;
+        const { name } = user;
         if ( isPhoneValid ) {
 
             fetchUser.updateUser( {
                 name,
-                password,
                 phone: newPhone.value
             } );
 
@@ -173,15 +171,9 @@ document.querySelector( "button#update-password" ).addEventListener( "click", as
     else {
         if ( passWordStrength && passwordMatch ) {
 
-            const user = await fetchUser.getUserData();
-            const { name, phone } = user;
 
 
-            fetchUser.updateUser( {
-                name,
-                password: newPass.value,
-                phone
-            } );
+            fetchUser.updatePass( newPass.value );
 
             showData();
             hidePop();
@@ -216,11 +208,16 @@ file.addEventListener( "change", () => {
         // const binaryData = new Uint8Array( reader.result );
 
         imgUi.src = reader.result;
-        console.log( reader.result );
         fetchUser.updateImg( reader.result );
 
 
     };
 
-} )
+} );
 
+
+document.querySelector( "#logout" ).addEventListener( "click", async () => {
+    const { message } = await fetchUser.logout();
+    location.href = "./../log in/login.html";
+    localStorage.setItem( "logoutMsg", message );
+} );

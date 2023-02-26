@@ -67,11 +67,8 @@ class User {
     }
 
 
-    async getUserData ( id ) {
-
-
+    async getUserData ( id = getuserId() ) {
         let res = await fetch( `/user/${ id }` );
-
 
         const data = await res.json();
         const { user } = data;
@@ -103,24 +100,34 @@ class User {
 
 
     async updateUser ( obj ) {
-        const id = getuserId();
 
+        const id = getuserId();
+        console.log( { obj } );
         let res = await fetch( `/user/${ id }`, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify( obj )
-
         } );
-
-
-
         const data = await res.json();
-
         return data;
     }
 
+
+    async updatePass ( pass ) {
+        const id = getuserId();
+        let res = await fetch( `/changepassword/${ id }`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: pass
+
+        } );
+        const data = await res.json();
+        return data;
+    }
 
 
     async updateImg ( blob ) {

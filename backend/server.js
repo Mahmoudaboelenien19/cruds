@@ -19,11 +19,12 @@ app.use( cors() );
 app.use( "/", routes );
 app.use( "/", userRoutes );
 app.use( "/", searchRoutes );
-app.get( "/", ( req, res ) => {
-    res.send( "hello mahmoud" );
+app.use( "/", () => {
+    res.json( "" );
 } );
+
 app.listen( port, () => {
-    console.log( "server is runing" );
+    console.log( "server is runing at port " + port );
 }
 );
 

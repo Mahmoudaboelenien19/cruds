@@ -22,7 +22,7 @@ let searchType = "title";
 
 window.addEventListener( "load", async () => {
   handleMode();
-  ui.handleUserName();
+  await ui.handleUserName();
   document.querySelector( "#guest-user" ).src = await ui.handleImg() || "./assets/images/guest.png";
 
 
@@ -153,3 +153,7 @@ searchInp.addEventListener( "keyup", async ( e ) => {
 
 
 document.querySelector( "#logout" ).addEventListener( "click", action.handlelogout );
+
+document.querySelectorAll( ".animate-btn" ).forEach( e => {
+  return e.addEventListener( "click", ui.handleAnimatedBtn );
+} );

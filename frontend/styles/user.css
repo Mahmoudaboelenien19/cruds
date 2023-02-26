@@ -107,6 +107,7 @@ button.user-btn:hover {
   position: relative;
   text-transform: capitalize;
   margin-bottom: 20px;
+  color: var(--secondary);
 }
 
 .underline {

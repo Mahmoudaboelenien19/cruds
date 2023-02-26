@@ -40,8 +40,6 @@ const create = async ( req, res ) => {
             gender: req.body.gender,
             country: req.body.country
         };
-        console.log( "create route" );
-        console.log( { newUser } );
         const user = await store.create( newUser );
         res.status( 200 ).json( { message: 'user created successfully', user } );
     }
@@ -58,7 +56,6 @@ const update = async ( req, res ) => {
         name: req.body.name,
         phone: req.body.phone,
     };
-    console.log( { upatedUser } );
     const user = await store.update( upatedUser, req.params.id );
     res.json( { message: "user Updated successfully", user } );
 
@@ -94,10 +91,8 @@ const authenticate = async ( req, res ) => {
         password: req.body.password
     };
     const result = await store.authenticate( user );
-    console.log( { result } );
     if ( result.email ) {
         const accessTokenExpiration = { expiresIn: "15s" };
-
 
         const token = jwt.sign( { user }, process.env.TOKEN_SECRET, accessTokenExpiration );
         const refreshToken = jwt.sign( { user }, process.env.Refresh_TOKEN_SECRET );

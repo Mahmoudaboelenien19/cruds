@@ -92,16 +92,33 @@ class Ui {
 
     }
 
+    handleAnimatedBtn ( e ) {
 
-    handleUserName () {
+        const rect = e.target.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        let span = document.createElement( "span" );
+        e.target.appendChild( span );
+        span.style.left = x + "px";
+        span.style.top = y + "px";
+        setTimeout( () => {
+            span.remove();
+        }, 2000 );
+
+    }
+
+    async handleUserName () {
         const userName = document.querySelector( "#username a" );
         const login = document.getElementById( "login" );
         const logout = document.getElementById( "logout" );
-        let data = getTokenFromCookie();
-        if ( data.user ) {
+        const id = getuserId();
+        if ( id ) {
+
+            let { name } = await fetchUser.getUserData( id );
+
             userName.href = "./pages/user/user.html";
             userName.title = "update your info";
-            userName.innerHTML = data.user;
+            userName.innerHTML = name;
             logout.classList.remove( "hide" );
             login.classList.add( "hide" );
 

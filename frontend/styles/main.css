@@ -37,3 +37,32 @@ body {
 *::-webkit-scrollbar-thumb {
   background: linear-gradient(135deg, var(--secondary), darkblue);
 }
+
+.animate-btn {
+  position: relative;
+  overflow: hidden;
+  z-index: 5;
+}
+.animate-btn small {
+  position: relative;
+  z-index: 10;
+}
+.animate-btn span {
+  position: absolute;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: animate-btn 2s linear;
+  pointer-events: none;
+  border: 3px solid var(--secondary);
+}
+
+@keyframes animate-btn {
+  0% {
+    width: 0;
+    height: 0;
+  }
+  100% {
+    width: 400px;
+    height: 400px;
+  }
+}
