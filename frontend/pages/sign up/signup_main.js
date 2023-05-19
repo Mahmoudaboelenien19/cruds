@@ -51,7 +51,7 @@ const handleSignUpForm = async ( e ) => {
         emptySignUoInputs();
         setTimeout( () => {
 
-            window.location.href = "./../log in/login.html";
+            // window.location.href = "./../log in/login.html";
         }, 1000 );
 
 

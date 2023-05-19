@@ -1,5 +1,4 @@
 const express = require( "express" );
-
 const cors = require( "cors" );
 const routes = require( "./handlers/routes" );
 const userRoutes = require( "./handlers/userRoutes" );
@@ -19,8 +18,8 @@ app.use( cors() );
 app.use( "/", routes );
 app.use( "/", userRoutes );
 app.use( "/", searchRoutes );
-app.use( "/", () => {
-    res.json( "" );
+app.use( "/", ( req, res ) => {
+    res.json( "hello- I am server" );
 } );
 
 app.listen( port, () => {

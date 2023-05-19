@@ -9,16 +9,12 @@ const store = new Users();
 
 const checkBeforeCreate = async ( req, res, next ) => {
 
-    const newUser = {
-        name: req.body.name,
-        email: req.body.email,
-        password: req.body.password,
-        phone: req.body.phone
-    };
+    const email = req.body.email;
 
-    const check = await store.checkEmail( newUser );
+    const check = await store.checkEmail( email );
+    console.log( check );
 
-    if ( check && check.message === 'Email already in use' ) {
+    if ( check?.message === 'Email already in use' ) {
 
         res.status( 409 ).json( { message: 'Email already in use' } );
     }
@@ -28,7 +24,6 @@ const checkBeforeCreate = async ( req, res, next ) => {
 
 
 };
-
 
 const create = async ( req, res ) => {
     try {
@@ -40,12 +35,14 @@ const create = async ( req, res ) => {
             gender: req.body.gender,
             country: req.body.country
         };
+        console.log( newUser );
         const user = await store.create( newUser );
         res.status( 200 ).json( { message: 'user created successfully', user } );
     }
 
 
     catch ( err ) {
+        console.log( err );
         res.status( 404 ).json( { error: "can't create this user" } );
 
     }
@@ -60,7 +57,6 @@ const update = async ( req, res ) => {
     res.json( { message: "user Updated successfully", user } );
 
 };
-
 
 const updatePassword = async ( req, res ) => {
     const newPass = req.body;
@@ -113,8 +109,6 @@ const authenticate = async ( req, res ) => {
     }
 };
 
-
-
 const checkPassword = async ( req, res ) => {
     const user = {
         email: req.body.email,
@@ -132,7 +126,6 @@ const checkPassword = async ( req, res ) => {
 
 
 };
-
 
 const regenerateToken = async ( req, res ) => {
     const { refToken } = req.body;
@@ -157,25 +150,17 @@ const regenerateToken = async ( req, res ) => {
     }
 };
 
-
-
-
 const deleteRefreshToken = async ( req, res ) => {
     const { refToken } = req.body;
     if ( !refToken ) {
         console.log( "wrong refresh token" );
     } else {
         let user = await store.verfiyRefeshToken( refToken );
-        console.log( { 104: user } );
         if ( user ) {
-
-
-
             res.clearCookie( 'user' );
             res.clearCookie( 'token' );
             res.clearCookie( 'refresh token' );
             res.clearCookie( 'userId' );
-
             res.json( { message: "you logout successfully" } );
         } else {
             res.json( "wrong refresh token" );
@@ -189,14 +174,12 @@ const userRoutes = Router();
 
 userRoutes.route( "/user" ).post( checkBeforeCreate, create );
 userRoutes.route( "/user/:id" ).patch( update );
-userRoutes.route( "/user/changepassword:id" ).patch( updatePassword );
+userRoutes.route( "/user/changepassword/:id" ).patch( updatePassword );
 userRoutes.route( "/user/:id" ).get( showUser );
 userRoutes.route( "/user/saveimg/:id" ).patch( updateImgRoute );
-
 userRoutes.route( "/user/authenticate" ).post( authenticate );
 userRoutes.route( "/user/checkpass" ).post( checkPassword );
 userRoutes.route( "/user/auth/refresh" ).post( regenerateToken );
 userRoutes.route( "/user/logout" ).delete( deleteRefreshToken );
-// userRoutes.route( "/user/" ).delete( deleteRefreshToken );
 
 module.exports = userRoutes;

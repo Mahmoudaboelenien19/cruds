@@ -15,16 +15,15 @@ const { SALT_ROUNDS, BCRYPT_PASSWORD } = process.env;
 const hashPassword = ( password ) => {
     const salt = parseInt( SALT_ROUNDS );
     return bcrypt.hashSync( password + BCRYPT_PASSWORD, salt );
-
 };
 
 
 
 class Users {
-    async checkEmail ( user ) {
+    async checkEmail ( email ) {
         const conn = await Client.connect();
         const checkEmailsql = 'select * from users where email=($1);';
-        const check = await conn.query( checkEmailsql, [user.email] );
+        const check = await conn.query( checkEmailsql, [email] );
 
         if ( check.rowCount > 0 ) {
             return { message: 'Email already in use' };
@@ -36,12 +35,10 @@ class Users {
 
 
     async create ( user ) {
-
         try {
             const conn = await Client.connect();
 
-            const sql = `INSERT INTO users (name,email,password,phone,gender,country) VALUES($1,$2,$3,$4,$5,$6) RETURNING * ;`;
-
+            const sql = `INSERT INTO users (name,email,password,phone,gender,country) VALUES($1,$2,$3,$4,$5,$6) RETURNING *;`;
             const result = await conn.query( sql, [
                 user.name,
                 user.email,
@@ -50,11 +47,13 @@ class Users {
                 user.gender,
                 user.country
             ] );
+            console.log( { result } );
             conn.release();
             return result.rows[0];
 
         }
         catch ( err ) {
+            console.log( err );
             throw new Error( "can't create this user" );
         }
     }
@@ -175,8 +174,6 @@ class Users {
 
     async verfiyRefeshToken ( refToken ) {
         try {
-
-
             const decode = jwt.verify(
                 refToken, process.env.Refresh_TOKEN_SECRET );
             return decode;

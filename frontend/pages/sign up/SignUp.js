@@ -11,10 +11,8 @@ export let signUpCheck = async () => {
 
     if ( passWordStrength && passwordMatch && isEmailValid && isPhoneValid && isUserValid ) {
         return true;
-
     }
     return false;
-
 };
 
 
@@ -117,7 +115,6 @@ export const emailValidiation = ( e ) => {
 
         } else {
             isEmailValid = false;
-
             general.removeClass( emailX, "hide" );
             general.addClass( emailCheck, "hide" );
 
@@ -176,7 +173,6 @@ const addCountries = ( arr ) => {
 
 };
 
-//data[0].name.official
 
 export let getAllCountries = async () => {
     let res = await fetch( "https://restcountries.com/v3.1/all" );

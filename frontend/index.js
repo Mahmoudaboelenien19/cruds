@@ -4,7 +4,6 @@ import fetchProduct from "./classes/fetchApi.js";
 import { ui } from "./classes/UI.js";
 import { handlePop } from "./widgets/popup.js";
 import { handleToggle, handleMode, toggle } from "./widgets/toggle.js";
-
 const prices = document.querySelector( ".prices" );
 export const totalCont = document.querySelector( "#total-cont" );
 export const btn = document.querySelector( "#btn button" );
