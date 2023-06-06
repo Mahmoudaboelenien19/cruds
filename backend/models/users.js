@@ -26,13 +26,24 @@ class Users {
         const check = await conn.query( checkEmailsql, [email] );
 
         if ( check.rowCount > 0 ) {
-            return { message: 'Email already in use' };
+            return { status: 400 };
         }
 
 
     }
 
 
+    async checkName ( name ) {
+        const conn = await Client.connect();
+        const checkEmailsql = 'select * from users where name=($1);';
+        const check = await conn.query( checkEmailsql, [name] );
+
+        if ( check.rowCount > 0 ) {
+            return { status: 400 };
+        }
+
+
+    }
 
     async create ( user ) {
         try {

@@ -19,7 +19,7 @@ class Ui {
     buildUI ( Arr ) {
         const noData = document.querySelector( "p.no-data" );
         const table = document.querySelector( "table" );
-        if ( Arr.length <= 0 ) {
+        if ( Arr?.length <= 0 ) {
             noData.classList.remove( "hide" );
             table.classList.add( "hide" );
         }
@@ -107,21 +107,21 @@ class Ui {
 
     }
 
-    async handleUserName () {
+    async handleUserData () {
         const userName = document.querySelector( "#username a" );
         const login = document.getElementById( "login" );
         const logout = document.getElementById( "logout" );
         const id = getuserId();
         if ( id ) {
 
-            let { name } = await fetchUser.getUserData( id );
+            let { name, image } = await fetchUser.getUserData( id );
 
             userName.href = "./pages/user/user.html";
             userName.title = "update your info";
             userName.innerHTML = name;
             logout.classList.remove( "hide" );
             login.classList.add( "hide" );
-
+            document.querySelector( "#guest-user" ).src = image || "../assets/images/guest.png";
         }
         else {
             userName.innerHTML = "guest";
@@ -132,46 +132,10 @@ class Ui {
         }
     }
 
-    // async handleImg () {
-    //     const blob = await fetchUser.getUserImg();;
-    //     console.log( { blob } );
-    //     const imageUrl = URL.createObjectURL( blob );
-    //     document.querySelector( "#guest-user" ).src = imageUrl;
-    // };
-
-    async handleImg () {
-        const binaryData = await fetchUser.getUserImg();
-
-        if ( binaryData ) {
-
-            let res = JSON.parse( binaryData );
-            document.querySelector( "#guest-user" ).src = res.blob;
-
-            // const blob = new Blob( [JSON.parse( binaryData )], { type: 'image/jpeg' } );
-            // console.log( res.blob );
-            // const imageUrl = URL.createObjectURL( res.blob );
-            // let reader = new FileReader();
-            // reader.readAsDataURL( blob );
-            // reader.onload = () => {
-
-            return res.blob;
-            // };
-        } else {
-            return null;
-
-        }
 
 
 
-        // const base64Data = btoa( String.fromCharCode.apply( null, binaryData ) );
-        // const imageUrl = `data:image/jpeg;base64,${ base64Data }`;
-    };
 
-    // fetch(`http://localhost:3000/user/${userId}`)
-    //   .then(response => response.blob())
-    //   .then(blob => {
-    //     imageElement.src = imageUrl;
-    //   });
 
 
 }

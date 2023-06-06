@@ -1,29 +1,49 @@
 const Router = require( "express" );
 const Users = require( "../models/users" );
 const jwt = require( "jsonwebtoken" );
+const upload = require( "../middleware/upload.js" );
 
 const store = new Users();
 
 
 
 
-const checkBeforeCreate = async ( req, res, next ) => {
+const checkEmail = async ( req, res, next ) => {
 
     const email = req.body.email;
 
-    const check = await store.checkEmail( email );
-    console.log( check );
+    const checkEmail = await store.checkEmail( email );
 
-    if ( check?.message === 'Email already in use' ) {
+    if ( checkEmail?.status === 400 ) {
 
         res.status( 409 ).json( { message: 'Email already in use' } );
+    }
+
+    else {
+        next();
+    }
+
+
+
+};
+
+const checkName = async ( req, res, next ) => {
+
+    const name = req.body.name;
+
+    const checkName = await store.checkName( name );
+    if ( checkName?.status === 400 ) {
+
+        res.status( 409 ).json( { message: "userName isn't  avaliable" } );
     }
     else {
         next();
     }
 
 
+
 };
+
 
 const create = async ( req, res ) => {
     try {
@@ -37,7 +57,7 @@ const create = async ( req, res ) => {
         };
         console.log( newUser );
         const user = await store.create( newUser );
-        res.status( 200 ).json( { message: 'user created successfully', user } );
+        res.json( { status: 200, message: 'user created successfully', user } );
     }
 
 
@@ -66,9 +86,8 @@ const updatePassword = async ( req, res ) => {
 };
 
 const updateImgRoute = async ( req, res ) => {
-
-    const binaryData = req.body;
-    const user = await store.updateImg( binaryData, req.params.id );
+    const image = req.file.path;
+    const user = await store.updateImg( image, req.params.id );
     res.json( { message: "image Updated successfully", user } );
 
 };
@@ -172,11 +191,11 @@ const deleteRefreshToken = async ( req, res ) => {
 
 const userRoutes = Router();
 
-userRoutes.route( "/user" ).post( checkBeforeCreate, create );
+userRoutes.route( "/user" ).post( checkEmail, checkName, create );
 userRoutes.route( "/user/:id" ).patch( update );
 userRoutes.route( "/user/changepassword/:id" ).patch( updatePassword );
 userRoutes.route( "/user/:id" ).get( showUser );
-userRoutes.route( "/user/saveimg/:id" ).patch( updateImgRoute );
+userRoutes.route( "/user/saveimg/:id" ).patch( upload.single( "image" ), updateImgRoute );
 userRoutes.route( "/user/authenticate" ).post( authenticate );
 userRoutes.route( "/user/checkpass" ).post( checkPassword );
 userRoutes.route( "/user/auth/refresh" ).post( regenerateToken );

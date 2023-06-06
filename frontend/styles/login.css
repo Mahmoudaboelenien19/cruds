@@ -68,12 +68,10 @@ button.submit {
 }
 .inp-parent span.eye {
   display: inline-block;
-  height: 20px;
-  width: 20px;
   transform: translate(-50%, -50%);
   position: absolute;
   top: 50%;
-  right: 10px;
+  right: 0px;
   height: 100%;
   display: flex;
   align-items: center;
@@ -81,6 +79,9 @@ button.submit {
 .inp-parent span.eye .fa-eye {
   color: white;
   padding: 5px;
+  font-size: 0.6rem;
+  position: relative;
+  z-index: 100;
 }
 
 .submit {

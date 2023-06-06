@@ -18,18 +18,7 @@ class Product {
         }
     }
 
-    // async show ( id ) {
-    //     try {
-    //         const conn = await Client.connect();
-    //         const sql = "SELECT * FROM products WHERE id($1)  RETURNING *;";
-    //         const result = await conn.query( sql, [id] );
-    //         conn.release();
-    //         return result.rows[0];
-    //     }
-    //     catch ( err ) {
-    //         throw new Error( "this product can't be found" );
-    //     }
-    // }
+
 
     async delete ( id ) {
         try {
@@ -83,6 +72,7 @@ class Product {
     async create ( product ) {
         try {
             const conn = await Client.connect();
+            console.log( product );
             const sql = "INSERT INTO products(product_name,price,tax , ads ,discount ,count ,catagery,userid,username) VALUES($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING * ;";
             const result = await conn.query( sql, [
                 product.product_name,

@@ -29,17 +29,15 @@ const hidePop = () => {
 };
 
 const showData = async () => {
-    let res = await fetchUser.getUserImg();
-    res = JSON.parse( res )?.blob;
-    document.querySelector( "#img" ).src = res || "../../assets/images/guest.png";
     const user = await fetchUser.getUserData();
-    const { password, email, country, gender, phone, name } = user;
+    const { password, email, country, gender, phone, name, image } = user;
     userName.innerHTML = name;
     userPass.innerHTML = hidePass( password );
     userPhone.innerHTML = phone;
     usercountry.innerHTML = country;
     userGender.innerHTML = gender;
     userEmail.innerHTML = email;
+    document.querySelector( "#img" ).src = image || "../../assets/images/guest.png";
 
 };
 
@@ -170,11 +168,7 @@ document.querySelector( "button#update-password" ).addEventListener( "click", as
 
     else {
         if ( passWordStrength && passwordMatch ) {
-
-
-
             fetchUser.updatePass( newPass.value );
-
             showData();
             hidePop();
             handlePop( "password is successfully updated !" );
@@ -205,10 +199,9 @@ file.addEventListener( "change", () => {
     reader.readAsDataURL( img );
 
     reader.onload = () => {
-        // const binaryData = new Uint8Array( reader.result );
 
         imgUi.src = reader.result;
-        fetchUser.updateImg( reader.result );
+        fetchUser.updateImg( file.files[0] );
 
 
     };

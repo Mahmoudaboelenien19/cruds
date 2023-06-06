@@ -1,3 +1,5 @@
+
+
 CREATE TABLE products(
     id BIGSERIAL NOT NULL PRIMARY KEY,
     product_name VARCHAR(20) NOT NULL,
@@ -7,6 +9,6 @@ CREATE TABLE products(
     discount NUMERIC,
     count INT NOT NULL,
     catagery VARCHAR(20) NOT NULL,
-    userId uuid REFERENCES  users(id)
-    ,username varchar(500) REFERENCES users (name) ON UPDATE CASCADE);
-
+    userId uuid REFERENCES  users(id),
+    username VARCHAR(500) REFERENCES users (name) ON UPDATE CASCADE
+);

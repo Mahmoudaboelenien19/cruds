@@ -21,12 +21,8 @@ let searchType = "title";
 
 window.addEventListener( "load", async () => {
   handleMode();
-  await ui.handleUserName();
-  document.querySelector( "#guest-user" ).src = await ui.handleImg() || "./assets/images/guest.png";
-
-
+  await ui.handleUserData();
   setTimeout( () => {
-
     document.querySelector( ".loading-cont" ).classList.add( "hide" );
     document.querySelector( ".container" ).classList.remove( "hide" );
     showDataInPage();

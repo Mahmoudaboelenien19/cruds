@@ -23,6 +23,7 @@ const create = async ( req, res ) => {
 
 
     catch ( err ) {
+        console.log( err );
         res.status( 404 ).json( { message: "can't create this product" } );
 
     }
@@ -40,6 +41,8 @@ const update = async ( req, res ) => {
             discount: req.body.discount,
             count: req.body.count,
             catagery: req.body.catagery,
+            username: req.body.username,
+
 
         };
         const product = await store.update( req.params.id, updatedProduct );
@@ -53,8 +56,15 @@ const update = async ( req, res ) => {
 };
 
 const index = async ( req, res ) => {
-    const products = await store.index();
-    res.json( { products } );
+    try {
+
+        const products = await store.index();
+        res.json( { products } );
+    }
+    catch ( err ) {
+        res.status( 404 ).json( { message: "can't create this product" } );
+
+    }
 };
 
 const destroy = async ( req, res ) => {

@@ -48,11 +48,17 @@ const handleSignUpForm = async ( e ) => {
         localStorage.setItem( "email", email.value );
         localStorage.setItem( "signupmessage", data.message );
 
-        emptySignUoInputs();
-        setTimeout( () => {
+        if ( data.status === 200 ) {
 
-            // window.location.href = "./../log in/login.html";
-        }, 1000 );
+            emptySignUoInputs();
+            setTimeout( () => {
+
+                window.location.href = "./../log in/login.html";
+            }, 1000 );
+        } else {
+            handlePop( data.message, "danger" );
+
+        }
 
 
     } else {

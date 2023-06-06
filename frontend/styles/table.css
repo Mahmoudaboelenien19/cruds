@@ -89,3 +89,12 @@ td#update button {
 .owner {
   cursor: pointer;
 }
+
+@media (max-width: 600px) {
+  .tableContainer {
+    width: 100%;
+  }
+  .tableContainer > * {
+    font-size: 8px;
+  }
+}

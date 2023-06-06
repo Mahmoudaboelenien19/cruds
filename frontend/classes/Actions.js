@@ -161,7 +161,7 @@ class Actions {
             const id = e.target.dataset.userid;
             let check = id === getuserId();
             let { name, email, gender, image, country } = await fetchUser.getUserData( id );
-            let img = JSON.parse( image )?.blob || "../assets/images/guest.png";
+            let img = image || "../assets/images/guest.png";
             userName.innerHTML = `${ check ? 'your' : name + "'s" } profile`;
             userCountry.innerHTML = country;
             userGender.innerHTML = gender;

@@ -77,28 +77,6 @@ class User {
     }
 
 
-
-    async getUserImg () {
-        const id = getuserId();
-        if ( id ) {
-
-            let res = await fetch( `/user/${ id }` );
-            let { user } = await res.json();
-            // console.log( { data } );
-            // const binaryData = new Uint8Array( data.user.image );
-            // const blob = new Blob( [binaryData], { type: 'image/jepg' } );
-
-            // console.log( { blob } );
-            return user.image;
-        } else {
-            return null;
-        }
-
-
-    }
-
-
-
     async updateUser ( obj ) {
 
         const id = getuserId();
@@ -130,15 +108,15 @@ class User {
     }
 
 
-    async updateImg ( blob ) {
+    async updateImg ( file ) {
         const id = getuserId();
+        const FD = new FormData();
+        console.log( file );
+        FD.append( "image", file );
 
         let res = await fetch( `/user/saveimg/${ id }`, {
             method: "PATCH",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify( { blob } )
+            body: FD
         } );
 
 
