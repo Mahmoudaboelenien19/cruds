@@ -90,7 +90,7 @@ td#update button {
   cursor: pointer;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .tableContainer {
     width: 100%;
   }

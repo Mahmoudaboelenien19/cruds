@@ -1,0 +1,21 @@
+{
+  "name": "cruds",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cd  backend && npm i -f && npx db-migrate up",
+    "start": "node ./backend/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mahmoudaboelenien19/cruds.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mahmoudaboelenien19/cruds/issues"
+  },
+  "homepage": "https://github.com/Mahmoudaboelenien19/cruds#readme"
+}

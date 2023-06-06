@@ -27,6 +27,10 @@ class Actions {
     }
 
     async addElementsToDatabase () {
+        const id = getuserId();
+
+        let { name } = await fetchUser.getUserData( id );
+
 
         const productData = {
 
@@ -38,10 +42,10 @@ class Actions {
             catagery: catagery.value,
             count: count.value,
             userid: getuserId(),
-            username: getTokenFromCookie().user
+            username: name
 
         };
-        console.log( { productData } );
+
         if ( Actions.mode == 'create' ) {
 
             let data = await fetchProduct.create( productData );
